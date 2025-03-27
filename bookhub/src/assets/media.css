@@ -1,0 +1,49 @@
+@media (max-width: 1024px) {
+    .text-wrapper {
+        font-size: 45px;
+    }
+    .auth-options {
+        flex-direction: row;
+        gap: 15px;
+        text-align: center;
+    }
+    .image {
+        width: 50%;
+        height: auto;
+    }
+    .Home {
+        background-size: 120%; 
+    }
+}
+
+@media (max-width: 768px) {
+    .text-wrapper {
+        font-size: 38px;
+    }
+    .text-wrapper-2,
+    .text-wrapper-3 {
+        font-size: 16px;
+    }
+    .image {
+        width: 50%;
+    }
+    .Home {
+        background-size: 120%; 
+    }
+}
+
+@media (max-width: 480px) {
+    .text-wrapper {
+        font-size: 30px;
+    }
+    .text-wrapper-2,
+    .text-wrapper-3 {
+        font-size: 14px;
+    }
+    .image {
+        width: 50%;
+    }
+    .Home {
+        background-size: 120%; 
+    }
+}
