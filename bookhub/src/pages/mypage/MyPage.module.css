@@ -1,0 +1,94 @@
+.container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+    align-items: center;
+    width: 750px;
+  }
+  
+  /* 헤더 스타일 - 전체적 수정 필요*/
+  /*.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 50px;
+    background: rgba(203, 211, 189, 0.29);
+    border-radius: 10px;
+  }*/
+  
+  /* .logo {
+    font-size: 24px;
+    font-weight: bold;
+  } */
+  
+  /* nav span {
+    margin: 0 15px;
+    font-size: 20px;
+    color: gray;
+    cursor: pointer;
+  } */
+  
+  /*.active {
+    color: black;
+    font-weight: bold;
+  }*/
+  
+  /* .logout {
+    background: black;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 12px;
+    cursor: pointer;
+  } */
+  
+  /* 프로필 영역 */
+  .profileSection {
+    margin: 30px auto;
+    width: 150px;
+    height: 150px;
+    flex-shrink: 0;
+  }
+  
+  .profileImage {
+    width: 100%;
+    border-radius: 50%;
+    border: 5px solid black;
+  }
+  
+  /* 정보 입력 영역 */
+  .infoContainer {
+    margin-top: 40px;
+    width: 100%;
+    align-items: center;
+  }
+  
+  .infoRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 35%;
+    margin: 10px auto;
+    padding: 7px;
+    border-bottom: 1.5px solid black;
+  }
+  
+  .label {
+    font-weight: bold;
+  }
+  
+  .editIcon {
+    width: 20px;
+    cursor: pointer;
+  }
+  
+  /* 완료 버튼 */
+  .doneButton {
+    background: black;
+    color: white;
+    padding: 10px 30px;
+    font-size: 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-top: 30px;
+  }
