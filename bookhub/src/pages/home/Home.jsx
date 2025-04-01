@@ -25,7 +25,7 @@ export const Home = () => {
             </div>
             
             <img 
-                className="image" 
+                className="kakao-login-image" 
                 alt="카카오 로그인 버튼"
                 src={kakaoLogin} 
                 onClick={handleKakaoLogin}
@@ -34,13 +34,13 @@ export const Home = () => {
             
             <div className="auth-options">
                 <span 
-                    className="text-wrapper-2"
+                    className="text-wrapper-navigate-1"
                     onClick={() => navigate("/login")}
                     style={{ cursor: "pointer" }}
                     >이메일로 로그인
                 </span>
                 <span 
-                    className="text-wrapper-3"
+                    className="text-wrapper-navigate-2"
                     onClick={() => navigate("/signup")}
                     >이메일로 회원가입
                 </span>
