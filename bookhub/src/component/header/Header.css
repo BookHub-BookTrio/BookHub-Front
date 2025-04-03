@@ -1,0 +1,126 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff;
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%; 
+  max-width: 1220px; 
+  z-index: 1000;
+}
+
+/* 헤더 밑 초록 밑줄 */
+.header .rectangle {
+  background-color: #cbd3bd4a;
+  border-radius: 44px;
+  height: 5px;
+  position: absolute;
+  top: 90px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1220px;  
+}
+
+.logo {
+  width: 162px;
+  height: 70px;
+  margin-left: -59px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.nav-menu {
+  display: flex;
+  gap: 70px !important;
+}
+
+.nav-menu div {
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+  color: #d9d9d9;
+  text-transform: uppercase;
+}
+
+.nav-menu .active {
+  color: #748C70;
+}
+
+/* 로그아웃 버튼 스타일 */
+.logout-btn {
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: "Slackey-Regular", Helvetica;
+  font-size: 16px;
+}
+
+/* 로그아웃 버튼 숨기기 */
+@media (max-width: 768px) {
+  .logout-btn {
+      display: none;
+  }
+}
+
+/* 햄버거 버튼 스타일 */
+.hamburger {
+  display: none;
+  font-size: 28px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1100;
+}
+
+/* 반응형 스타일 */
+@media (max-width: 768px) {
+  .nav-menu {
+    text-align: center;
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 60px; /* 햄버거 버튼 바로 아래 */
+      right: 20px;
+      background-color: #000000; /* 배경 회색 */
+      border-radius: 10px;
+      border: 1px solid #ddd;
+      box-shadow: 0px 10px 12px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+      gap: 25px !important;
+  }
+
+  .nav-menu .text-wrapper-4 {
+    margin-bottom: 10px !important;
+    font-size: 20px !important;
+    margin: 10px !important;
+  }
+  .nav-menu.open {
+      display: flex;
+  }
+
+  .hamburger {
+      display: block;
+      margin-right: 15px;
+  }
+
+  .logo {
+    margin-left: 30px;
+  }
+}
+
+.text-wrapper-4 {
+  color: #d9d9d9;
+    font-family: "Slackey-Regular", Helvetica;
+    font-size: 24px !important;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: normal;
+    cursor: pointer;
+    margin: 22px;
+    margin-top: 20px;
+  }
