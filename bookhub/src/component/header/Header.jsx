@@ -41,13 +41,13 @@ const Header = () => {
         <div className={`text-wrapper-4 ${location.pathname === "/" ? "active" : ""}`} onClick={() => handleNavigation("/")}>
           HOME
         </div>
-        <div className={`text-wrapper-4 ${location.pathname === "/mypage" ? "active" : ""}`} onClick={() => handleNavigation("/mypage")}>
+        <div className={`text-wrapper-4 ${location.pathname.startsWith("/mypage") ? "active" : ""}`} onClick={() => handleNavigation("/mypage")}>
           MYPAGE
         </div>
-        <div className={`text-wrapper-4 ${location.pathname === "/wish" ? "active" : ""}`} onClick={() => handleNavigation("/wish")}>
+        <div className={`text-wrapper-4 ${location.pathname.startsWith("/wish") ? "active" : ""}`} onClick={() => handleNavigation("/wish")}>
           WISH
         </div>
-        <div className={`text-wrapper-4 ${location.pathname === "/community" ? "active" : ""}`} onClick={() => handleNavigation("/community")}>
+        <div className={`text-wrapper-4 ${location.pathname.startsWith("/community") ? "active" : ""}`} onClick={() => handleNavigation("/community")}>
           COMMUNITY
         </div>
       </nav>
