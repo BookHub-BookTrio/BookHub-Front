@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import ReactDOM from "react-dom";
 import styled from "styled-components";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -10,7 +11,7 @@ const ModalBackdrop = styled.div`
   width: 100vw;
   height: 100vh;
   background: rgba(0, 0, 0, 0.5);
-  z-index: 9999; 
+  z-index: 9999;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -18,6 +19,7 @@ const ModalBackdrop = styled.div`
 `;
 
 const ModalContent = styled.div`
+  position: relative; 
   background: white;
   padding: 20px;
   border-radius: 8px;
@@ -38,18 +40,42 @@ const CloseButton = styled.button`
   font-family: "Pretendard-Regular", Helvetica;
 `;
 
-const Modal = ({ message, onClose }) => {
+const XButton = styled.button`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+`;
+
+const ModalTitle = styled.h2`
+  font-family: "Pretendard-Regular", Helvetica;
+  margin-bottom: 10px;
+`;
+
+const ModalText = styled.p`
+  font-family: "Pretendard-Regular", Helvetica;
+  white-space: pre-line;
+`;
+
+const Modal = ({ title, content, onClose, onCancel }) => {
   useEffect(() => {
     AOS.init({ duration: 400, easing: "ease-out" });
   }, []);
 
-  return (
+  return ReactDOM.createPortal(
     <ModalBackdrop>
       <ModalContent data-aos="zoom-in">
-        <p>{message}</p>
-        <CloseButton onClick={onClose}>확인</CloseButton>
+        <XButton onClick={onCancel}>✖</XButton>
+        <ModalTitle>{title}</ModalTitle>
+        <ModalText>{content}</ModalText>
+        <CloseButton onClicnpk={onClose}>확인</CloseButton>
       </ModalContent>
-    </ModalBackdrop>
+    </ModalBackdrop>,
+    document.body
   );
 };
 
