@@ -4,7 +4,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import logo from "../../component/image/Logo.png";
-
+import LoginButton from "../button/LoginButton";
 const Header = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -28,8 +28,6 @@ const Header = () => {
   return (
     <div className="header">
       <img className="logo" alt="logo" src={logo} onClick={() => handleNavigation("/")} />
-      <div className="rectangle" />
-
       <button className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
         ☰
       </button>
@@ -52,7 +50,8 @@ const Header = () => {
         </div>
       </nav>
 
-      <button className="logout-btn" onClick={() => handleNavigation("/home")}>LOGOUT</button>
+      <button className="logout-btn"><LoginButton /></button>
+      <div className="rectangle" />    
     </div>
   );
 };
