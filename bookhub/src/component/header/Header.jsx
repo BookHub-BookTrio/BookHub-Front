@@ -4,7 +4,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import logo from "../../component/image/Logo.png";
-
+import LoginButton from "../button/LoginButton";
 const Header = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -28,8 +28,6 @@ const Header = () => {
   return (
     <div className="header">
       <img className="logo" alt="logo" src={logo} onClick={() => handleNavigation("/")} />
-      <div className="rectangle" />
-
       <button className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
         ☰
       </button>
@@ -41,18 +39,19 @@ const Header = () => {
         <div className={`text-wrapper-4 ${location.pathname === "/" ? "active" : ""}`} onClick={() => handleNavigation("/")}>
           HOME
         </div>
-        <div className={`text-wrapper-4 ${location.pathname === "/mypage" ? "active" : ""}`} onClick={() => handleNavigation("/mypage")}>
+        <div className={`text-wrapper-4 ${location.pathname.startsWith("/mypage") ? "active" : ""}`} onClick={() => handleNavigation("/mypage")}>
           MYPAGE
         </div>
-        <div className={`text-wrapper-4 ${location.pathname === "/wish" ? "active" : ""}`} onClick={() => handleNavigation("/wish")}>
+        <div className={`text-wrapper-4 ${location.pathname.startsWith("/wish") ? "active" : ""}`} onClick={() => handleNavigation("/wish")}>
           WISH
         </div>
-        <div className={`text-wrapper-4 ${location.pathname === "/community" ? "active" : ""}`} onClick={() => handleNavigation("/community")}>
+        <div className={`text-wrapper-4 ${location.pathname.startsWith("/community") ? "active" : ""}`} onClick={() => handleNavigation("/community")}>
           COMMUNITY
         </div>
       </nav>
 
-      <button className="logout-btn" onClick={() => handleNavigation("/home")}>LOGOUT</button>
+      <button className="logout-btn"><LoginButton /></button>
+      <div className="rectangle" />    
     </div>
   );
 };

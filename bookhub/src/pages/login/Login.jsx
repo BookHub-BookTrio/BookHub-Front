@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Logo_book from "../../component/image/Logo_book.png";
 import "../home/Home.css";
@@ -7,11 +8,20 @@ import { TextFrame, StyledInput, LoginButton } from "./LoginStyles.jsx";
 import Modal from "../../component/modal/Modal.jsx";
 
 export const Login = () => {
+    const navigate = useNavigate();
+    const [showModal, setShowModal] = useState(false);
+    const [errorModal, setErrorModal] = useState({ show: false, title: "", content: "" });
     const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [modalMessage, setModalMessage] = useState("");
-    const [isModalOpen, setIsModalOpen] = useState(false);
-
+    const [password, setPassword] = useState("");    
+    
+    const closeModal = () => setShowModal(false);
+    const handleCloseModal = () => {
+        setShowModal(false);
+        navigate("/", { replace: true });
+    };
+    const handleCloseErrorModal = () => {
+        setErrorModal({ show: false, title: "", content: "" });
+    };
     const handleKeyDown = (e) => {
         if (e.key === "Enter") {
             handleLogin();
@@ -20,22 +30,25 @@ export const Login = () => {
 
     const handleLogin = async () => {
         try {
-            const response = await axios.post("http://localhost:8080/api/v1/oauth2/sign-in", {
+            const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/internal/login`, {
                 email,
                 password,
             });
 
-            const { token } = response.data;
-            localStorage.setItem("token", token);
-            setModalMessage("로그인 성공!"); // 모달 메시지 설정
-            setIsModalOpen(true); // 모달 열기
-
-            setTimeout(() => {
-                window.location.href = "/"; // 로그인 후 이동
-            }, 1000);
+            const { accessToken, refreshToken } = response.data.data;
+            localStorage.setItem("accessToken", accessToken);
+            localStorage.setItem("refreshToken", refreshToken);
+            setShowModal(true);
+        
         } catch (error) {
-            setModalMessage("로그인 실패: " + (error.response?.data?.message || "알 수 없는 오류"));
-            setIsModalOpen(true);
+            const errorMessage =
+                error.response?.data?.message || "알 수 없는 오류가 발생했습니다.";
+
+            setErrorModal({
+                show: true,
+                title: "로그인 실패",
+                content: errorMessage,
+            });
         }
     };
 
@@ -65,8 +78,22 @@ export const Login = () => {
 
             <LoginButton onClick={handleLogin}>로그인</LoginButton>     
 
-            {isModalOpen && <Modal message={modalMessage} onClose={() => setIsModalOpen(false)} />}
-       
+            {showModal && (
+                <Modal
+                    title="로그인 성공🎉"
+                    content="홈으로 이동합니다."
+                    onClose={handleCloseModal}
+                    onCancel={closeModal}
+                />
+            )}
+            {errorModal.show && (
+                <Modal
+                    title={errorModal.title}
+                    content={errorModal.content}
+                    onClose={handleCloseErrorModal}
+                    onCancel={handleCloseErrorModal}
+                />
+            )}
         </div>
     );
 };
