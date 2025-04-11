@@ -30,11 +30,12 @@ const MyPageEdit = () => {
         const response = await axios.get(
           `${process.env.REACT_APP_BACKEND_URL}/api/v1/member`, {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
+              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
             },
           }
         );
-        const data = response.data;
+        const data = response.data.data;
+        console.log("회원정보:", data); //디버깅용
 
         setFormData({
           name: data.name || "",
@@ -59,7 +60,7 @@ const MyPageEdit = () => {
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${localStorage.getItem("assestoken")}`,
           },
         }
       );

@@ -1,0 +1,129 @@
+.background {
+  background: radial-gradient(90% 60% at 50% 100%, #dce4cc 0%, #e3e9d8 70%, #ffffff 110%);
+  background-attachment: fixed;
+
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  overflow: hidden;
+}
+
+.container {
+  position: fixed;
+  top: 150px;
+  left: 15px;
+  width: 280px;
+  display: flex;
+  margin: 30px 5px;
+  flex-direction: column;
+  align-items: center;
+  z-index: 10;
+  background-color: transparent;
+}
+
+/* 프로필 영역 */
+.profileSection {
+  display: flex;
+  justify-content: center;
+  width: 150px;
+  height: 150px;
+  flex-shrink: 0;
+  margin: 30px 50%;
+}
+
+.profileImage {
+  width: 100%;
+  border-radius: 50%;
+  border: 5px solid black;
+}
+
+/* 정보 입력 영역 */
+.infoContainer {
+  margin-top: 10px;
+  width: 700px;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+}
+
+.infoRow {
+  display: flex;
+  justify-content: left;
+  width: 35%;
+  margin: 20px 35%;
+  padding: 7px;
+  /* border-bottom: 1.5px solid black; */
+  align-items: center;
+  text-align: center;
+}
+
+.label {
+  font-weight: bold;
+  width: 65px;
+  text-align: left;
+}
+
+/* 완료 버튼 */
+.editButton {
+  background: black;
+  color: white;
+  padding: 10px 30px;
+  font-size: 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  margin-top: 30px;
+  font-family: "Slackey-Regular", Helvetica;
+  font-size: 16px;
+}
+
+/* 오른쪽 스크롤 메인 콘텐츠 */
+.mainContent {
+  top: 300px;
+  margin: 160px 80px 80px 380px;
+  padding: 5rem;
+  flex: 1;
+  width: calc(100% - 280px);
+  border-left: 1px solid #bbb;
+  background-color: #fff;
+  stroke-width: 3px;
+  stroke: #455D3E;
+  border: 3px #455D3E solid;
+  border-radius: 30px;
+  filter: drop-shadow(8px 8px 4px rgba(0, 0, 0, 0.25));
+}
+
+.chartWrapper {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 3rem;
+  max-width: 800px;
+}
+
+/* Bar chart 영역 */
+.barTitle {
+  font-family: "Slackey-Regular", Helvetica;
+  font-weight: 700;
+  font-size: 24px;
+}
+
+.barChart {
+  width: 50%;
+  min-width: 300px;
+  margin-left: 30px;
+}
+
+/* Pie chart 영역 */
+.pieTitle {
+  font-family: "Slackey-Regular", Helvetica;
+  font-weight: 700;
+  font-size: 24px;
+}
+
+.dnaSection {
+  width: 40%;
+  min-width: 250px;
+  text-align: center;
+}
