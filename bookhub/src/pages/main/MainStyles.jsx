@@ -11,7 +11,7 @@ export const MainContainer = styled.div`
   height: 1600px;
   min-height: 100vh;
   background: #fff;
-  position: relative;
+  position: fixed;
   background-image: url(${GradientBg});
   background-position: 90% 18%;
   background-size: 50%;
