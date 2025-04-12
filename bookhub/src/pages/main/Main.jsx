@@ -1,12 +1,10 @@
 import React from "react";
 import * as S from "./MainStyles.jsx";
 import MainBook from "../../component/image/MainBook_remove.png";
-import Header from "../../component/header/Header.jsx";
 
 export const Main = () => {
   return (
     <S.MainContainer>
-      <Header />
       <S.Overlap>
         <S.BookTitle>BOOK HUB
                     <br />
