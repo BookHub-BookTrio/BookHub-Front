@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styles from "./MyPageEdit.module.css";
-import Header from "../../component/header/Header.jsx";
 import profileIcon from "../../component/image/Profile.png"; // 프로필 이미지
 import pencil from "../../component/image/Pencil.png"; // 수정란 옆 연필 이미지
 
@@ -76,7 +75,6 @@ const MyPageEdit = () => {
 
   return (
     <div className={styles.background}>
-      <Header />
       <div className={styles.container}>
         
         {/* 프로필 영역 */}

@@ -8,6 +8,7 @@
   justify-content: center;
   position: fixed;
   overflow: hidden;
+  transform: translateX(-8px);
 }
 
 .container {
