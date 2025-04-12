@@ -16,7 +16,6 @@ function App() {
       {/* header O */}
         <Route element={<Layout />}>
           <Route path="/" element={<Main />} />
-          <Route path="/home" element={<Home />} />
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/mypage-edit" element={<MyPageEdit />} />
           <Route path="/test" element={<Test />} />
@@ -26,6 +25,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/auth/kakao" element={<KakaoCallback />} />
+        <Route path="/home" element={<Home />} />
       </Routes>
     </BrowserRouter>
   );

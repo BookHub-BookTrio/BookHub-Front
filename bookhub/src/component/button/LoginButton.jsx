@@ -29,7 +29,7 @@ export const LoginButton = () => {
         }
 
         setShowModal(false);
-        navigate("/home", { replace: true });
+        navigate("/", { replace: true });
     };
 
     const closeModalOnly = () => {
