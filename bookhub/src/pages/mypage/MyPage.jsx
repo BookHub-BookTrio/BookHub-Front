@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from 'react-router-dom';
 import styles from "../mypage/MyPage.module.css";
 import Header from "../../../src/component/header/Header.jsx";
 import profileIcon from "../../../src/component/image/Profile.png"; // 프로필 이미지
@@ -24,7 +25,7 @@ const pieData = {
   labels: ['소설', '에세이', '자기계발서', '기타', '시'],
   datasets: [
     {
-      label: 'Genre Distribution',
+      label: 'Genre',
       data: [26, 24, 19, 16, 15],
       backgroundColor: ['#42593C', '#A2AF94', '#D3D7C7', '#D1C4A7', '#E9DCC7'],
     },
@@ -32,6 +33,12 @@ const pieData = {
 };
 
 const Mypage = () => {
+  const navigate = useNavigate();
+
+  const handleEditClick = () => {
+    navigate(`/mypage-edit`);
+  };
+
   return (
     <div className={styles.background}>
       <Header />
@@ -57,7 +64,7 @@ const Mypage = () => {
       </div>
 
       {/* EDIT 버튼 */}
-      <button className={styles.editButton}>EDIT</button>
+      <button className={styles.editButton} onClick={handleEditClick}>EDIT</button>
     </div>
 
     <main className={styles.mainContent}>
