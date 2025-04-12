@@ -72,7 +72,7 @@ const Modal = ({ title, content, onClose, onCancel }) => {
         <XButton onClick={onCancel}>✖</XButton>
         <ModalTitle>{title}</ModalTitle>
         <ModalText>{content}</ModalText>
-        <CloseButton onClicnpk={onClose}>확인</CloseButton>
+        <CloseButton onClick={onClose}>확인</CloseButton>
       </ModalContent>
     </ModalBackdrop>,
     document.body
