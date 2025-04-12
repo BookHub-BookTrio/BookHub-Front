@@ -1,7 +1,6 @@
 import React from "react";
 import { useNavigate } from 'react-router-dom';
 import styles from "../mypage/MyPage.module.css";
-import Header from "../../../src/component/header/Header.jsx";
 import profileIcon from "../../../src/component/image/Profile.png"; // 프로필 이미지
 import { Bar, Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, BarElement, CategoryScale, LinearScale, ArcElement, Tooltip, Legend, } from 'chart.js';
@@ -41,7 +40,6 @@ const Mypage = () => {
 
   return (
     <div className={styles.background}>
-      <Header />
     <div className={styles.container}>
       {/* 프로필 영역 */}
       <div className={styles.profileSection}>
