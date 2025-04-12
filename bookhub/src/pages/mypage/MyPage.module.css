@@ -12,11 +12,10 @@
 
 .container {
   position: fixed;
-  top: 150px;
-  left: 15px;
-  width: 280px;
+  top: 180px;
+  left: 50px;
+  width: 250px;
   display: flex;
-  margin: 30px 5px;
   flex-direction: column;
   align-items: center;
   z-index: 10;
@@ -27,10 +26,10 @@
 .profileSection {
   display: flex;
   justify-content: center;
-  width: 150px;
-  height: 150px;
-  flex-shrink: 0;
-  margin: 30px 50%;
+  align-items: center;
+  width: 130px;
+  height: 130px;
+  margin: 30px auto;
 }
 
 .profileImage {
@@ -41,27 +40,22 @@
 
 /* 정보 입력 영역 */
 .infoContainer {
-  margin-top: 10px;
-  width: 700px;
+  margin-top: 3px;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  text-align: center;
-  justify-content: center;
 }
 
 .infoRow {
   display: flex;
   justify-content: left;
-  width: 35%;
-  margin: 20px 35%;
-  padding: 7px;
-  /* border-bottom: 1.5px solid black; */
-  align-items: center;
-  text-align: center;
+  width: 100%;
+  margin: 10px 0;
 }
 
 .label {
   font-weight: bold;
-  width: 65px;
+  width: 60px;
   text-align: left;
 }
 
@@ -73,7 +67,7 @@
   font-size: 20px;
   border-radius: 20px;
   cursor: pointer;
-  margin-top: 30px;
+  margin: 30px auto 0 auto;
   font-family: "Slackey-Regular", Helvetica;
   font-size: 16px;
 }
@@ -91,7 +85,14 @@
   stroke: #455D3E;
   border: 3px #455D3E solid;
   border-radius: 30px;
+  /* box-shadow: 5px 5px 10px rgba(0,0,0,0.1); */
   filter: drop-shadow(8px 8px 4px rgba(0, 0, 0, 0.25));
+}
+
+.barTitle {
+  font-family: "Slackey-Regular", Helvetica;
+  font-weight: 700;
+  font-size: 24px;
 }
 
 .chartWrapper {
@@ -103,25 +104,19 @@
 }
 
 /* Bar chart 영역 */
-.barTitle {
-  font-family: "Slackey-Regular", Helvetica;
-  font-weight: 700;
-  font-size: 24px;
-}
-
 .barChart {
   width: 50%;
   min-width: 300px;
   margin-left: 30px;
 }
 
-/* Pie chart 영역 */
 .pieTitle {
   font-family: "Slackey-Regular", Helvetica;
   font-weight: 700;
   font-size: 24px;
 }
 
+/* Pie chart 영역 */
 .dnaSection {
   width: 40%;
   min-width: 250px;
