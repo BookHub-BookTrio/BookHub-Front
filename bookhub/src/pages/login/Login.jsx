@@ -84,6 +84,7 @@ export const Login = () => {
                     content="홈으로 이동합니다."
                     onClose={handleCloseModal}
                     onCancel={closeModal}
+                    onKeyDown={handleKeyDown}
                 />
             )}
             {errorModal.show && (

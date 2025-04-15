@@ -18,18 +18,18 @@ export const LoginButton = () => {
     };
 
     const confirmAction = () => {
+        setShowModal(false);
         if (isLoggedIn) {
             // 로그아웃 처리
             localStorage.removeItem("accessToken");
             localStorage.removeItem("refreshToken");
             setIsLoggedIn(false);
+            navigate("/", { replace: true }); // 로그아웃 시 홈으로 이동
         } else {
             // 로그인 처리
-            navigate("/login");
+            navigate("/home");
         }
-
         setShowModal(false);
-        navigate("/", { replace: true });
     };
 
     const closeModalOnly = () => {
@@ -45,7 +45,7 @@ export const LoginButton = () => {
             {showModal && (
                 <Modal
                     title={isLoggedIn ? "로그아웃 하시겠습니까?" : "로그인 하시겠습니까?"}
-                    content={isLoggedIn ? "확인 시 홈으로 이동합니다." : "확인 시 로그인 페이지로 이동합니다."}
+                    content={isLoggedIn ? "확인 시 로그아웃됩니다." : "확인 시 로그인 페이지로 이동합니다."}
                     onClose={confirmAction}
                     onCancel={closeModalOnly}
                 />

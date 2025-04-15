@@ -64,7 +64,21 @@ const ModalText = styled.p`
 const Modal = ({ title, content, onClose, onCancel }) => {
   useEffect(() => {
     AOS.init({ duration: 400, easing: "ease-out" });
-  }, []);
+  
+    const handleKeyDown = (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        onClose();
+      }
+    };
+  
+    window.addEventListener("keydown", handleKeyDown);
+  
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [onClose]);
+  
 
   return ReactDOM.createPortal(
     <ModalBackdrop>

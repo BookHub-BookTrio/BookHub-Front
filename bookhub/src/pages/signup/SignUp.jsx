@@ -41,6 +41,12 @@ export const Signup = () => {
         });
     };
 
+    const handleKeyDown = (e) => {
+        if (e.key === "Enter") {
+            handleSubmit();
+        }
+    };
+
     // 폼 제출 핸들러
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -156,6 +162,7 @@ export const Signup = () => {
                     title="회원가입 성공 🎉"
                     content="BookHub에 오신 걸 환영합니다!"
                     onClose={handleCloseModal}
+                    onKeyDown={handleKeyDown}
                 />
             )}
         </div>
