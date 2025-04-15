@@ -56,8 +56,12 @@
 
 .label {
   font-weight: bold;
-  width: 60px;
+  width: 50px;
   text-align: left;
+}
+
+.value {
+  width: 200px;
 }
 
 /* 완료 버튼 */
@@ -76,7 +80,7 @@
 /* 오른쪽 스크롤 메인 콘텐츠 */
 .mainContent {
   top: 300px;
-  margin: 160px 80px 80px 380px;
+  margin: 160px 180px 80px 380px;
   padding: 5rem;
   flex: 1;
   width: calc(100% - 280px);
@@ -86,7 +90,6 @@
   stroke: #455D3E;
   border: 3px #455D3E solid;
   border-radius: 30px;
-  /* box-shadow: 5px 5px 10px rgba(0,0,0,0.1); */
   filter: drop-shadow(8px 8px 4px rgba(0, 0, 0, 0.25));
 }
 
