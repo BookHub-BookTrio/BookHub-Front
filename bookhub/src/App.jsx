@@ -7,6 +7,7 @@ import Login from "../src/pages/login/Login.jsx";
 import KakaoCallback from "./pages/home/KakaoCallback.jsx";
 import SignUp from "./pages/signup/SignUp.jsx";
 import Main from "./pages/main/Main.jsx";
+import Wish from "./pages/wish/Wish.jsx";
 import Layout from "./component/layout/Layout.jsx"
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/mypage-edit" element={<MyPageEdit />} />
           <Route path="/test" element={<Test />} />
+          <Route path="/wish" element={<Wish />} />
         </Route>
         
       {/* header X */}
