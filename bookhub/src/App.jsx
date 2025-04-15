@@ -8,10 +8,12 @@ import KakaoCallback from "./pages/home/KakaoCallback.jsx";
 import SignUp from "./pages/signup/SignUp.jsx";
 import Main from "./pages/main/Main.jsx";
 import Layout from "./component/layout/Layout.jsx"
+import GlobalStyle from "./component/layout/GlobalStyle.jsx";
 
 function App() {
   return (
     <BrowserRouter>
+    <GlobalStyle />
       <Routes>
       {/* header O */}
         <Route element={<Layout />}>
