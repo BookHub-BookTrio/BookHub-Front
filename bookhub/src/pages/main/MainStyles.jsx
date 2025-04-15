@@ -11,7 +11,8 @@ export const MainContainer = styled.div`
   height: 1600px;
   min-height: 100vh;
   background: #fff;
-  position: fixed;
+  position: relative;
+  overflow: hidden;
   background-image: url(${GradientBg});
   background-position: 90% 18%;
   background-size: 50%;
@@ -25,7 +26,6 @@ export const MainContainer = styled.div`
   @media (max-width: 820px) {
     background-position: 115% 11%;
     background-size: 55%;
-    margin-left: -70px;
   }
 `;
 
@@ -150,5 +150,141 @@ export const MainImage = styled.img`
   @media (max-width: 820px) {
     right: 6%;
     width: 220px;
+  }
+`;
+
+// main - 2번째
+export const StyledTodayBook = styled.div`
+  margin-top: 300px;
+  opacity: ${(props) => (props.isVisible ? "1" : "0")};
+  transition: opacity 0.5s ease-in-out;
+  margin-left: 220px;
+
+  // 한글
+  .today {
+    font-family: "Pretendard-Bold", Helvetica;
+    font-weight: 400;
+    font-size: 19px;
+    text-align: left;
+    letter-spacing: 2px;
+    }
+
+  p {
+    font-family: "Slackey-Regular", Helvetica;
+    font-weight: 400;
+    font-size: 30px;
+    color: #333;
+    text-align: left;
+    margin: 5px 0;
+
+    @media (max-width: 820px) {
+      font-size: 25px;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 14px;
+    }
+  }
+`;
+
+// 화살표
+export const ArrowImage = styled.img`
+  margin: 10px 0;
+  margin-left: 35px;
+  width: ${(props) => (props.small ? "120px" : "138px")}; // 길이 조건부
+  transform: ${(props) => (props.flip ? "scaleX(-1)" : "none")};
+`;
+
+export const StyledBookCard = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  position: relative;
+  margin-top: -190px;
+  margin-left: 30%;
+  opacity: ${(props) => (props.isVisible ? "1" : "0")};
+  transform: translateY(${(props) => (props.isVisible ? "0" : "30px")});
+  transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+  animation: ${floatAnimation} 3s ease-in-out infinite;
+
+  @media (max-width: 820px) {
+    margin-left: 80px;
+    margin-top: 80px;
+  }
+
+  @media (max-width: 480px) {
+    margin-left: 25%;
+  }
+`;
+
+export const BookImage = styled.img`
+  width: 340px;
+  height: auto;
+  margin-left: 60px;
+  opacity: ${(props) => (props.isVisible ? "1" : "0")};
+  transform: translateY(${(props) => (props.isVisible ? "0" : "30px")});
+  transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+
+  @media (max-width: 820px) {
+    width: 280px;
+  }
+
+  @media (max-width: 480px) {
+    width: 180px;
+    margin-left: 10px;
+  }
+`;
+
+
+export const BookWrapper = styled.div`
+  position: relative;
+  display: inline-block;
+`;
+
+
+export const BookName = styled.div`
+  position: absolute;
+  top: 30%;
+  transform: rotate(-8.86deg);
+  color: #f2b9bf;
+  font-family: "Slackey-Regular", Helvetica;
+  font-size: 55px;
+  font-weight: 400;
+  text-align: center;
+  width: 80%;
+  margin-left: 60px;
+
+  @media (max-width: 820px) {
+    font-size: 40px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 25px;
+    left : -40px;
+  }
+`;
+
+
+export const BlurEffect = styled.div`
+  position: fixed;
+  width: 600px; // 크기 조절
+  height: 600px;
+  background-image: url(${GradientBg});
+  background-size: cover;
+  background-position: center;
+  opacity: ${(props) => (props.isVisible ? "1" : "0")}; 
+  transition: opacity 1s ease-in-out;
+  filter: blur(50px);
+
+  &.top-left {
+    top: -20%;
+    left: -15%;
+    z-index:1000;
+  }
+
+  &.bottom-right {
+    bottom: -20%;
+    right: -10%;
+    z-index: 1001;
   }
 `;
