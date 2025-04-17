@@ -1,6 +1,7 @@
 import styled, { keyframes } from "styled-components";
 import { FaBook } from "react-icons/fa";
 import GradientBg from "../../component/image/Gradient.svg";
+import { AiOutlineEllipsis } from "react-icons/ai";
 
 // main - 1번째
 export const MainContainer = styled.div`
@@ -369,4 +370,50 @@ export const StyledHr = styled.hr`
   margin-bottom: 570px;
   opacity: ${props => (props.isVisible ? 1 : 0)};
   transition: opacity 0.5s ease-in-out;
+`;
+
+// best seller 
+export const BookCardContainer_best = styled.div`
+  display: flex;
+  margin-left: 300px; 
+  margin-top: -720px; 
+  gap: 20px;
+`;
+
+// new published
+export const BookCardContainer_pub = styled.div`
+  display: flex;
+  margin-left: 628px; 
+  margin-top: -560px;  
+  margin-bottom: 15px;
+  gap: 20px;
+`;
+
+
+export const StyledEllipsis = styled(AiOutlineEllipsis)`
+  font-size: 35px;
+  display: flex;
+  margin-left: 35vw;
+  color: #aaa;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+
+  &:hover {
+    color: #333;
+    transform: scale(1.2);
+  }
+`;
+
+export const StyledEllipsis_pub = styled(AiOutlineEllipsis)`
+  font-size: 35px;
+  display: flex;
+  margin-left: 53vw;
+  color: #aaa;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+
+  &:hover {
+    color: #333;
+    transform: scale(1.2);
+  }
 `;

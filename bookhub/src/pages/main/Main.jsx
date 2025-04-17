@@ -3,6 +3,7 @@ import * as S from "./MainStyles.jsx";
 import MainBook from "../../component/image/MainBook_remove.png";
 import MainBook_aladin from "../../component/image/MainBook_aladin.png";
 import Arrow1 from "../../component/image/Arrow.png";
+import BookCard from "../../component/main_aladin/BookCard.jsx";
 
 export const Main = () => {
   const overlap3Ref = useRef(null);
@@ -14,6 +15,25 @@ export const Main = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isBookVisible, setIsBookVisible] = useState(false);
   const [isExtraVisible, setIsExtraVisible] = useState(false);
+
+// 더미 데이터
+const bestSellerBooks = [
+  {
+    title: "title",
+    author: "author",
+    cover: ".jpg"
+  },
+  {
+    title: "title",
+    author: "author",
+    cover: ".jpg"
+  },
+  {
+    title: "title",
+    author: "author",
+    cover: ".jpg"
+  }
+];
 
   useEffect(() => {
     // main_2 오늘의 책 (텍스트) 감지
@@ -40,8 +60,6 @@ export const Main = () => {
       { threshold: 0.3 }
     );
     
-
-
     if (overlap3Ref.current) observer1.observe(overlap3Ref.current);
     if (bookCardRef.current) observer2.observe(bookCardRef.current);
     if (bestRef.current) observer3.observe(bestRef.current);
@@ -108,6 +126,33 @@ export const Main = () => {
           <p className="pub"> ✨ New <br /> Published ✨</p>
           <S.ArrowImage src={Arrow1} alt="arrow" small/>
         </S.StyledTodayBook_pub>
+
+        <S.BookCardContainer_best>
+            {bestSellerBooks.map((book, idx) => (
+          <BookCard
+            key={idx}
+            title={book.title}
+            author={book.author}
+            image={book.cover}
+          />
+          ))}  
+        </S.BookCardContainer_best>
+        <S.StyledEllipsis />
+
+        <S.StyledHr />
+
+        <S.BookCardContainer_pub>
+            {bestSellerBooks.map((book, idx) => (
+          <BookCard
+            key={idx}
+            title={book.title}
+            author={book.author}
+            image={book.cover}
+          />
+          ))}
+        </S.BookCardContainer_pub>
+        <S.StyledEllipsis_pub />
+
       </S.Main3Container>
 
     </S.MainContainer>
