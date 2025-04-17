@@ -12,7 +12,6 @@ export const MainContainer = styled.div`
   min-height: 100vh;
   background: #fff;
   position: relative;
-  overflow: hidden;
   background-image: url(${GradientBg});
   background-position: 90% 18%;
   background-size: 50%;
@@ -159,7 +158,7 @@ export const StyledTodayBook = styled.div`
   opacity: ${(props) => (props.isVisible ? "1" : "0")};
   transition: opacity 0.5s ease-in-out;
   margin-left: 220px;
-
+  z-index: 1001;
   // 한글
   .today {
     font-family: "Pretendard-Bold", Helvetica;
@@ -191,6 +190,14 @@ export const StyledTodayBook = styled.div`
 export const ArrowImage = styled.img`
   margin: 10px 0;
   margin-left: 35px;
+  width: ${(props) => (props.small ? "120px" : "138px")}; // 길이 조건부
+  transform: ${(props) => (props.flip ? "scaleX(-1)" : "none")};
+`;
+
+// best 화살표
+export const ArrowImage_best = styled.img`
+  margin: 10px 0;
+  margin-right: 100px;
   width: ${(props) => (props.small ? "120px" : "138px")}; // 길이 조건부
   transform: ${(props) => (props.flip ? "scaleX(-1)" : "none")};
 `;
@@ -287,4 +294,79 @@ export const BlurEffect = styled.div`
     right: -10%;
     z-index: 1001;
   }
+`;
+
+// main - 3번째
+export const Main3Container = styled.div `
+ position: relative;
+ width: 100%;
+ margin-top: 100px;
+`;
+
+// best seller 글씨
+export const StyledTodayBook_best = styled.div`
+  margin-top: 300px;
+  transform: translateY(-170px);
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  opacity: ${(props) => (props.isVisible ? "1" : "0")};
+  transition: opacity 0.5s ease-in-out;
+  margin-right: 17vw;
+  gap: 10px; 
+
+  .best {
+    font-family: "Slackey-Regular", Helvetica;
+    font-weight: 400;
+    font-size: 30px;
+    color: #333;
+    margin: 0;
+
+    @media (max-width: 820px) {
+      font-size: 25px;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 14px;
+    }
+  }
+`;
+
+
+// new published 글씨
+export const StyledTodayBook_pub = styled.div`
+  margin-top: 50px; 
+  transform: translateY(-150px);
+  opacity: ${(props) => (props.isVisible ? "1" : "0")};
+  transition: opacity 0.5s ease-in-out;
+  margin-left: 220px;
+
+  .pub {
+    font-family: "Slackey-Regular", Helvetica;
+    font-weight: 400;
+    font-size: 30px;
+    color: #333;
+    text-align: left;
+    margin: 5px 0;
+    margin-top: -300px;
+    @media (max-width: 820px) {
+      font-size: 25px;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 14px;
+    }
+  }
+`;
+
+// best seller 밑 밑줄
+export const StyledHr = styled.hr`
+  border: none;
+  border-top: 2px solid #ccc;
+  width: 55%;
+  margin-top: 50px;
+  margin-bottom: 570px;
+  opacity: ${props => (props.isVisible ? 1 : 0)};
+  transition: opacity 0.5s ease-in-out;
 `;
