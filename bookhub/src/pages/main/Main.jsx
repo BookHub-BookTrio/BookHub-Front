@@ -35,6 +35,15 @@ const bestSellerBooks = [
   }
 ];
 
+  // main - 2aladin api random 2 팝업
+  const [selectedBook, setSelectedBook] = useState(null); 
+  const [showPopup, setShowPopup] = useState(false);
+
+  const handleBookClick = (book) => {
+    setSelectedBook(book);
+    setShowPopup(true);
+  };
+  
   useEffect(() => {
     // main_2 오늘의 책 (텍스트) 감지
     const observer1 = new IntersectionObserver(
@@ -104,14 +113,28 @@ const bestSellerBooks = [
       <S.StyledBookCard ref={bookCardRef} isVisible={isBookVisible}>
         <S.BookWrapper>
             <S.BookImage src={MainBook_aladin} alt="aladin" isVisible={isBookVisible} />
-            <S.BookName>BOOK <br />NAME</S.BookName>
+            <S.BookName onClick={handleBookClick}>BOOK <br />NAME</S.BookName>
         </S.BookWrapper>
 
         <S.BookWrapper>
             <S.BookImage src={MainBook_aladin} alt="aladin_2" isVisible={isBookVisible} />
-            <S.BookName>BOOK <br />NAME</S.BookName>
+            <S.BookName onClick={handleBookClick}>BOOK <br />NAME</S.BookName>
         </S.BookWrapper>
       </S.StyledBookCard>
+
+      {/* Main_2 popup */}
+      {showPopup && selectedBook && (
+        <S.PopupOverlay onClick={() => setShowPopup(false)}>
+         <S.PopupBox onClick={(e) => e.stopPropagation()}>
+          <S.BookCover style={{ backgroundImage: `url(${selectedBook.cover})` }} />
+            <S.BookContent>
+              <S.BookTitlePopup>{selectedBook.title}</S.BookTitlePopup>
+              <S.BookDescription>{selectedBook.description}</S.BookDescription>
+              <S.CloseButton onClick={() => setShowPopup(false)}>닫기</S.CloseButton>
+            </S.BookContent>
+         </S.PopupBox>
+        </S.PopupOverlay>
+      )};
 
       {/* Main_3 */}
       <S.Main3Container>
