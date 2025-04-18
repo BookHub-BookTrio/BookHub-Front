@@ -245,9 +245,51 @@ export const BookImage = styled.img`
 `;
 
 
+export const BookImage_2 = styled.img `
+  position: absolute;
+top: 5%;
+cursor:pointer;
+transform: rotate(-8.5deg);
+  box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.3);
+color: #f2b9bf;
+font-family: "Slackey-Regular", Helvetica;
+font-size: 35px;
+font-weight: 500;
+text-align: left;
+
+margin-left: 21.1%;
+width: 80%;
+z-index:1010;
+border-radius: 30px;
+height: 91%;
+object-fit: cover
+@media (max-width: 820px) {
+  font-size: 40px;
+  width: 88%;
+  margin-left: 29%;
+}
+
+@media (max-width: 480px) {
+  font-size: 25px;
+  margin-left: 4%;
+  height: 92%;
+  width: 88%;
+}
+`
 export const BookWrapper = styled.div`
   position: relative;
   display: inline-block;
+  width: 360px;
+  height: 480px;
+    @media (max-width: 820px) {
+    width: 280px;
+    height: 400px;
+  }
+
+  @media (max-width: 480px) {
+    width: 180px;
+    height: 280px;
+  }
 `;
 
 
