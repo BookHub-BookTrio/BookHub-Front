@@ -4,6 +4,7 @@ import MainBook from "../../component/image/MainBook_remove.png";
 import MainBook_aladin from "../../component/image/MainBook_aladin.png";
 import Arrow1 from "../../component/image/Arrow.png";
 import BookCard from "../../component/main_aladin/BookCard.jsx";
+import axios from "axios";
 
 export const Main = () => {
   const overlap3Ref = useRef(null);
@@ -35,7 +36,37 @@ const bestSellerBooks = [
   }
 ];
 
+// Main - 2 추천 책 조회
+const fetchTodayBooks = async () => {
+  try {
+    const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/book/random`);
+    setTodayBooks(response.data.data);
+  } catch (error) {
+    console.error(error.response?.data?.message || "도서 정보를 불러오는 중 오류가 발생했습니다.");
+    // API 요청 실패 시 더미 데이터로 기본 컴포넌트 유지
+    setTodayBooks([
+      { title: "BOOK NAME" },
+      { title: "BOOK NAME" }
+    ]);
+  }
+};
+
+  // main - 2 aladin api random 2 get
+  const [todayBooks, setTodayBooks] = useState([]);
+
+  // main - 2aladin api random 2 팝업
+  const [selectedBook, setSelectedBook] = useState(null); 
+  const [showPopup, setShowPopup] = useState(false);
+
+  const handleBookClick = (book) => {
+    setSelectedBook(book);
+    setShowPopup(true);
+  };
+  
   useEffect(() => {
+
+    fetchTodayBooks();
+
     // main_2 오늘의 책 (텍스트) 감지
     const observer1 = new IntersectionObserver(
       ([entry]) => {
@@ -102,16 +133,30 @@ const bestSellerBooks = [
       <S.BlurEffect className="bottom-right" isVisible={isBookVisible} />
 
       <S.StyledBookCard ref={bookCardRef} isVisible={isBookVisible}>
-        <S.BookWrapper>
-            <S.BookImage src={MainBook_aladin} alt="aladin" isVisible={isBookVisible} />
-            <S.BookName>BOOK <br />NAME</S.BookName>
+        {todayBooks.map((book, idx) => (
+        <S.BookWrapper key={idx} onClick={() => handleBookClick(book)}>
+          <S.BookImage src={MainBook_aladin} alt="aladin" isVisible={isBookVisible} />
+            {!book.cover && <S.BookName>{book.title}</S.BookName>}
+            {book.cover && (
+              <S.BookImage_2 src={book.cover} alt="aladin_book" />
+            )}
         </S.BookWrapper>
-
-        <S.BookWrapper>
-            <S.BookImage src={MainBook_aladin} alt="aladin_2" isVisible={isBookVisible} />
-            <S.BookName>BOOK <br />NAME</S.BookName>
-        </S.BookWrapper>
+        ))}
       </S.StyledBookCard>
+
+      {/* Main_2 popup */}
+      {showPopup && selectedBook && (
+        <S.PopupOverlay onClick={() => setShowPopup(false)}>
+         <S.PopupBox onClick={(e) => e.stopPropagation()}>
+          <S.BookCover style={{ backgroundImage: `url(${selectedBook.cover})` }} />
+            <S.BookContent>
+              <S.BookTitlePopup>{selectedBook.title}</S.BookTitlePopup>
+              <S.BookDescription>{selectedBook.description}</S.BookDescription>
+              <S.CloseButton onClick={() => setShowPopup(false)}>닫기</S.CloseButton>
+            </S.BookContent>
+         </S.PopupBox>
+        </S.PopupOverlay>
+      )};
 
       {/* Main_3 */}
       <S.Main3Container>
