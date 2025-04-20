@@ -17,25 +17,6 @@ export const Main = () => {
   const [isBookVisible, setIsBookVisible] = useState(false);
   const [isExtraVisible, setIsExtraVisible] = useState(false);
 
-// 더미 데이터
-const bestSellerBooks = [
-  {
-    title: "title",
-    author: "author",
-    cover: ".jpg"
-  },
-  {
-    title: "title",
-    author: "author",
-    cover: ".jpg"
-  },
-  {
-    title: "title",
-    author: "author",
-    cover: ".jpg"
-  }
-];
-
 // Main - 2 추천 책 조회
 const fetchTodayBooks = async () => {
   try {
@@ -58,14 +39,40 @@ const fetchTodayBooks = async () => {
   const [selectedBook, setSelectedBook] = useState(null); 
   const [showPopup, setShowPopup] = useState(false);
 
+ // main - 3 aladin api new 2 get
+ const [newPublishedBooks, setNewPublishedBooks ] = useState([]);
+ // main - 3 aladin api best 2 get
+ const [bestSellerBooks3, setBestSellerBooks] = useState([]);
+
+
   const handleBookClick = (book) => {
     setSelectedBook(book);
     setShowPopup(true);
+  };
+
+  const fetchNewPublishedBooks = async () => {
+    try {
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/book/new`);
+      setNewPublishedBooks(response.data.data);
+    } catch (error) {
+      console.error(error.response?.data?.message || "신간 정보를 불러오는 중 오류가 발생했습니다.");
+    }
+  };
+
+  const fetchBestSellerBooks = async () => {
+    try {
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/book/bestseller`);
+      setBestSellerBooks(response.data.data);
+    } catch (error) {
+      console.error(error.response?.data?.message || "베스트셀러 정보를 불러오는 중 오류가 발생했습니다.");
+    }
   };
   
   useEffect(() => {
 
     fetchTodayBooks();
+    fetchNewPublishedBooks();
+    fetchBestSellerBooks();
 
     // main_2 오늘의 책 (텍스트) 감지
     const observer1 = new IntersectionObserver(
@@ -173,28 +180,46 @@ const fetchTodayBooks = async () => {
         </S.StyledTodayBook_pub>
 
         <S.BookCardContainer_best>
-            {bestSellerBooks.map((book, idx) => (
+          {(bestSellerBooks3 && bestSellerBooks3.length > 0) ? (
+            bestSellerBooks3.map((book, idx) => (
           <BookCard
             key={idx}
             title={book.title}
             author={book.author}
             image={book.cover}
           />
-          ))}  
+          ))
+          ) : (
+          // 서버 연결 없을 시 기본 더미 데이터
+          <>
+            <BookCard title="title" author="작가" image="/default-cover.png" />
+            <BookCard title="title" author="작가" image="/default-cover.png" />
+            <BookCard title="title" author="작가" image="/default-cover.png" />
+          </>
+          )}
         </S.BookCardContainer_best>
         <S.StyledEllipsis />
 
         <S.StyledHr />
 
         <S.BookCardContainer_pub>
-            {bestSellerBooks.map((book, idx) => (
+          {(newPublishedBooks && newPublishedBooks.length > 0) ? (
+            newPublishedBooks.map((book, idx) => (
           <BookCard
             key={idx}
             title={book.title}
             author={book.author}
             image={book.cover}
           />
-          ))}
+          ))
+          ) : (
+        // 서버 연결 없을 시 기본 더미 데이터
+        <>
+          <BookCard title="title" author="작가" image="/default-cover.png" />
+          <BookCard title="title" author="작가" image="/default-cover.png" />
+          <BookCard title="title" author="작가" image="/default-cover.png" />
+        </>
+          )}
         </S.BookCardContainer_pub>
         <S.StyledEllipsis_pub />
 

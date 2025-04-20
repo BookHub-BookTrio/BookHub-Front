@@ -29,6 +29,7 @@ const Title = styled.div`
   font-weight: 600;
   margin-top: 10px;
   width: 180px;
+  text-align: center;
 `;
 
 const Author = styled.div`
