@@ -107,7 +107,7 @@ const fetchTodayBooks = async () => {
       }
     });
 
-    // main_3 newPublished + bestSeller 감지
+    // main_3 newPublished + bestSeller 텍스트
     const observer3 = new IntersectionObserver(
       ([entry]) => {
         setIsExtraVisible(entry.isIntersecting);
@@ -196,7 +196,7 @@ const fetchTodayBooks = async () => {
           <S.ArrowImage src={Arrow1} alt="arrow" small/>
         </S.StyledTodayBook_pub>
 
-        <S.BookCardContainer_best>
+        <S.BookCardContainer_best isVisible={isExtraVisible}>
           {(bestSellerBooks3 && bestSellerBooks3.length > 0) ? (
             bestSellerBooks3.map((book, idx) => (
           <BookCard
@@ -219,7 +219,7 @@ const fetchTodayBooks = async () => {
 
         <S.StyledHr />
 
-        <S.BookCardContainer_pub>
+        <S.BookCardContainer_pub isVisible={isExtraVisible}>
           {(newPublishedBooks && newPublishedBooks.length > 0) ? (
             newPublishedBooks.map((book, idx) => (
           <BookCard

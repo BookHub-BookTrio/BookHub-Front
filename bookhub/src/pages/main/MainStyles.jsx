@@ -384,6 +384,7 @@ export const StyledTodayBook_pub = styled.div`
   transform: translateY(-150px);
   opacity: ${(props) => (props.isVisible ? "1" : "0")};
   transition: opacity 0.5s ease-in-out;
+  transition-delay: ${(props) => (props.isVisible ? "0.5s" : "0s")};
   margin-left: 220px;
 
   .pub {
@@ -421,6 +422,8 @@ export const BookCardContainer_best = styled.div`
   margin-left: 300px; 
   margin-top: -720px; 
   gap: 20px;
+  opacity: ${(props) => (props.isVisible ? "1" : "0")};
+  transition: opacity 0.5s ease-in-out;
 `;
 
 // new published
@@ -430,6 +433,9 @@ export const BookCardContainer_pub = styled.div`
   margin-top: -560px;  
   margin-bottom: 15px;
   gap: 20px;
+  opacity: ${(props) => (props.isVisible ? "1" : "0")};
+  transition: opacity 0.5s ease-in-out;
+  transition-delay: ${(props) => (props.isVisible ? "0.5s" : "0s")};
 `;
 
 
