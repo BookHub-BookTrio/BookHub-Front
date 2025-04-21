@@ -467,6 +467,7 @@ export const StyledEllipsis_pub = styled(AiOutlineEllipsis)`
   }
 `;
 
+// 팝업
 export const PopupOverlay = styled.div`
 position: fixed;
 top: 0;
@@ -512,13 +513,23 @@ export const BookTitlePopup = styled.h2`
 font-size: 24px;
 font-weight: bold;
 margin-bottom: 20px;
+text-align: center;
 `;
 
-export const BookDescription = styled.p`
+export const BookDescriptionPopup = styled.p`
 font-size: 16px;
-line-height: 1.5;
+line-height: 2.0;
 flex-grow: 1;
 `;
+
+export const BookAuthorPopup = styled.h4`
+ text-align: right;
+ font-size: 14px;
+`;
+
+export const BookPublisherPopup = styled.p`
+ font-size: 14px;
+`
 
 export const CloseButton = styled.button`
 align-self: flex-end;

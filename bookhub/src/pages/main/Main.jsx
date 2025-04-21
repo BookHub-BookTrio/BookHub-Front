@@ -175,7 +175,9 @@ const fetchTodayBooks = async () => {
           <S.BookCover style={{ backgroundImage: `url(${selectedBook.cover})` }} />
             <S.BookContent>
               <S.BookTitlePopup>{selectedBook.title}</S.BookTitlePopup>
-              <S.BookDescription>{selectedBook.description}</S.BookDescription>
+              <S.BookAuthorPopup>{selectedBook.author}</S.BookAuthorPopup>
+              <S.BookDescriptionPopup>{selectedBook.description}</S.BookDescriptionPopup>
+              <S.BookPublisherPopup>출판사: {selectedBook.publisher}</S.BookPublisherPopup>
               <S.CloseButton onClick={() => setShowPopup(false)}>닫기</S.CloseButton>
             </S.BookContent>
          </S.PopupBox>
@@ -204,6 +206,10 @@ const fetchTodayBooks = async () => {
             title={book.title}
             author={book.author}
             image={book.cover}
+            onClick={() => {
+              setSelectedBook(book);
+              setShowPopup(true);
+            }}
           />
           ))
           ) : (
@@ -227,6 +233,10 @@ const fetchTodayBooks = async () => {
             title={book.title}
             author={book.author}
             image={book.cover}
+            onClick={() => {
+              setSelectedBook(book);
+              setShowPopup(true);
+            }}
           />
           ))
           ) : (
