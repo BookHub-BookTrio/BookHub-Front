@@ -39,10 +39,10 @@ const fetchTodayBooks = async () => {
   const [selectedBook, setSelectedBook] = useState(null); 
   const [showPopup, setShowPopup] = useState(false);
 
- // main - 3 aladin api new 2 get
- const [newPublishedBooks, setNewPublishedBooks ] = useState([]);
- // main - 3 aladin api best 2 get
- const [bestSellerBooks3, setBestSellerBooks] = useState([]);
+  // main - 3 aladin api new 2 get
+  const [newPublishedBooks, setNewPublishedBooks ] = useState([]);
+  // main - 3 aladin api best 2 get
+  const [bestSellerBooks3, setBestSellerBooks] = useState([]);
 
 
   const handleBookClick = (book) => {
@@ -82,13 +82,30 @@ const fetchTodayBooks = async () => {
       { threshold: 0.3 }
     );
 
-    // main_2 책 이미지 감지
-    const observer2 = new IntersectionObserver(
-      ([entry]) => {
-        setIsBookVisible(entry.isIntersecting);
-      },
-      { threshold: 0.3 }
-    );
+    // main_2, 3 감지
+    const targetMap = new Map();
+
+    const handleIntersection = (entries) => {
+      entries.forEach(entry => {
+        targetMap.set(entry.target, entry.isIntersecting);
+      });
+  
+      // 하나라도 보이면 true
+      const isAnyVisible = Array.from(targetMap.values()).some(val => val === true);
+      setIsBookVisible(isAnyVisible);
+    };
+  
+    const observer2 = new IntersectionObserver(handleIntersection, {
+      threshold: 0.3,
+    });
+  
+    const targets = [bookCardRef.current, bestRef.current, newPubRef.current, arrowRef.current];
+    targets.forEach((target) => {
+      if (target) {
+        targetMap.set(target, false);
+        observer2.observe(target);
+      }
+    });
 
     // main_3 newPublished + bestSeller 감지
     const observer3 = new IntersectionObserver(
@@ -139,10 +156,10 @@ const fetchTodayBooks = async () => {
       <S.BlurEffect className="top-left" isVisible={isBookVisible} />
       <S.BlurEffect className="bottom-right" isVisible={isBookVisible} />
 
-      <S.StyledBookCard ref={bookCardRef} isVisible={isBookVisible}>
+      <S.StyledBookCard ref={bookCardRef} isVisible={isVisible}>
         {todayBooks.map((book, idx) => (
         <S.BookWrapper key={idx} onClick={() => handleBookClick(book)}>
-          <S.BookImage src={MainBook_aladin} alt="aladin" isVisible={isBookVisible} />
+          <S.BookImage src={MainBook_aladin} alt="aladin" isVisible={isVisible} />
             {!book.cover && <S.BookName>{book.title}</S.BookName>}
             {book.cover && (
               <S.BookImage_2 src={book.cover} alt="aladin_book" />
