@@ -384,6 +384,7 @@ export const StyledTodayBook_pub = styled.div`
   transform: translateY(-150px);
   opacity: ${(props) => (props.isVisible ? "1" : "0")};
   transition: opacity 0.5s ease-in-out;
+  transition-delay: ${(props) => (props.isVisible ? "0.5s" : "0s")};
   margin-left: 220px;
 
   .pub {
@@ -409,8 +410,8 @@ export const StyledHr = styled.hr`
   border: none;
   border-top: 2px solid #ccc;
   width: 55%;
-  margin-top: 50px;
-  margin-bottom: 570px;
+  margin-top: 60px;
+  margin-bottom: 540px;
   opacity: ${props => (props.isVisible ? 1 : 0)};
   transition: opacity 0.5s ease-in-out;
 `;
@@ -420,7 +421,9 @@ export const BookCardContainer_best = styled.div`
   display: flex;
   margin-left: 300px; 
   margin-top: -720px; 
-  gap: 20px;
+  gap: 30px;
+  opacity: ${(props) => (props.isVisible ? "1" : "0")};
+  transition: opacity 0.5s ease-in-out;
 `;
 
 // new published
@@ -429,7 +432,10 @@ export const BookCardContainer_pub = styled.div`
   margin-left: 628px; 
   margin-top: -560px;  
   margin-bottom: 15px;
-  gap: 20px;
+  gap: 30px;
+  opacity: ${(props) => (props.isVisible ? "1" : "0")};
+  transition: opacity 0.5s ease-in-out;
+  transition-delay: ${(props) => (props.isVisible ? "0.5s" : "0s")};
 `;
 
 
@@ -461,6 +467,7 @@ export const StyledEllipsis_pub = styled(AiOutlineEllipsis)`
   }
 `;
 
+// 팝업
 export const PopupOverlay = styled.div`
 position: fixed;
 top: 0;
@@ -506,13 +513,23 @@ export const BookTitlePopup = styled.h2`
 font-size: 24px;
 font-weight: bold;
 margin-bottom: 20px;
+text-align: center;
 `;
 
-export const BookDescription = styled.p`
+export const BookDescriptionPopup = styled.p`
 font-size: 16px;
-line-height: 1.5;
+line-height: 2.0;
 flex-grow: 1;
 `;
+
+export const BookAuthorPopup = styled.h4`
+ text-align: right;
+ font-size: 14px;
+`;
+
+export const BookPublisherPopup = styled.p`
+ font-size: 14px;
+`
 
 export const CloseButton = styled.button`
 align-self: flex-end;
