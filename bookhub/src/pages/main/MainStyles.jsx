@@ -410,8 +410,8 @@ export const StyledHr = styled.hr`
   border: none;
   border-top: 2px solid #ccc;
   width: 55%;
-  margin-top: 50px;
-  margin-bottom: 570px;
+  margin-top: 60px;
+  margin-bottom: 540px;
   opacity: ${props => (props.isVisible ? 1 : 0)};
   transition: opacity 0.5s ease-in-out;
 `;
@@ -421,7 +421,7 @@ export const BookCardContainer_best = styled.div`
   display: flex;
   margin-left: 300px; 
   margin-top: -720px; 
-  gap: 20px;
+  gap: 30px;
   opacity: ${(props) => (props.isVisible ? "1" : "0")};
   transition: opacity 0.5s ease-in-out;
 `;
@@ -432,7 +432,7 @@ export const BookCardContainer_pub = styled.div`
   margin-left: 628px; 
   margin-top: -560px;  
   margin-bottom: 15px;
-  gap: 20px;
+  gap: 30px;
   opacity: ${(props) => (props.isVisible ? "1" : "0")};
   transition: opacity 0.5s ease-in-out;
   transition-delay: ${(props) => (props.isVisible ? "0.5s" : "0s")};
