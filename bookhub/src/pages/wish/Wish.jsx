@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+// import axios from "axios";
 import styles from "./Wish.module.css";
 
 const Wish = () => {
@@ -20,34 +20,65 @@ const Wish = () => {
 
 
   useEffect(() => {
-    const fetchWishList = async () => {
-      try {
-        const response = await axios.get(
-          `${process.env.REACT_APP_BACKEND_URL}/api/v1/wish`, {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-            },
-          }
-        );
-        setListData(response.data.data);
-      } catch (error) {
-        console.error("위시리스트 가져오기 실패:", error.response?.data || error.message);
-      }
-    };
-    fetchWishList();
+    const mockData = [
+      { bookname: "죽고싶지만 떡볶이는 먹고싶어", author: "박세희", status: "읽기 전", category: "에세이", star: "🙂" },
+      { bookname: "죽고싶지만 떡볶이는 먹고싶어", author: "박세희", status: "읽기 전", category: "에세이", star: "🙂" },
+      { bookname: "죽고싶지만 떡볶이는 먹고싶어", author: "박세희", status: "읽는 중", category: "에세이", star: "🙂" },
+      { bookname: "죽고싶지만 떡볶이는 먹고싶어", author: "박세희", status: "읽는 중", category: "에세이", star: "🙂" },
+      { bookname: "죽고싶지만 떡볶이는 먹고싶어", author: "박세희", status: "읽기 전", category: "에세이", star: "🙂" },
+      { bookname: "채식주의자", author: "한강", status: "완료", category: "소설", star: "😊" },
+      { bookname: "채식주의자", author: "한강", status: "완료", category: "소설", star: "😊" },
+      { bookname: "채식주의자", author: "한강", status: "완료", category: "소설", star: "😊" },
+      { bookname: "죽고싶지만 떡볶이는 먹고싶어", author: "박세희", status: "읽기 전", category: "에세이", star: "🙂" },
+      { bookname: "죽고싶지만 떡볶이는 먹고싶어", author: "박세희", status: "읽는 중", category: "에세이", star: "🙂" },
+      { bookname: "죽고싶지만 떡볶이는 먹고싶어", author: "박세희", status: "읽는 중", category: "에세이", star: "🙂" },
+      { bookname: "죽고싶지만 떡볶이는 먹고싶어", author: "박세희", status: "읽기 전", category: "에세이", star: "🙂" },
+      { bookname: "죽고싶지만 떡볶이는 먹고싶어", author: "박세희", status: "읽는 중", category: "에세이", star: "🙂" },
+      { bookname: "채식주의자", author: "한강", status: "완료", category: "소설", star: "😊" },
+      { bookname: "채식주의자", author: "한강", status: "읽기 전", category: "소설", star: "😊" },
+      { bookname: "채식주의자", author: "한강", status: "완료", category: "소설", star: "😊" },
+    ];
+
+    setListData(mockData);
+    // const fetchWishList = async () => {
+    //   try {
+    //     const response = await axios.get(
+    //       `${process.env.REACT_APP_BACKEND_URL}/api/v1/wish`, {
+    //         headers: {
+    //           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+    //         },
+    //       }
+    //     );
+    //     setListData(response.data.data);
+    //   } catch (error) {
+    //     console.error("위시리스트 가져오기 실패:", error.response?.data || error.message);
+    //   }
+    // };
+    // fetchWishList();
   }, []);
 
-  const handelPageChange = (page) => {
-    setCurrentPage(page);
+  const handlePrev = () => {
+    if (currentPage > 1) setCurrentPage((prev) => prev -1);
+  };
+
+  const handleNext = () => {
+    if (currentPage < totalPages) setCurrentPage((prev) => prev + 1);
   };
 
   return (
     <div className={styles.background}>
       <div className={styles.container}>
-        <h2 className={styles.title}>Book Wish List</h2>
-        <div className={styles.searchArea}>
-          <input type="text" placeholder="책 제목 검색" value={search} onChange={(e) => setSearch(e.target.value)} />
-          <button className={styles.searchButton}>SEARCH</button>
+        <div className={styles.headerArea}>
+          <h2 className={styles.title}>Book<br />Wish List</h2>
+          <div className={styles.searchArea}>
+            <input
+              type="text"
+              placeholder="책 제목 검색"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+            <button className={styles.searchButton}>SEARCH</button>
+          </div>
         </div>
 
         <table className={styles.table}>
@@ -67,40 +98,25 @@ const Wish = () => {
               <tr key={index}>
                 <td>{item.bookname}</td>
                 <td>{item.author}</td>
-                <td>
-                  <button className={styles.statusButton}>{item.status}</button>
-                </td>
+                <td><button className={styles.statusButton}>{item.status}</button></td>
                 <td>{item.category}</td>
                 <td>{item.star}</td>
-                <td>
-                  <button className={styles.editButton}>✎</button>
-                </td>
+                <td><button className={styles.editButton}>✎</button></td>
               </tr>
             ))}
-
+            
             {emptyRows.map((_, idx) => (
-              <tr key={`empty-${idx}`}>
-                <td>&nbsp;</td>
-                <td></td>
-                <td><button className={styles.statusButton}></button></td>
-                <td></td>
-                <td></td>
-                <td><button className={styles.editButton}></button></td>
+              <tr kdy={`empty-${idx}`}>
+                <td>&nbsp;</td><td></td><td></td><td></td><td></td><td></td>
               </tr>
             ))}
           </tbody>
         </table>
 
         <div className={styles.pagination}>
-          {Array.from({ length: totalPages }, (_, i) => (
-            <button
-            key={i}
-            className={currentPage === i + 1 ? styles.active : ""}
-            onClick={() => handelPageChange(i + 1)}
-            >
-              {i + 1}
-            </button>
-          ))}
+          <button onClick={handlePrev} disabled={currentPage === 1}>&lt;</button>
+          <span>&nbsp;&nbsp; {currentPage} &nbsp;&nbsp;</span>
+          <button onClick={handleNext} disabled={currentPage === totalPages}>&gt;</button>
         </div>
 
         <button className={styles.createButton}>CREATE</button>

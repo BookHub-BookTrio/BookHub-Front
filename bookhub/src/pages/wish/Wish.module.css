@@ -14,31 +14,44 @@
 .container {
   position: fixed;
   margin: 0 auto;
-  padding: 100px 50px 50px;
+  padding-top: 100px;
   align-items: center;
+  min-width: 1000px;
+}
+
+.headerArea {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-top: 50px;
+  margin-bottom: 20px;
 }
 
 .title {
   font-family: "Slackey-Regular", Helvetica;
+  margin: 0px 80px 20px 0px;
 }
 
 .searchArea {
   display: flex;
   justify-content: center;
-  gap: 8px;
+  gap: 10px;
   margin-bottom: 20px;
 }
 
 .searchArea input {
   flex: 1;
-  max-width: 500px;
-  padding: 10px;
+  min-width: 800px;
+  max-width: 1000px;
+  padding: 10px 12px;
   border-radius: 20px;
   border: 1px solid #ccc;
 }
 
-.searchArea button {
+.searchButton {
   padding: 10px 20px;
+  margin-left: 20px;
   border-radius: 20px;
   background-color: black;
   color: white;
@@ -48,21 +61,45 @@
 }
 
 .table {
-  width: 100%;
+  width: 85%;
   border-collapse: collapse;
-  margin-top: 20px;
+  align-items: center;
+  margin: 0 auto;
 }
 
-.table th, .table td {
-  padding: 12px;
+.table th {
+  padding: 8px;
   border-bottom: 1px solid #ddd;
+  text-align: left;
+  align-items: center;
+}
+
+.table td {
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+  align-items: center;
+}
+/* 테이블 양 옆 줄 없앰  */
+table th:first-child,
+table td:first-child {
+	border-left: 0;
+}
+table th:last-child,
+table td:last-child {
+	border-right: 0;
 }
 
 .statusButton {
-  background-color: #eef0e8;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 12px;
+  padding: 8px 15px;
+  background-color: transparent;
+  box-sizing: border-box;
+  border: 0;
+  border-radius: 50px;
+  box-shadow: 0px -3px 3px #ffffff, 0px 3px 3px #cccccc;
+  
+  min-width: 80px;
 }
 
 .editButton {
@@ -73,7 +110,10 @@
 }
 
 .pagination {
-  margin: 30px 0;
+  margin: 50px 0 0 0;
+  text-align: center;
+  justify-content: center;
+  gap: 10px;
 }
 
 .pagination button {
@@ -89,6 +129,11 @@
   text-decoration: underline;
 }
 
+.pagination button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
 .createButton {
   background: black;
   color: white;
@@ -99,4 +144,8 @@
   margin-top: 30px;
   font-family: "Slackey-Regular", Helvetica;
   font-size: 16px;
+  position: relative;
+
+  display: block;
+  margin: 0 50px 50px auto;
 }
