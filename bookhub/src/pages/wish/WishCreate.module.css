@@ -1,0 +1,171 @@
+.background {
+	background: radial-gradient(80% 60% at 50% 100%, #DFDDBD99 0%, #F7E8BDCC 60%, #ffffff 100%);
+	background-attachment: fixed;
+
+	width: 100%;
+	min-height: 100vh;
+	display: flex;
+	justify-content: center;
+	position: fixed;
+	overflow: hidden;
+	transform: translateX(-8px);
+}
+
+.container {
+	position: fixed;
+	margin: 0 auto;
+	padding-top: 140px;
+	align-items: center;
+	min-width: 1000px;
+}
+
+.titleArea {
+	display: flex;
+	align-items: center;
+	margin-bottom: 30px;
+	gap: 20px;
+}
+
+.titleLabel {
+	background: black;
+	color: white;
+	padding: 10px 30px;
+	border-radius: 20px;
+	font-weight: bold;
+	width: 50px;
+}
+
+.titleInput {
+	flex: 1;
+	padding: 12px 20px;
+	border-radius: 999px;
+	border: 1px solid #ccc;
+	font-size: 16px;
+	text-align: center;
+}
+
+.infoTable {
+	width: 100%;
+	border-collapse: collapse;
+	margin-bottom: 30px;
+}
+
+.infoTable th,
+.infoTable td {
+	border: 1px solid #ddd;
+	padding: 12px;
+	text-align: left;
+}
+
+.infoTable th {
+	width: 150px;
+}
+
+.authorInput {
+	width: 100%;
+	padding: 8px 10px;
+	background: transparent;
+	border: none;
+	font-size: 16px;
+	outline: none;
+}
+
+.statusButton {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 8px 16px;
+	border: 1px solid #4e594b;
+	border-radius: 999px;
+	background: white;
+	cursor: pointer;
+}
+
+.statusDot {
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	background: #4e594b;
+}
+
+.categoryArea {
+	position: relative;
+}
+
+.categoryButton {
+	padding: 8px 20px;
+	border: none;
+	background: none;
+	font-size: 16px;
+	cursor: pointer;
+}
+
+.categoryOptions {
+	position: absolute;
+	top: 40px;
+	left: 0;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	background: white;
+	padding: 8px;
+	border: 1px solid #ccc;
+	border-radius: 10px;
+	z-index: 10;
+}
+
+.satisfactionArea {
+	position: relative;
+}
+
+.satisfactionButton {
+	padding: 8px 20px;
+	border: none;
+	background: none;
+	font-size: 20px;
+	cursor: pointer;
+}
+
+.satisfactionOptions {
+	position: absolute;
+	top: 40px;
+	left: 0;
+	display: flex;
+	gap: 10px;
+	background: white;
+	padding: 8px;
+	border: 1px solid #ccc;
+	border-radius: 10px;
+	z-index: 10;
+}
+
+.reviewArea {
+	margin-top: 20px;
+}
+
+.textarea {
+	width: 100%;
+	height: 200px;
+	padding: 12px;
+	border-radius: 10px;
+	border: 1px solid #ccc;
+	resize: none;
+}
+
+.buttonGroup {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 30px;
+}
+
+.backButton,
+.doneButton {
+	background: black;
+	color: white;
+	padding: 10px 30px;
+	border-radius: 20px;
+	border: none;
+	cursor: pointer;
+	font-family: "Slackey-Regular", Helvetica;
+	font-size: 16px;
+}
