@@ -70,7 +70,7 @@
 	outline: none;
 }
 
-.statusButton {
+.progressButton {
 	display: flex;
 	align-items: center;
 	gap: 8px;
@@ -81,7 +81,7 @@
 	cursor: pointer;
 }
 
-.statusDot {
+.progressDot {
 	width: 10px;
 	height: 10px;
 	border-radius: 50%;
@@ -102,23 +102,22 @@
 
 .categoryOptions {
 	position: absolute;
-	top: 40px;
-	left: 0;
+	top: 0;
+	left: 100px;
 	display: flex;
-	flex-wrap: wrap;
+	flex-direction: row;
 	gap: 10px;
-	background: white;
 	padding: 8px;
 	border: 1px solid #ccc;
 	border-radius: 10px;
 	z-index: 10;
 }
 
-.satisfactionArea {
+.starArea {
 	position: relative;
 }
 
-.satisfactionButton {
+.starButton {
 	padding: 8px 20px;
 	border: none;
 	background: none;
@@ -126,20 +125,20 @@
 	cursor: pointer;
 }
 
-.satisfactionOptions {
+.starOptions {
 	position: absolute;
-	top: 40px;
-	left: 0;
+	top: 0;
+	left: 100px;
 	display: flex;
+	flex-direction: row;
 	gap: 10px;
-	background: white;
 	padding: 8px;
 	border: 1px solid #ccc;
 	border-radius: 10px;
 	z-index: 10;
 }
 
-.reviewArea {
+.contentArea {
 	margin-top: 20px;
 }
 

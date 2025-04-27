@@ -1,13 +1,57 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "./WishCreate.module.css";
 
 const WishCreate = () => {
-  const [title, setTitle] = useState("");
+  const navigate = useNavigate();
+
+  const [bookname, setBookname] = useState("");
   const [author, setAuthor] = useState("");
-  const [status, setStatus] = useState("");
+  const [progress, setProgress] = useState("읽기 전");
   const [category, setCategory] = useState("");
-  const [satisfaction, setSatisfaction] = useState("");
-  const [review, setReview] = useState("");
+  const [star, setStar] = useState("🫥");
+  const [content, setContent] = useState("");
+  const [showStarOptions, setShowStarOptions] = useState(false);
+  const [showCategoryOptions, setShowCategoryOptions] = useState(false);
+
+  const progressOptions = ["읽기 전", "읽는 중", "완료"];
+
+  const categoryDisplay = {
+    ESSAY: "에세이",
+    NOVEL: "소설",
+    SELF_HELP: "자기개발",
+    POETRY: "시",
+    TECHNOLOGY: "기술/IT",
+    ETC: "기타",
+  };
+
+  const handleProgressClick = () => {
+    const currentIndex = progressOptions.indexOf(progress);
+    const nextProgress = progressOptions[(currentIndex + 1) % progressOptions.length];
+    setProgress(nextProgress);
+  };
+
+  const handleStarClick = (value) => {
+    setStar(value);
+    setShowStarOptions(false);
+  };
+
+  const handleCategoryClick = (selected) => {
+    setCategory(selected);
+    setShowCategoryOptions(false);
+  };
+
+  const handleDone = () => {
+    console.log({
+      bookname,
+      author,
+      progress,
+      category,
+      star,
+      content,
+    });
+    navigate("/wish");
+  };
 
   return (
     <div className={styles.background}>
@@ -17,8 +61,8 @@ const WishCreate = () => {
           <input
             type="text"
             className={styles.titleInput}
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            value={bookname}
+            onChange={(e) => setBookname(e.target.value)}
             placeholder="도서명을 입력하세요"
           />
         </div>
@@ -40,43 +84,68 @@ const WishCreate = () => {
             <tr>
               <th>진행상황</th>
               <td>
-                <button className={styles.statusButton} onClick={() => setStatus(status)}>
-                  <span className={styles.statusDot}></span>
-                  {status ? status : "진행상황 선택"}
+                <button className={styles.progressButton} onClick={handleProgressClick}>
+                  <span className={styles.progressDot}></span> {progress}
                 </button>
               </td>
             </tr>
             <tr>
               <th>카테고리</th>
               <td>
-                <button className={styles.categoryButton} onclick={() => setCategory(category)}>
-                  {category ? category : "카테고리 선택"}
-                </button>
+                <div className={styles.categoryArea}>
+                  <button
+                    className={styles.categoryButton}
+                    onClick={() => setShowCategoryOptions((prev) => !prev)}
+                  >
+                    {categoryDisplay[category] || "카테고리"}
+                  </button>
+                  {showCategoryOptions && (
+                    <div className={styles.categoryOptions}>
+                      {Object.keys(categoryDisplay).map((key) => (
+                        <button key={key} onClick={() => handleCategoryClick(key)}>
+                          {categoryDisplay[key]}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </td>
             </tr>
             <tr>
               <th>만족도</th>
               <td>
-                <button className={styles.satisfactionButton} onclick={() => setSatisfaction(satisfaction)}>
-                  {satisfaction ? satisfaction : "😐"}
-                </button>
+                <div className={styles.starArea}>
+                  <button
+                    className={styles.starButton}
+                    onClick={() => setShowStarOptions((prev) => !prev)}
+                  >
+                    {star}
+                  </button>
+                  {showStarOptions && (
+                    <div className={styles.starOptions}>
+                      <button onClick={() => handleStarClick("😊")}>😊</button>
+                      <button onClick={() => handleStarClick("😐")}>😐</button>
+                      <button onClick={() => handleStarClick("😞")}>😞</button>
+                    </div>
+                  )}
+                </div>
               </td>
             </tr>
           </tbody>
         </table>
 
-        <div className={styles.reviewArea}>
+        <div className={styles.contentArea}>
           <textarea
             className={styles.textarea}
-            value={review}
-            onChange={(e) => setReview(e.target.value)}
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
             placeholder="감상을 입력하세요"
           />
         </div>
 
         <div className={styles.buttonGroup}>
-          <button className={styles.backButton}>BACK</button>
-          <button className={styles.doneButton}>DONE</button>
+          <button className={styles.backButton} onClick={() => navigate(-1)}>BACK</button>
+          <button className={styles.doneButton} onClick={handleDone}>DONE</button>
         </div>
       </div>
     </div>
