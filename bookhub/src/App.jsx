@@ -10,6 +10,7 @@ import Main from "./pages/main/Main.jsx";
 import Wish from "./pages/wish/Wish.jsx";
 import Layout from "./component/layout/Layout.jsx"
 import GlobalStyle from "./component/layout/GlobalStyle.jsx";
+import Community from "./pages/community/Community.jsx";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
       {/* header O */}
         <Route element={<Layout />}>
           <Route path="/" element={<Main />} />
+          <Route path="/community" element={<Community />} />
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/mypage-edit" element={<MyPageEdit />} />
           <Route path="/test" element={<Test />} />
