@@ -18,8 +18,8 @@ export const CommunityContainer = styled.div`
     margin-left: 240px;
     margin-top: 10px;
     align-items: left;
-        position: fixed;  /* 고정 위치 */
-    top: 150px;        /* 상단 10px */
+    position: fixed; 
+    top: 150px;        
   }
   background-image: url(${GradientBg});
   background-repeat: no-repeat;
@@ -33,7 +33,7 @@ export const CommunityArticle = styled.div`
   margin: 0 auto; 
   width: 900px;
   position: relative;
-  top: 15px;
+  top: 10px;
   background-color: white;
   border-bottom: 1.3px solid rgb(40, 36, 36);
   padding: 1.2rem 2rem;
@@ -56,9 +56,12 @@ export const CommunityTitle = styled.div`
 export const CommunityDate = styled.div`
   background-color: black;
   color: white;
-  padding: 0.4rem 0.8rem;
+  padding: 0.4rem 1.2rem;
   border-radius: 20px;
   font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  font-family: "Pretendard-Medium", Helvetica;
 `;
 
 export const CommunityArrow = styled.img`
@@ -68,11 +71,11 @@ export const CommunityArrow = styled.img`
 
 export const Rectangle = styled.div`
   position: absolute;
-  top: 320px;
+  top: 322px;
   left: 300px;
   width: 960px;
-  height: 430px;
-  background-color: #d9d9d9;
+  height: 420px;
+  background-color:rgb(226, 226, 226);
   border-radius: 4px;
   opacity: 0.5;
   z-index: -1;

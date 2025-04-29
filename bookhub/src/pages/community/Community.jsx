@@ -1,22 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import * as S from "./CommunityStyles.jsx";
 import CommunityArrow from "../../component/image/CommunityArrow.png";
 import Pagination from "../../component/button/Pagination.jsx";
-
-const dummyData = [
-  { id: 1, title: "커뮤니티 제목", date: "2025.03.15" },
-  { id: 2, title: "커뮤니티 제목", date: "2025.03.15" },
-  { id: 3, title: "커뮤니티 제목", date: "2025.03.15" },
-  { id: 4, title: "커뮤니티 제목", date: "2025.03.15" },
-  { id: 5, title: "커뮤니티 제목", date: "2025.03.15" },
-  { id: 6, title: "커뮤니티 제목", date: "2025.03.15" },
-  { id: 7, title: "커뮤니티 제목", date: "2025.03.15" },
-];
+import axios from "axios";
 
 export const Community = () => {
+  const [communityData, setCommunityData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
-  const totalPages = Math.ceil(dummyData.length / itemsPerPage);
+  const totalPages = Math.ceil(communityData.length / itemsPerPage);
 
   const handleCommunityPrev = () => {
     setCurrentPage((prev) => (prev === 1 ? totalPages : prev - 1));
@@ -26,10 +18,23 @@ export const Community = () => {
     setCurrentPage((prev) => (prev === totalPages ? 1 : prev + 1));
   };
 
-  const currentItems = dummyData.slice(
+  const currentItems = communityData.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
+
+  useEffect(() => {
+    const fetchCommunityData = async () => {
+      try {
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/community`); 
+        setCommunityData(response.data.data);
+      } catch (error) {
+        console.error("커뮤니티 데이터를 불러오는 데 실패했습니다:", error);
+      }
+    };
+
+    fetchCommunityData();
+  }, []);
 
   return (
     <S.CommunityContainer>
@@ -45,7 +50,9 @@ export const Community = () => {
           {currentItems[index] ? (
             <>
               <S.CommunityTitle>{currentItems[index].title}</S.CommunityTitle>
-              <S.CommunityDate>{currentItems[index].date}</S.CommunityDate>
+              <S.CommunityDate>
+                {currentItems[index].createdat.substring(0, 10).replace(/-/g, '.')}
+              </S.CommunityDate>
               <S.CommunityArrow src={CommunityArrow} alt="arrow" />
             </>
           ) : (
