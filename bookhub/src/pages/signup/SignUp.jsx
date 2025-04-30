@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "../../assets/font.css";
 import { TextFrame, StyledInput, SignupButton, LabelContainer, LabelText, ErrorMessage } from "./SignupStyles.jsx"; 
 import Modal from "../../component/modal/Modal.jsx";
+import Wrapper from "../../component/layout/Wrapper.jsx";
 
 export const Signup = () => {
     const navigate = useNavigate();
@@ -85,6 +86,7 @@ export const Signup = () => {
     
 
     return (
+        <Wrapper>
         <div className="Home">
             <div className="overlap2">
                 <div className="text-wrapper-signup">BookHub</div>
@@ -166,6 +168,7 @@ export const Signup = () => {
                 />
             )}
         </div>
+        </Wrapper>
     );
 };
 
