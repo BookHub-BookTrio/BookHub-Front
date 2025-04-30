@@ -6,6 +6,7 @@ import "../home/Home.css";
 import "../../assets/font.css";
 import { TextFrame, StyledInput, LoginButton } from "./LoginStyles.jsx"; 
 import Modal from "../../component/modal/Modal.jsx";
+import Wrapper from "../../component/layout/Wrapper.jsx";
 
 export const Login = () => {
     const navigate = useNavigate();
@@ -53,6 +54,7 @@ export const Login = () => {
     };
 
     return (
+        <Wrapper>
         <div className="Home">
             <div className="overlap">
                 <img className="image_logo" alt="로고_책만" src={Logo_book} />
@@ -96,6 +98,7 @@ export const Login = () => {
                 />
             )}
         </div>
+        </Wrapper>
     );
 };
 

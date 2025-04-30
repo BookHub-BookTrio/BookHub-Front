@@ -4,6 +4,7 @@ import kakaoLogin from "../../component/image/kakaoLogin.png";
 import Logo_book from "../../component/image/Logo_book.png";
 import "./Home.css";
 import "../../assets/font.css";
+import Wrapper from "../../component/layout/Wrapper.jsx";
 
 export const Home = () => {
 
@@ -18,6 +19,7 @@ export const Home = () => {
     };
 
     return (
+        <Wrapper>
         <div className="Home">
             <div className="overlap">
                 <img className="image_logo" alt="로고_책만" src={Logo_book} />
@@ -48,6 +50,7 @@ export const Home = () => {
             </div>
             
         </div>
+        </Wrapper>
     );
 };
 
