@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import styles from "./WishCreate.module.css";
 
 const WishCreate = () => {
@@ -24,6 +25,19 @@ const WishCreate = () => {
     TECHNOLOGY: "기술/IT",
     ETC: "기타",
   };
+  
+  const progressMap = {
+    "읽기 전": "UNREAD",
+    "읽는 중": "READING",
+    "완료": "FINISHED",
+  };
+
+  const starMap = {
+    "😊": "good",
+    "😐": "normal",
+    "😞": "bad",
+    "🫥": null,
+  };
 
   const handleProgressClick = () => {
     const currentIndex = progressOptions.indexOf(progress);
@@ -41,16 +55,30 @@ const WishCreate = () => {
     setShowCategoryOptions(false);
   };
 
-  const handleDone = () => {
-    console.log({
-      bookname,
-      author,
-      progress,
-      category,
-      star,
-      content,
-    });
-    navigate("/wish");
+  const handleCreate = async () => {
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/api/v1/wish`,
+        {
+          bookname,
+          author,
+          progress: progressMap[progress],
+          category,
+          star: starMap[star],
+          content,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      );
+      console.log("등록 성공:", response.data);
+      navigate("/wish");
+    } catch (error) {
+      console.error("등록 실패:", error.response?.data || error.message);
+      alert("등록에 실패했습니다.");
+    }
   };
 
   return (
@@ -145,7 +173,7 @@ const WishCreate = () => {
 
         <div className={styles.buttonGroup}>
           <button className={styles.backButton} onClick={() => navigate(-1)}>BACK</button>
-          <button className={styles.doneButton} onClick={handleDone}>DONE</button>
+          <button className={styles.createButton} onClick={handleCreate}>CREATE</button>
         </div>
       </div>
     </div>

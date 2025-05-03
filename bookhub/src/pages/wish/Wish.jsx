@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 // import axios from "axios";
 import styles from "./Wish.module.css";
 
@@ -6,6 +7,7 @@ const Wish = () => {
   const [listData, setListData] = useState([]);
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const navigate = useNavigate();
 
   const itemsPerPage = 7;
 
@@ -158,7 +160,7 @@ const Wish = () => {
           </button>
         </div>
 
-        <button className={styles.createButton}>CREATE</button>
+        <button className={styles.createButton} onClick={() => navigate("/wish-create")}>CREATE</button>
       </div>
     </div>
   );
