@@ -108,12 +108,12 @@ const Wish = () => {
         <table className={styles.table}>
           <thead>
             <tr>
-              <th>독서 목록</th>
-              <th>작가명</th>
-              <th>진행상황</th>
-              <th>카테고리</th>
-              <th>만족도</th>
-              <th></th>
+              <th className={styles.titleCol}>독서 목록</th>
+              <th className={styles.authorCol}>작가명</th>
+              <th className={styles.statusCol}>진행상황</th>
+              <th className={styles.categoryCol}>카테고리</th>
+              <th className={styles.starCol}>만족도</th>
+              <th className={styles.actionCol}></th>
             </tr>
           </thead>
 
