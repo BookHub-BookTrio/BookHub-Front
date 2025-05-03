@@ -5,6 +5,7 @@ import Pagination from "../../component/button/Pagination.jsx";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+// 커뮤니티 전체 조회 
 export const Community = () => {
   const [communityData, setCommunityData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
