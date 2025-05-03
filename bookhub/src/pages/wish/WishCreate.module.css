@@ -52,6 +52,7 @@
 
 .infoTable th,
 .infoTable td {
+	position: relative;
 	border: 1px solid #ddd;
 	padding: 12px;
 	text-align: left;
@@ -88,54 +89,30 @@
 	background: #4e594b;
 }
 
-.categoryArea {
+.categoryArea,
+.starArea {
 	position: relative;
+	height: 30px;
 }
 
-.categoryButton {
-	padding: 8px 20px;
+.categoryButton,
+.starButton {
 	border: none;
 	background: none;
 	font-size: 16px;
 	cursor: pointer;
 }
 
-.categoryOptions {
-	position: absolute;
-	top: 0;
-	left: 100px;
-	display: flex;
-	flex-direction: row;
-	gap: 10px;
-	padding: 8px;
-	border: 1px solid #ccc;
-	border-radius: 10px;
-	z-index: 10;
-}
-
-.starArea {
-	position: relative;
-}
-
-.starButton {
-	padding: 8px 20px;
-	border: none;
-	background: none;
-	font-size: 20px;
-	cursor: pointer;
-}
-
+.categoryOptions,
 .starOptions {
 	position: absolute;
-	top: 0;
-	left: 100px;
+	top: 0px;
+	left: 5px;
 	display: flex;
-	flex-direction: row;
+	flex-wrap: wrap;
 	gap: 10px;
-	padding: 8px;
-	border: 1px solid #ccc;
-	border-radius: 10px;
-	z-index: 10;
+	border: none;
+	padding: 5px;
 }
 
 .contentArea {

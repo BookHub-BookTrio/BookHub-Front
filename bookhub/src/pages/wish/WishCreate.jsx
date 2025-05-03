@@ -12,8 +12,8 @@ const WishCreate = () => {
   const [category, setCategory] = useState("");
   const [star, setStar] = useState("🫥");
   const [content, setContent] = useState("");
-  const [showStarOptions, setShowStarOptions] = useState(false);
-  const [showCategoryOptions, setShowCategoryOptions] = useState(false);
+  const [showStarOptions, setShowStarOptions] = useState(true);
+  const [showCategoryOptions, setShowCategoryOptions] = useState(true);
 
   const progressOptions = ["읽기 전", "읽는 중", "완료"];
 
@@ -25,7 +25,7 @@ const WishCreate = () => {
     TECHNOLOGY: "기술/IT",
     ETC: "기타",
   };
-  
+
   const progressMap = {
     "읽기 전": "UNREAD",
     "읽는 중": "READING",
@@ -121,13 +121,7 @@ const WishCreate = () => {
               <th>카테고리</th>
               <td>
                 <div className={styles.categoryArea}>
-                  <button
-                    className={styles.categoryButton}
-                    onClick={() => setShowCategoryOptions((prev) => !prev)}
-                  >
-                    {categoryDisplay[category] || "카테고리"}
-                  </button>
-                  {showCategoryOptions && (
+                  {showCategoryOptions ? (
                     <div className={styles.categoryOptions}>
                       {Object.keys(categoryDisplay).map((key) => (
                         <button key={key} onClick={() => handleCategoryClick(key)}>
@@ -135,6 +129,13 @@ const WishCreate = () => {
                         </button>
                       ))}
                     </div>
+                  ) : (
+                    <button
+                      className={styles.categoryButton}
+                      onClick={() => setShowCategoryOptions(true)}
+                    >
+                      {categoryDisplay[category] || "카테고리"}
+                    </button>
                   )}
                 </div>
               </td>
@@ -143,18 +144,19 @@ const WishCreate = () => {
               <th>만족도</th>
               <td>
                 <div className={styles.starArea}>
-                  <button
-                    className={styles.starButton}
-                    onClick={() => setShowStarOptions((prev) => !prev)}
-                  >
-                    {star}
-                  </button>
-                  {showStarOptions && (
+                  {showStarOptions ? (
                     <div className={styles.starOptions}>
                       <button onClick={() => handleStarClick("😊")}>😊</button>
                       <button onClick={() => handleStarClick("😐")}>😐</button>
                       <button onClick={() => handleStarClick("😞")}>😞</button>
                     </div>
+                  ) : (
+                    <button
+                      className={styles.starButton}
+                      onClick={() => setShowStarOptions(true)}
+                    >
+                      {star}
+                    </button>
                   )}
                 </div>
               </td>
