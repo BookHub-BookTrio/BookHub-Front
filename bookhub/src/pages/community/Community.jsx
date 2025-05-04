@@ -4,6 +4,7 @@ import CommunityArrow from "../../component/image/CommunityArrow.png";
 import Pagination from "../../component/button/Pagination.jsx";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import FooterButton from "../../component/button/FooterButton.jsx";
 
 // 커뮤니티 전체 조회 
 export const Community = () => {
@@ -21,6 +22,9 @@ export const Community = () => {
     setCurrentPage((prev) => (prev === totalPages ? 1 : prev + 1));
   };
 
+  const handleClick = () => {
+      navigate("/community/write");
+  }
   const currentItems = communityData.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
@@ -40,6 +44,7 @@ export const Community = () => {
   }, []);
 
   return (
+    <>
     <S.CommunityContainer>
       <p>Community</p>
       <S.Rectangle />
@@ -80,6 +85,8 @@ export const Community = () => {
         onNext={handleCommunityNext}
       />
     </S.CommunityContainer>
+    <FooterButton status="allpost" onClickCreate={handleClick}/>
+    </>
   );
 };
 

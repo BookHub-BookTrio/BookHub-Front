@@ -19,7 +19,7 @@ export const CommunityContainer = styled.div`
     margin-top: 10px;
     align-items: left;
     position: fixed; 
-    top: 150px;        
+    top: 140px;        
   }
   background-image: url(${GradientBg});
   background-repeat: no-repeat;
@@ -28,12 +28,13 @@ export const CommunityContainer = styled.div`
 
 export const CommunityArticle = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: 20%;
   align-items: center;
   margin: 0 auto; 
   width: 900px;
+  top: -15px;
   position: relative;
-  top: 10px;
   background-color: white;
   border-bottom: 1.3px solid rgb(40, 36, 36);
   padding: 1.2rem 2rem;
@@ -51,6 +52,11 @@ export const CommunityArticle = styled.div`
 export const CommunityTitle = styled.div`
   font-weight: bold;
   font-size: 1rem;
+  width: 220px;
+  white-space: nowrap;    
+  text-overflow: ellipsis;
+  overflow: hidden;
+  box-sizing: border-box;
 `;
 
 export const CommunityDate = styled.div`
@@ -62,6 +68,7 @@ export const CommunityDate = styled.div`
   font-weight: 700;
   letter-spacing: 1px;
   font-family: "Pretendard-Medium", Helvetica;
+  margin-right: 150px;
 `;
 
 export const CommunityArrow = styled.img`
@@ -71,10 +78,10 @@ export const CommunityArrow = styled.img`
 
 export const Rectangle = styled.div`
   position: absolute;
-  top: 322px;
-  left: 300px;
+  top: 298px;
+  left: 305px;
   width: 960px;
-  height: 420px;
+  height: 400px;
   background-color:rgb(226, 226, 226);
   border-radius: 4px;
   opacity: 0.5;

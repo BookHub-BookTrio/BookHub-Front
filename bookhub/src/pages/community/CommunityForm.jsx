@@ -5,15 +5,21 @@ import * as Sd from "./CommunityStyles.jsx";
 import ProfileImage from "../../component/image/Profile.png";
 import { FiBookmark } from "react-icons/fi";
 
-// 커뮤니티 공통 페이지
-const CommunityForm = ({ mode }) => {
+const CommunityForm = ({ 
+  mode,
+  title,
+  content,
+  onChangeTitle,
+  onChangeContent
+}) => {
   const isReadOnly = mode === "read";
-
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const [nickname, setNickname] = useState("별명"); 
-  const [createdat] = useState(new Date().toISOString());
-
+  const [nickname, setNickname] = useState("별명");
+  const createdat = new Date().toLocaleDateString("ko-KR", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit"
+  }).replace(/\.$/, ""); 
+  
   useEffect(() => {
     const fetchNickname = async () => {
       try {
@@ -44,12 +50,11 @@ const CommunityForm = ({ mode }) => {
               <S.CommunityTitleInput
                 placeholder="제목을 입력하세요"
                 value={title}
-                onChange={(e) => setTitle(e.target.value)}
+                onChange={onChangeTitle}
               />
             )}
-
             <S.CommunityDateBadge>
-              {createdat?.substring(0, 10).replace(/-/g, ".")}
+              {createdat}
             </S.CommunityDateBadge>
           </S.TitleRow>
 
@@ -61,7 +66,7 @@ const CommunityForm = ({ mode }) => {
             <S.CommunityContentInput
               placeholder="내용을 입력하세요"
               value={content}
-              onChange={(e) => setContent(e.target.value)}
+              onChange={onChangeContent}
             />
           )}
 
