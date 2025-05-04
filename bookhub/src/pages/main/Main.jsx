@@ -42,14 +42,35 @@ const fetchTodayBooks = async () => {
   // main - 3 aladin api new 2 get
   const [newPublishedBooks, setNewPublishedBooks ] = useState([]);
   // main - 3 aladin api best 2 get
-  const [bestSellerBooks3, setBestSellerBooks] = useState([]);
-
+  const [bestSellerBooks, setBestSellerBooks] = useState([]);
+  const [bestIndex, setBestIndex] = useState(0);
+  const [newPubIndex, setNewPubIndex] = useState(0);
+  
+ // ellipsis 연동 
+ const bestPageCount = Math.ceil(bestSellerBooks.length / 3);
+ const newPubPageCount = Math.ceil(newPublishedBooks.length / 3);
 
   const handleBookClick = (book) => {
     setSelectedBook(book);
     setShowPopup(true);
   };
 
+  const handleBestPrev = () => {
+    setBestIndex((prev) => (prev - 1 + Math.ceil(bestSellerBooks.length / 3)) % Math.ceil(bestSellerBooks.length / 3));
+  };
+  
+  const handleBestNext = () => {
+    setBestIndex((prev) => (prev + 1) % Math.ceil(bestSellerBooks.length / 3));
+  };
+  
+  const handleNewPrev = () => {
+    setNewPubIndex((prev) => (prev - 1 + Math.ceil(newPublishedBooks.length / 3)) % Math.ceil(newPublishedBooks.length / 3));
+  };
+  
+  const handleNewNext = () => {
+    setNewPubIndex((prev) => (prev + 1) % Math.ceil(newPublishedBooks.length / 3));
+  };
+  
   const fetchNewPublishedBooks = async () => {
     try {
       const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/book/new`);
@@ -199,8 +220,11 @@ const fetchTodayBooks = async () => {
         </S.StyledTodayBook_pub>
 
         <S.BookCardContainer_best isVisible={isExtraVisible}>
-          {(bestSellerBooks3 && bestSellerBooks3.length > 0) ? (
-            bestSellerBooks3.map((book, idx) => (
+          <S.NavButton onClick={handleBestPrev}>&lt;</S.NavButton>
+          {(bestSellerBooks && bestSellerBooks.length > 0) ? (
+            bestSellerBooks
+            .slice(bestIndex * 3, bestIndex * 3 + 3)
+            .map((book, idx) => (
           <BookCard
             key={idx}
             title={book.title}
@@ -219,15 +243,23 @@ const fetchTodayBooks = async () => {
             <BookCard title="title" author="작가" image="/default-cover.png" />
             <BookCard title="title" author="작가" image="/default-cover.png" />
           </>
-          )}
+          )}      
+          <S.NavButton onClick={handleBestNext}>&gt;</S.NavButton>
         </S.BookCardContainer_best>
-        <S.StyledEllipsis />
+        <S.StyledEllipsis_best>
+          {Array.from({ length: bestPageCount }, (_, idx) => (
+          <S.Dot key={idx} active={idx === bestIndex} />
+          ))}
+        </S.StyledEllipsis_best>
 
         <S.StyledHr />
 
         <S.BookCardContainer_pub isVisible={isExtraVisible}>
+        <S.NavButton onClick={handleNewPrev}>&lt;</S.NavButton>
           {(newPublishedBooks && newPublishedBooks.length > 0) ? (
-            newPublishedBooks.map((book, idx) => (
+            newPublishedBooks
+            .slice(newPubIndex * 3, newPubIndex * 3 + 3)
+            .map((book, idx) => (
           <BookCard
             key={idx}
             title={book.title}
@@ -247,8 +279,13 @@ const fetchTodayBooks = async () => {
           <BookCard title="title" author="작가" image="/default-cover.png" />
         </>
           )}
+        <S.NavButton onClick={handleNewNext}>&gt;</S.NavButton>
         </S.BookCardContainer_pub>
-        <S.StyledEllipsis_pub />
+        <S.StyledEllipsis_pub>
+          {Array.from({ length: newPubPageCount }, (_, idx) => (
+          <S.Dot key={idx} active={idx === newPubIndex} />
+          ))}
+        </S.StyledEllipsis_pub>
 
       </S.Main3Container>
 

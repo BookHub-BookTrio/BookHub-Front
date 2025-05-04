@@ -8,9 +8,10 @@ const PaginationWrapper = styled.div`
   display: flex;
   align-items: center;
   position: absolute;
-  bottom: 70px; 
+  bottom: 10px; 
   left: 50%; 
   transform: translateX(-50%); 
+  padding-bottom: 120px;
 `;
 
 const PaginationButton = styled.button`

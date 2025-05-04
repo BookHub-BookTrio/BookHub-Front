@@ -1,7 +1,6 @@
 import styled, { keyframes } from "styled-components";
 import { FaBook } from "react-icons/fa";
 import GradientBg from "../../component/image/Gradient.svg";
-import { AiOutlineEllipsis } from "react-icons/ai";
 
 // main - 1번째
 export const MainContainer = styled.div`
@@ -438,33 +437,26 @@ export const BookCardContainer_pub = styled.div`
   transition-delay: ${(props) => (props.isVisible ? "0.5s" : "0s")};
 `;
 
-
-export const StyledEllipsis = styled(AiOutlineEllipsis)`
-  font-size: 35px;
+export const StyledEllipsis_best = styled.div`
   display: flex;
-  margin-left: 35vw;
-  color: #aaa;
-  cursor: pointer;
-  transition: transform 0.2s ease-in-out;
-
-  &:hover {
-    color: #333;
-    transform: scale(1.2);
-  }
+  margin-top: 10px;
+  margin-left: 38%;
+`;
+export const StyledEllipsis_pub = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  margin-left: 17%;
 `;
 
-export const StyledEllipsis_pub = styled(AiOutlineEllipsis)`
-  font-size: 35px;
-  display: flex;
-  margin-left: 53vw;
-  color: #aaa;
-  cursor: pointer;
-  transition: transform 0.2s ease-in-out;
-
-  &:hover {
-    color: #333;
-    transform: scale(1.2);
-  }
+export const Dot = styled.div`
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  margin: 0 4px;
+  margin-bottom: 20px;
+  background-color: ${(props) => (props.active ? "#000" : "#ccc")};
+  transition: background-color 0.3s;
 `;
 
 // 팝업
@@ -540,4 +532,18 @@ border-radius: 8px;
 cursor: pointer;
 border: none;
 color: white;
+`;
+
+// Main 3 책 넘기는 화살표
+export const NavButton = styled.button`
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #748C70;
+  padding: 0 10px;
+  z-index:1010;
+  &:hover {
+    color: #000;
+  }
 `;

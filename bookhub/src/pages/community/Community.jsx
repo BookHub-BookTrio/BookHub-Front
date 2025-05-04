@@ -3,12 +3,16 @@ import * as S from "./CommunityStyles.jsx";
 import CommunityArrow from "../../component/image/CommunityArrow.png";
 import Pagination from "../../component/button/Pagination.jsx";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import FooterButton from "../../component/button/FooterButton.jsx";
 
+// 커뮤니티 전체 조회 
 export const Community = () => {
   const [communityData, setCommunityData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
   const totalPages = Math.ceil(communityData.length / itemsPerPage);
+  const navigate = useNavigate();
 
   const handleCommunityPrev = () => {
     setCurrentPage((prev) => (prev === 1 ? totalPages : prev - 1));
@@ -18,6 +22,9 @@ export const Community = () => {
     setCurrentPage((prev) => (prev === totalPages ? 1 : prev + 1));
   };
 
+  const handleClick = () => {
+      navigate("/community/write");
+  }
   const currentItems = communityData.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
@@ -37,6 +44,7 @@ export const Community = () => {
   }, []);
 
   return (
+    <>
     <S.CommunityContainer>
       <p>Community</p>
       <S.Rectangle />
@@ -46,6 +54,10 @@ export const Community = () => {
           key={index}
           first={index === 0} // 첫 번째 항목
           last={index === itemsPerPage - 1} // 마지막 항목
+          onClick={() => {
+            const item = currentItems[index];
+            if (item) navigate(`/community/${item.id}`);
+          }}
         >
           {currentItems[index] ? (
             <>
@@ -73,6 +85,8 @@ export const Community = () => {
         onNext={handleCommunityNext}
       />
     </S.CommunityContainer>
+    <FooterButton status="allpost" onClickCreate={handleClick}/>
+    </>
   );
 };
 
