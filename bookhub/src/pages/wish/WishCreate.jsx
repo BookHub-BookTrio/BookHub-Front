@@ -10,7 +10,7 @@ const WishCreate = () => {
   const [author, setAuthor] = useState("");
   const [progress, setProgress] = useState("읽기 전");
   const [category, setCategory] = useState("");
-  const [star, setStar] = useState("🫥");
+  const [star, setStar] = useState("");
   const [content, setContent] = useState("");
   const [showStarOptions, setShowStarOptions] = useState(true);
   const [showCategoryOptions, setShowCategoryOptions] = useState(true);
@@ -33,10 +33,9 @@ const WishCreate = () => {
   };
 
   const starMap = {
-    "😊": "good",
-    "😐": "normal",
-    "😞": "bad",
-    "🫥": null,
+    "😊": "GOOD",
+    "😐": "NORMAL",
+    "😞": "BAD",
   };
 
   const handleProgressClick = () => {
