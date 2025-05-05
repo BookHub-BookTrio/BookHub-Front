@@ -17,6 +17,8 @@
 	padding-top: 140px;
 	align-items: center;
 	min-width: 1000px;
+	font-family: "Pretendard-Regular", Helvetica;
+  font-weight: 400;
 }
 
 .titleArea {
@@ -41,6 +43,8 @@
 	border-radius: 999px;
 	border: 1px solid #ccc;
 	font-size: 16px;
+	font-family: "Pretendard-Regular", Helvetica;
+  font-weight: 400;
 	text-align: center;
 }
 
@@ -67,6 +71,8 @@
 	padding: 8px 10px;
 	background: transparent;
 	border: none;
+	font-family: "Pretendard-Regular", Helvetica;
+  font-weight: 400;
 	font-size: 16px;
 	outline: none;
 }
@@ -80,6 +86,8 @@
 	border-radius: 999px;
 	background: white;
 	cursor: pointer;
+	font-family: "Pretendard-Regular", Helvetica;
+  font-weight: 400;
 }
 
 .progressDot {
@@ -99,6 +107,8 @@
 .starButton {
 	border: none;
 	background: none;
+	font-family: "Pretendard-Regular", Helvetica;
+  font-weight: 400;
 	font-size: 16px;
 	cursor: pointer;
 }
@@ -106,13 +116,33 @@
 .categoryOptions,
 .starOptions {
 	position: absolute;
-	top: 0px;
-	left: 5px;
+	top: -5px;
+	left: 0px;
 	display: flex;
 	flex-wrap: wrap;
 	gap: 10px;
 	border: none;
 	padding: 5px;
+}
+
+.categoryOptions button,
+.starOptions button {
+	height: 28px;
+	cursor: pointer;
+	box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+	7px 7px 20px 0px rgba(0,0,0,.1),
+	4px 4px 5px 0px rgba(0,0,0,.1);
+	color: #4e594b;
+	background-color: #ffffff;
+	border-radius: 5px;
+	border: none;
+	font-family: "Pretendard-Regular", Helvetica;
+  font-weight: 400;
+}
+
+.categoryOptions button:hover,
+.starOptions button:hover {
+	background: linear-gradient(0deg, #F7E8BDCC 0%, #f9d779 100%);
 }
 
 .contentArea {
