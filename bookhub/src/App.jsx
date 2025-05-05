@@ -8,6 +8,7 @@ import KakaoCallback from "./pages/home/KakaoCallback.jsx";
 import SignUp from "./pages/signup/SignUp.jsx";
 import Main from "./pages/main/Main.jsx";
 import Wish from "./pages/wish/Wish.jsx";
+import WishCreate from "./pages/wish/WishCreate.jsx"
 import Layout from "./component/layout/Layout.jsx"
 import GlobalStyle from "./component/layout/GlobalStyle.jsx";
 import Community from "./pages/community/Community.jsx";
@@ -29,6 +30,7 @@ function App() {
           <Route path="/mypage-edit" element={<MyPageEdit />} />
           <Route path="/test" element={<Test />} />
           <Route path="/wish" element={<Wish />} />
+          <Route path="/wish-create" element={<WishCreate />} />
         </Route>
         
       {/* header X */}

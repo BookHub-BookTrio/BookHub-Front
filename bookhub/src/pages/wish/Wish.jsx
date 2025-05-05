@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 // import axios from "axios";
 import styles from "./Wish.module.css";
 
@@ -6,6 +7,7 @@ const Wish = () => {
   const [listData, setListData] = useState([]);
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const navigate = useNavigate();
 
   const itemsPerPage = 7;
 
@@ -56,6 +58,24 @@ const Wish = () => {
     // };
     // fetchWishList();
   }, []);
+  
+  //진행 상황
+  const statusOptions = ["읽기 전", "읽는 중", "완료"];
+
+  //statusButton 클릭 시 상태 바뀜
+  const handleStatusClick = (index) => {
+    setListData((prev) =>
+      prev.map((item, i) => {
+        if (i === index) {
+          const currentIndex = statusOptions.indexOf(item.status);
+          const nextStatus =
+            statusOptions[(currentIndex + 1) % statusOptions.length];
+          return { ...item, status: nextStatus };
+        }
+        return item;
+      })
+    );
+  };
 
   const handlePrev = () => {
     if (currentPage > 1) setCurrentPage((prev) => prev -1);
@@ -69,7 +89,11 @@ const Wish = () => {
     <div className={styles.background}>
       <div className={styles.container}>
         <div className={styles.headerArea}>
-          <h2 className={styles.title}>Book<br />Wish List</h2>
+          <h2 className={styles.title}>
+            Book
+            <br />
+            Wish List
+          </h2>
           <div className={styles.searchArea}>
             <input
               type="text"
@@ -84,42 +108,59 @@ const Wish = () => {
         <table className={styles.table}>
           <thead>
             <tr>
-              <th>독서 목록</th>
-              <th>작가명</th>
-              <th>진행상황</th>
-              <th>카테고리</th>
-              <th>만족도</th>
-              <th></th>
+              <th className={styles.titleCol}>독서 목록</th>
+              <th className={styles.authorCol}>작가명</th>
+              <th className={styles.statusCol}>진행상황</th>
+              <th className={styles.categoryCol}>카테고리</th>
+              <th className={styles.starCol}>만족도</th>
+              <th className={styles.actionCol}></th>
             </tr>
           </thead>
 
           <tbody>
-            {currentItems.map((item,index) => (
+            {currentItems.map((item, index) => (
               <tr key={index}>
                 <td>{item.bookname}</td>
                 <td>{item.author}</td>
-                <td><button className={styles.statusButton}>{item.status}</button></td>
+                <td>
+                  <button className={`${styles.statusButton} ${styles[item.status]}`}
+                  onClick={() => handleStatusClick(startIndex + index)}>
+                    <span className={styles.statusDot}></span>
+                    {item.status}
+                  </button>
+                </td>
                 <td>{item.category}</td>
                 <td>{item.star}</td>
-                <td><button className={styles.editButton}>✎</button></td>
+                <td>
+                  <button className={styles.editButton}>✎</button>
+                </td>
               </tr>
             ))}
-            
+
             {emptyRows.map((_, idx) => (
               <tr kdy={`empty-${idx}`}>
-                <td>&nbsp;</td><td></td><td></td><td></td><td></td><td></td>
+                <td>&nbsp;</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
               </tr>
             ))}
           </tbody>
         </table>
 
         <div className={styles.pagination}>
-          <button onClick={handlePrev} disabled={currentPage === 1}>&lt;</button>
+          <button onClick={handlePrev} disabled={currentPage === 1}>
+            &lt;
+          </button>
           <span>&nbsp;&nbsp; {currentPage} &nbsp;&nbsp;</span>
-          <button onClick={handleNext} disabled={currentPage === totalPages}>&gt;</button>
+          <button onClick={handleNext} disabled={currentPage === totalPages}>
+            &gt;
+          </button>
         </div>
 
-        <button className={styles.createButton}>CREATE</button>
+        <button className={styles.createButton} onClick={() => navigate("/wish-create")}>CREATE</button>
       </div>
     </div>
   );
