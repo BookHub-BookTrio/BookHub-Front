@@ -146,7 +146,6 @@ export const CommunityTitleInput = styled.input`
   font-family: "Pretendard-Bold", sans-serif;
   letter-spacing: 0.5px;
   color: #111;
-  text-transform: uppercase;
   width: 80%;
   border: none;
   outline: none;

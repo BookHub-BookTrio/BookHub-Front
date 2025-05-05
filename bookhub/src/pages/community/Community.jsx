@@ -33,7 +33,12 @@ export const Community = () => {
   useEffect(() => {
     const fetchCommunityData = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/community`); 
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/community`, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`, 
+          },
+        }); 
         setCommunityData(response.data.data);
       } catch (error) {
         console.error("커뮤니티 데이터를 불러오는 데 실패했습니다:", error);

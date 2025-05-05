@@ -13,6 +13,7 @@ const ButtonContainer = styled.div`
   gap: 10px;
   margin-bottom: 40px;
   margin-left: 200px;
+  z-index: 1011;
 `;
 
 const ButtonGroup = styled.div`
@@ -29,13 +30,15 @@ const SubmitButton = styled.button`
   background-color: black;
   color: white;
   border: none;
-  padding: 14px 29px;
+  width: 140px;
+  padding: 14px 0;
   border-radius: 40px;
   cursor: pointer;
   font-family: "Slackey-Regular";
   font-size: 18px;
   white-space: nowrap;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.7px;
+  z-index:1011;
 `;
 
 const FooterButton = ({ status, onClickCreate, onClickDelete, onClickEdit, onClickDone }) => {
