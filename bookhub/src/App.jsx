@@ -12,6 +12,7 @@ import Layout from "./component/layout/Layout.jsx"
 import GlobalStyle from "./component/layout/GlobalStyle.jsx";
 import Community from "./pages/community/Community.jsx";
 import CommunityDetail from "./pages/community/CommunityDetail.jsx";
+import CommunityWrite from "./pages/community/CommunityWrite.jsx";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/" element={<Main />} />
           <Route path="/community" element={<Community />} />
           <Route path="/community/:id" element={<CommunityDetail />} /> 
+          <Route path="/community/write" element={<CommunityWrite />} /> 
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/mypage-edit" element={<MyPageEdit />} />
           <Route path="/test" element={<Test />} />
