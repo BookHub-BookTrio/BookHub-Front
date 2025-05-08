@@ -5,6 +5,7 @@ import MainBook_aladin from "../../component/image/MainBook_aladin.png";
 import Arrow1 from "../../component/image/Arrow.png";
 import BookCard from "../../component/main_aladin/BookCard.jsx";
 import axios from "axios";
+import AOS from "aos";
 
 export const Main = () => {
   const overlap3Ref = useRef(null);
@@ -90,6 +91,7 @@ const fetchTodayBooks = async () => {
   };
   
   useEffect(() => {
+    AOS.init({ easing: "ease-out" });
 
     fetchTodayBooks();
     fetchNewPublishedBooks();
@@ -177,7 +179,7 @@ const fetchTodayBooks = async () => {
       <S.BlurEffect className="top-left" isVisible={isBookVisible} />
       <S.BlurEffect className="bottom-right" isVisible={isBookVisible} />
 
-      <S.StyledBookCard ref={bookCardRef} isVisible={isVisible}>
+      <S.StyledBookCard ref={bookCardRef} isVisible={isVisible}  style={{ visibility: showPopup ? "hidden" : "visible" }}>
         {todayBooks.map((book, idx) => (
         <S.BookWrapper key={idx} onClick={() => handleBookClick(book)}>
           <S.BookImage src={MainBook_aladin} alt="aladin" isVisible={isVisible} />
@@ -192,7 +194,8 @@ const fetchTodayBooks = async () => {
       {/* Main_2 popup */}
       {showPopup && selectedBook && (
         <S.PopupOverlay onClick={() => setShowPopup(false)}>
-         <S.PopupBox onClick={(e) => e.stopPropagation()}>
+         <S.PopupBox data-aos="fade-up" data-aos-duration="300"
+         onClick={(e) => e.stopPropagation()}>
           <S.BookCover style={{ backgroundImage: `url(${selectedBook.cover})` }} />
             <S.BookContent>
               <S.BookTitlePopup>{selectedBook.title}</S.BookTitlePopup>

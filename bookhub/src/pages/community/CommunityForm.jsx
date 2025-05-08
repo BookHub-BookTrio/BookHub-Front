@@ -10,7 +10,8 @@ const CommunityForm = ({
   title,
   content,
   onChangeTitle,
-  onChangeContent
+  onChangeContent,
+  writer
 }) => {
   const isReadOnly = mode === "read";
   const [nickname, setNickname] = useState("별명");
@@ -18,25 +19,29 @@ const CommunityForm = ({
     year: "numeric",
     month: "2-digit",
     day: "2-digit"
-  }).replace(/\.$/, ""); 
-  
-  useEffect(() => {
-    const fetchNickname = async () => {
-      try {
-        const token = localStorage.getItem("accessToken");
-        const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/member`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        setNickname(res.data.data.nickname);
-      } catch (error) {
-        console.error("닉네임 불러오기 실패:", error);
-      }
-    };
+  }).replace(/\.$/, "");
 
-    fetchNickname();
-  }, []);
+  useEffect(() => {
+    if (isReadOnly) {
+      setNickname(writer || "별명 없음");
+    } else {
+      const fetchNickname = async () => {
+        try {
+          const token = localStorage.getItem("accessToken");
+          const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/member`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          setNickname(res.data.data.nickname);
+        } catch (error) {
+          console.error("닉네임 불러오기 실패:", error);
+        }
+      };
+
+      fetchNickname();
+    }
+  }, [isReadOnly, writer]);
 
   return (
     <Sd.CommunityContainer>

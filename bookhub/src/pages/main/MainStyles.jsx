@@ -223,6 +223,7 @@ export const StyledBookCard = styled.div`
   @media (max-width: 480px) {
     margin-left: 25%;
   }
+    z-index: 1000;
 `;
 
 export const BookImage = styled.img`

@@ -47,7 +47,6 @@ export const CommunityTitle = styled.h2`
   font-weight: 1000;
   letter-spacing: 0.5px;
   color: #111;
-  text-transform: uppercase;
 `;
 
 export const CommunityDateBadge = styled.div`
