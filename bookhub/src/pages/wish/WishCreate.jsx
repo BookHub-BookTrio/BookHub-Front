@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import styles from "./WishCreate.module.css";
+import WishForm from "../../component/wish/WishForm";
 
 const WishCreate = () => {
   const navigate = useNavigate();
@@ -16,15 +16,6 @@ const WishCreate = () => {
   const [showCategoryOptions, setShowCategoryOptions] = useState(true);
 
   const progressOptions = ["읽기 전", "읽는 중", "완료"];
-
-  const categoryDisplay = {
-    ESSAY: "에세이",
-    NOVEL: "소설",
-    SELF_HELP: "자기개발",
-    POETRY: "시",
-    TECHNOLOGY: "기술/IT",
-    ETC: "기타",
-  };
 
   const progressMap = {
     "읽기 전": "UNREAD",
@@ -42,16 +33,6 @@ const WishCreate = () => {
     const currentIndex = progressOptions.indexOf(progress);
     const nextProgress = progressOptions[(currentIndex + 1) % progressOptions.length];
     setProgress(nextProgress);
-  };
-
-  const handleStarClick = (value) => {
-    setStar(value);
-    setShowStarOptions(false);
-  };
-
-  const handleCategoryClick = (selected) => {
-    setCategory(selected);
-    setShowCategoryOptions(false);
   };
 
   const handleCreate = async () => {
@@ -81,103 +62,32 @@ const WishCreate = () => {
   };
 
   return (
-    <div className={styles.background}>
-      <div className={styles.container}>
-        <div className={styles.titleArea}>
-          <label className={styles.titleLabel}>도서명</label>
-          <input
-            type="text"
-            className={styles.titleInput}
-            value={bookname}
-            onChange={(e) => setBookname(e.target.value)}
-            placeholder="도서명을 입력하세요"
-          />
-        </div>
-
-        <table className={styles.infoTable}>
-          <tbody>
-            <tr>
-              <th>작가</th>
-              <td>
-                <input
-                  type="text"
-                  className={styles.authorInput}
-                  value={author}
-                  onChange={(e) => setAuthor(e.target.value)}
-                  placeholder="작가명을 입력하세요"
-                />
-              </td>
-            </tr>
-            <tr>
-              <th>진행상황</th>
-              <td>
-                <button className={styles.progressButton} onClick={handleProgressClick}>
-                  <span className={styles.progressDot}></span> {progress}
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <th>카테고리</th>
-              <td>
-                <div className={styles.categoryArea}>
-                  {showCategoryOptions ? (
-                    <div className={styles.categoryOptions}>
-                      {Object.keys(categoryDisplay).map((key) => (
-                        <button key={key} onClick={() => handleCategoryClick(key)}>
-                          {categoryDisplay[key]}
-                        </button>
-                      ))}
-                    </div>
-                  ) : (
-                    <button
-                      className={styles.categoryButton}
-                      onClick={() => setShowCategoryOptions(true)}
-                    >
-                      {categoryDisplay[category] || "카테고리"}
-                    </button>
-                  )}
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <th>만족도</th>
-              <td>
-                <div className={styles.starArea}>
-                  {showStarOptions ? (
-                    <div className={styles.starOptions}>
-                      <button onClick={() => handleStarClick("😊")}>😊</button>
-                      <button onClick={() => handleStarClick("😐")}>😐</button>
-                      <button onClick={() => handleStarClick("😞")}>😞</button>
-                    </div>
-                  ) : (
-                    <button
-                      className={styles.starButton}
-                      onClick={() => setShowStarOptions(true)}
-                    >
-                      {star}
-                    </button>
-                  )}
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-
-        <div className={styles.contentArea}>
-          <textarea
-            className={styles.textarea}
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            placeholder="감상을 입력하세요"
-          />
-        </div>
-
-        <div className={styles.buttonGroup}>
-          <button className={styles.backButton} onClick={() => navigate(-1)}>BACK</button>
-          <button className={styles.createButton} onClick={handleCreate}>CREATE</button>
-        </div>
-      </div>
-    </div>
+    <WishForm
+    bookname = {bookname}
+    author = {author}
+    progress = {progress}
+    category = {category}
+    star = {star}
+    content = {content}
+    showCategoryOptions = {showCategoryOptions}
+    showStarOptions = {showStarOptions}
+    onBooknameChange={(e) => setBookname(e.target.value)}
+    onAuthorChange={(e) => setAuthor(e.target.value)}
+    onProgressClick={handleProgressClick}
+    onCategoryClick={(key) => {
+      setCategory(key);
+      setShowCategoryOptions(false);
+    }}
+    onStarClick={(emoji) => {
+      setStar(emoji);
+      setShowStarOptions(false);
+    }}
+    onContentChange={(e) => setContent(e.target.value)}
+    onToggleCategoryOptions={() => setShowCategoryOptions(true)}
+    onToggleStarOptions={() => setShowStarOptions(true)}
+    onSubmit={handleCreate}
+    onCancel={() => navigate(-1)}
+    />
   );
 };
 
