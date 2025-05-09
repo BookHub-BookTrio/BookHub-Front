@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import media from "../../assets/media.jsx";
 
 // 전체 페이지 스타일
 export const SignupContainer = styled.div`
@@ -10,6 +11,16 @@ export const SignupContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+    ${media.tablet} {
+    width: 1000px;
+    padding: 0 20px;
+  }
+
+  ${media.mobile} {
+    width: 100%;
+    height: auto;
+    padding: 0 20px;
+  }
 `;
 
 // 로고 스타일
@@ -34,6 +45,10 @@ export const TextFrame = styled.div`
   padding-left: 15px;
   margin-bottom: 10px;
   position: relative;
+
+  ${media.mobile} {
+    width: 100%;
+  }
 `;
 
 export const StyledInput = styled.input`
@@ -65,14 +80,21 @@ export const SignupButton = styled.button`
   &:hover {
     background: #333333;
   }
+  ${media.mobile} {
+    width: 100%;
+  }
 `;
 
 // 인풋 위 텍스트
 export const LabelContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: 7px; 
-    margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px; 
+  margin-bottom: 10px;
+
+  ${media.mobile} {
+    width: 100%;
+  }
 `;
 
 export const LabelText = styled.div`
