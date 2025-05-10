@@ -1,6 +1,7 @@
 import styled, { keyframes } from "styled-components";
 import { FaBook } from "react-icons/fa";
 import GradientBg from "../../component/image/Gradient.svg";
+import media from "../../assets/media.jsx";
 
 // main - 1번째
 export const MainContainer = styled.div`
@@ -17,13 +18,13 @@ export const MainContainer = styled.div`
   background-size: 50%;
   background-repeat: no-repeat;
 
-  @media (max-width: 480px) {
-    background-position: 120% 12% !important;
-    background-size: 62% !important;
+  ${media.mobile} {
+    background-position: 120% 14% !important;
+    background-size: 64% !important;
   }
 
-  @media (max-width: 820px) {
-    background-position: 115% 11%;
+  ${media.tablet} {
+    background-position: 105% 17%;
     background-size: 55%;
   }
   overflow-x:clip;
@@ -33,11 +34,6 @@ export const Overlap = styled.div`
   margin-top: 120px;
   text-align: left;
   width: 80%;
-
-  @media (max-width: 480px) {
-    margin-left: 100px;
-  }
-
 `;
 
 /* BOOK HUB & BOOK TRIO */
@@ -49,13 +45,14 @@ export const BookTitle = styled.h1`
   margin-left: 220px;
   line-height: normal;
 
-  @media (max-width: 480px) {
+  ${media.mobile} {
   margin-left: 40px;
     font-size: 40px !important;
     margin-bottom: 30% !important;
   }
 
-  @media (max-width: 820px) {
+  ${media.tablet} {
+    margin-left: 120px;
     font-size: 60px;
     margin-bottom: 20%;
   }
@@ -72,14 +69,18 @@ export const Description = styled.p`
     margin-top:-20px;
     padding-bottom: 20px;
 
-    @media (max-width: 480px) {
-      margin-left: 40px;
-
-        font-size : 25px !important;
-        margin-top: 20px;
-        
+  ${media.mobile} {
+    margin-left: 40px;
+    font-size : 20px !important;
+    margin-top: 20px;  
   }
 
+  ${media.tablet} {
+    width: 350px;
+    margin-left: 120px;
+    margin-top: 20px;
+    line-height: 40px;
+  }
 `;
 
 // view book 
@@ -105,11 +106,14 @@ export const ViewBookButton = styled.div`
     transition: transform 0.2s ease-in-out;
   }
 
-    @media (max-width: 480px) {
-        margin-left: 40px;
-        font-size : 22px;
+  ${media.mobile} {
+    margin-left: 40px;
+    width: 180px;
+    height: auto;
+    font-size : 22px;
   }
-    @media (max-width: 820px) {
+  ${media.tablet} {
+    margin-left: 120px;
     height: 30px; 
   }
 
@@ -141,14 +145,14 @@ export const MainImage = styled.img`
   right: 17%;
   animation: ${floatAnimation} 3s ease-in-out infinite;
 
-  @media (max-width: 480px) {
-    top: 12.5%;
+  ${media.mobile} {
+    top: 14%;
     right: 6% !important;
     width: 135px !important;
   }
 
-  @media (max-width: 820px) {
-    right: 6%;
+  ${media.tablet} {
+    right: 10%;
     width: 220px;
   }
 `;
