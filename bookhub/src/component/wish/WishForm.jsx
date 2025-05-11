@@ -17,8 +17,11 @@ const WishForm = ({
     onContentChange,
     onToggleCategoryOptions,
     onToggleStarOptions,
-    onSubmit,
-    onCancel,
+    onBack,
+    onCreate,
+    onDone,
+    onEdit,
+    onDelete,
     isEdit = false,
   }) => {
     const categoryDisplay = {
@@ -124,14 +127,19 @@ const WishForm = ({
           </div>
   
           <div className={styles.buttonGroup}>
-            <button className={styles.backButton} onClick={onCancel}>BACK</button>
-            <button className={styles.createButton} onClick={onSubmit}>
-              {isEdit ? "EDIT" : "CREATE"}
-            </button>
-          </div>
-        </div>
+            <button className={styles.backButton} onClick={onBack}>BACK</button>
+            {!isEdit && (
+              <button className={styles.createButton} onClick={onCreate}>CREATE</button>)}
+            {isEdit && (
+							<button className={styles.doneButton} onClick={onDone}>DONE</button>)}
+						{isEdit && (
+              <button className={styles.editButton} onClick={onEdit}>EDIT</button>)}
+            {isEdit && (
+              <button className={styles.deleteButton} onClick={onDelete}>DELETE</button>)}      
+					</div>
       </div>
-    );
-  };
-  
-  export default WishForm;
+    </div>
+  );
+};
+
+export default WishForm;
