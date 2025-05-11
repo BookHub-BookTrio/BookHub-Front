@@ -85,8 +85,8 @@ const WishCreate = () => {
     onContentChange={(e) => setContent(e.target.value)}
     onToggleCategoryOptions={() => setShowCategoryOptions(true)}
     onToggleStarOptions={() => setShowStarOptions(true)}
-    onSubmit={handleCreate}
-    onCancel={() => navigate(-1)}
+    showCreate={handleCreate}
+    showBack={() => navigate(-1)}
     />
   );
 };

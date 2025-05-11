@@ -22,6 +22,11 @@ const WishForm = ({
     onDone,
     onEdit,
     onDelete,
+		showBack = false,
+		showCreate = false,
+		showEdit = false,
+		showDelete = false,
+  	showDone = false,
     isEdit = false,
   }) => {
     const categoryDisplay = {
@@ -127,15 +132,18 @@ const WishForm = ({
           </div>
   
           <div className={styles.buttonGroup}>
-            <button className={styles.backButton} onClick={onBack}>BACK</button>
-            {!isEdit && (
+						{showBack && (
+							<button className={styles.backButton} onClick={onBack}>BACK</button>)}            
+						{showCreate && (
               <button className={styles.createButton} onClick={onCreate}>CREATE</button>)}
-            {isEdit && (
+            {showDone && (
 							<button className={styles.doneButton} onClick={onDone}>DONE</button>)}
-						{isEdit && (
-              <button className={styles.editButton} onClick={onEdit}>EDIT</button>)}
-            {isEdit && (
-              <button className={styles.deleteButton} onClick={onDelete}>DELETE</button>)}      
+						<div className={styles.detailButton}> 
+							{showDelete && (
+            	  <button className={styles.deleteButton} onClick={onDelete}>DELETE</button>)}
+							{showEdit && (
+             	  <button className={styles.editButton} onClick={onEdit}>EDIT</button>)}
+						</div>      
 					</div>
       </div>
     </div>
