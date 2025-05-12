@@ -34,7 +34,7 @@ function App() {
       {/* header X */}
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/auth/kakao" element={<KakaoCallback />} />
+        <Route path="/api/v1/oauth2" element={<KakaoCallback />} />
         <Route path="/home" element={<Home />} />
       </Routes>
     </BrowserRouter>
