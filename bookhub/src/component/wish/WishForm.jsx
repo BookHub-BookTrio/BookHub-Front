@@ -132,19 +132,24 @@ const WishForm = ({
           </div>
   
           <div className={styles.buttonGroup}>
-						{showBack && (
-							<button className={styles.backButton} onClick={onBack}>BACK</button>)}            
-						{showCreate && (
-              <button className={styles.createButton} onClick={onCreate}>CREATE</button>)}
-            {showDone && (
-							<button className={styles.doneButton} onClick={onDone}>DONE</button>)}
-						<div className={styles.detailButton}> 
-							{showDelete && (
-            	  <button className={styles.deleteButton} onClick={onDelete}>DELETE</button>)}
-							{showEdit && (
-             	  <button className={styles.editButton} onClick={onEdit}>EDIT</button>)}
-						</div>      
-					</div>
+            <div className={styles.leftGroup}>
+              {showBack && (
+							<button className={styles.backButton} onClick={onBack}>BACK</button>)}
+            </div>
+
+            <div className={styles.rightGroup}>
+              {showCreate && (
+                <button className={styles.createButton} onClick={onCreate}>CREATE</button>)}
+              {showDone && (
+		  					<button className={styles.doneButton} onClick={onDone}>DONE</button>)}
+			  			<div className={styles.detailButton}> 
+				  			{showDelete && (
+              	  <button className={styles.deleteButton} onClick={onDelete}>DELETE</button>)}
+						  	{showEdit && (
+               	  <button className={styles.editButton} onClick={onEdit}>EDIT</button>)}
+              </div>      		
+					  </div>      
+			  	</div>
       </div>
     </div>
   );
