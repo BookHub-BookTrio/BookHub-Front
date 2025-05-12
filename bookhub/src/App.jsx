@@ -10,6 +10,7 @@ import Main from "./pages/main/Main.jsx";
 import Wish from "./pages/wish/Wish.jsx";
 import WishCreate from "./pages/wish/WishCreate.jsx";
 import WishDetail from "./pages/wish/WishDetail.jsx";
+import WishEdit from "./pages/wish/WishEdit.jsx";
 import Layout from "./component/layout/Layout.jsx"
 import GlobalStyle from "./component/layout/GlobalStyle.jsx";
 import Community from "./pages/community/Community.jsx";
@@ -32,7 +33,8 @@ function App() {
           <Route path="/test" element={<Test />} />
           <Route path="/wish" element={<Wish />} />
           <Route path="/wish-create" element={<WishCreate />} />
-          <Route path="/wish-Detail/:id" element={<WishDetail />} />
+          <Route path="/wish-detail/:id" element={<WishDetail />} />
+          <Route path="/wish-edit/:id" element={<WishEdit />} />
         </Route>
         
       {/* header X */}
