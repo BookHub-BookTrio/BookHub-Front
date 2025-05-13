@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import "../../assets/media.css";
+import media from "../../assets/media.jsx";
 
 export const TextFrame = styled.div`
     background-color: #ffffff;
@@ -10,6 +11,10 @@ export const TextFrame = styled.div`
     overflow: hidden;
     position: relative;
     margin-bottom: 7px;
+
+    ${media.mobile} {
+        width: 70%;
+    }
 `;
 
 export const StyledInput = styled.input`
@@ -47,5 +52,9 @@ export const LoginButton = styled.button`
     margin-top: 15px;
     &:hover {
         background-color: #333;
+    }
+    
+    ${media.mobile} {
+        width: 70%;
     }
 `;

@@ -12,7 +12,7 @@
         height: auto;
     }
     .Home {
-        background-size: 120%; 
+        background-size: 160%; 
     }
 }
 
@@ -28,7 +28,7 @@
         width: 50%;
     }
     .Home {
-        background-size: 120%; 
+        background-size: 150%; 
     }
 }
 
@@ -44,6 +44,10 @@
         width: 50%;
     }
     .Home {
-        background-size: 120%; 
+        background-size: 140%; 
+    }
+    .kakao-login-image {
+      width: 350px;
+      height: auto;
     }
 }

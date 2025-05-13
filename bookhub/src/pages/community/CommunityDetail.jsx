@@ -8,8 +8,8 @@ import Modal from "../../component/modal/Modal.jsx";
 
 const CommunityDetail = () => {
   const [communityData, setCommunityData] = useState(null);
-  const [currentUserEmail, setCurrentUserEmail] = useState(null);
-  const [isAuthor, setIsAuthor] = useState(false);
+  const [currentUserNickname, setCurrentUserNickname] = useState(null);
+  const [isPostAuthor, setIsPostAuthor] = useState(false);
   const { id } = useParams();
   const navigate = useNavigate();
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -17,6 +17,7 @@ const CommunityDetail = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedTitle, setEditedTitle] = useState("");
   const [editedContent, setEditedContent] = useState("");
+  const [isAuthor, setIsAuthor] = useState(false);
 
   // 게시글 데이터 불러오기
   const fetchCommunityData = async () => {
@@ -45,8 +46,8 @@ const CommunityDetail = () => {
         },
       });
 
-      const userEmail = response.data.data.email;
-      setCurrentUserEmail(userEmail);
+      const userNickname = response.data.data.nickname;
+      setCurrentUserNickname(userNickname);
     } catch (error) {
       console.error("현재 사용자 정보 불러오기 실패:", error);
     }
@@ -58,12 +59,12 @@ const CommunityDetail = () => {
   }, [id]);
 
   useEffect(() => {
-    if (communityData && currentUserEmail) {
-      if (communityData.member.email === currentUserEmail) {
+    if (communityData && currentUserNickname) {
+      if (communityData.nickname === currentUserNickname) {
         setIsAuthor(true);
       }
     }
-  }, [communityData, currentUserEmail]);
+  }, [communityData, currentUserNickname]);
 
   const handleModalClose = () => {
     setShowDeleteModal(false);
@@ -120,13 +121,13 @@ const CommunityDetail = () => {
     }
   };
 
-  if (!communityData || !communityData.member) {
+  if (!communityData) {
     return <div>로딩 중...</div>;
   }
 
   return (
     <>
-      <State type="post" />
+      <State type={isEditing ? "edit" : communityData ? "post" : "write"} isPostAuthor={isAuthor} />
       <FooterButton
         status={isEditing ? "edit" : isAuthor ? "mypost" : "other"}
         onClickEdit={onClickEdit}
@@ -147,7 +148,7 @@ const CommunityDetail = () => {
           mode="read"
           title={communityData.title}
           content={communityData.content}
-          writer={communityData.member.nickname}
+          writer={communityData.nickname}
           createdat={communityData.createdat}
         />
       )}

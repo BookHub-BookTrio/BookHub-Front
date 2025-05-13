@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import media from '../../assets/media.jsx';
 
 const Card = styled.div`
   display: flex;
@@ -14,6 +15,9 @@ const Card = styled.div`
   &:hover {
     transform: scale(1.03);
   }
+  ${media.mobile} {
+    transform: translateY(170px); 
+  }
 `;
 
 const Image = styled.img`
@@ -22,6 +26,9 @@ const Image = styled.img`
   object-fit: cover;
   border-radius: 0 25px;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+  ${media.mobile} {
+    height: 140px;
+  }
 `;
 
 const Title = styled.div`
@@ -37,6 +44,11 @@ const Title = styled.div`
   margin-top: 10px;
   width: 180px;
   text-align: center;
+
+  ${media.mobile} {
+    font-size: 10px; 
+    width: 70px;
+  }
 `;
 
 const Author = styled.div`
@@ -51,6 +63,8 @@ const Author = styled.div`
   width: 180px;
   color: #555;
   text-align: center;
+    ${media.mobile} {
+    font-size: 10px; }
 `;
 
 
