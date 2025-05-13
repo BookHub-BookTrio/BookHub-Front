@@ -23,22 +23,22 @@ const Wish = () => {
 
   useEffect(() => {
     const mockData = [
-      { bookname: "죽고싶지만 떡볶이는 먹고싶어", author: "박세희", status: "읽기 전", category: "에세이", star: "🙂" },
-      { bookname: "죽고싶지만 떡볶이는 먹고싶어", author: "박세희", status: "읽기 전", category: "에세이", star: "🙂" },
-      { bookname: "죽고싶지만 떡볶이는 먹고싶어", author: "박세희", status: "읽는 중", category: "에세이", star: "🙂" },
-      { bookname: "죽고싶지만 떡볶이는 먹고싶어", author: "박세희", status: "읽는 중", category: "에세이", star: "🙂" },
-      { bookname: "죽고싶지만 떡볶이는 먹고싶어", author: "박세희", status: "읽기 전", category: "에세이", star: "🙂" },
-      { bookname: "채식주의자", author: "한강", status: "완료", category: "소설", star: "😊" },
-      { bookname: "채식주의자", author: "한강", status: "완료", category: "소설", star: "😊" },
-      { bookname: "채식주의자", author: "한강", status: "완료", category: "소설", star: "😊" },
-      { bookname: "죽고싶지만 떡볶이는 먹고싶어", author: "박세희", status: "읽기 전", category: "에세이", star: "🙂" },
-      { bookname: "죽고싶지만 떡볶이는 먹고싶어", author: "박세희", status: "읽는 중", category: "에세이", star: "🙂" },
-      { bookname: "죽고싶지만 떡볶이는 먹고싶어", author: "박세희", status: "읽는 중", category: "에세이", star: "🙂" },
-      { bookname: "죽고싶지만 떡볶이는 먹고싶어", author: "박세희", status: "읽기 전", category: "에세이", star: "🙂" },
-      { bookname: "죽고싶지만 떡볶이는 먹고싶어", author: "박세희", status: "읽는 중", category: "에세이", star: "🙂" },
-      { bookname: "채식주의자", author: "한강", status: "완료", category: "소설", star: "😊" },
-      { bookname: "채식주의자", author: "한강", status: "읽기 전", category: "소설", star: "😊" },
-      { bookname: "채식주의자", author: "한강", status: "완료", category: "소설", star: "😊" },
+      { id: 1, bookname: "죽고싶지만 떡볶이는 먹고싶어", author: "박세희", progress: "읽기 전", category: "에세이", star: "🙂" },
+      { id: 2, bookname: "죽고싶지만 떡볶이는 먹고싶어", author: "박세희", progress: "읽기 전", category: "에세이", star: "🙂" },
+      { id: 3, bookname: "죽고싶지만 떡볶이는 먹고싶어", author: "박세희", progress: "읽는 중", category: "에세이", star: "🙂" },
+      { id: 4, bookname: "죽고싶지만 떡볶이는 먹고싶어", author: "박세희", progress: "읽는 중", category: "에세이", star: "🙂" },
+      { id: 5, bookname: "죽고싶지만 떡볶이는 먹고싶어", author: "박세희", progress: "읽기 전", category: "에세이", star: "🙂" },
+      { id: 6, bookname: "채식주의자", author: "한강", progress: "완료", category: "소설", star: "😊" },
+      { id: 7, bookname: "채식주의자", author: "한강", progress: "완료", category: "소설", star: "😊" },
+      { id: 8, bookname: "채식주의자", author: "한강", progress: "완료", category: "소설", star: "😊" },
+      { id: 9, bookname: "죽고싶지만 떡볶이는 먹고싶어", author: "박세희", progress: "읽기 전", category: "에세이", star: "🙂" },
+      { id: 10, bookname: "죽고싶지만 떡볶이는 먹고싶어", author: "박세희", progress: "읽는 중", category: "에세이", star: "🙂" },
+      { id: 11, bookname: "죽고싶지만 떡볶이는 먹고싶어", author: "박세희", progress: "읽는 중", category: "에세이", star: "🙂" },
+      { id: 12, bookname: "죽고싶지만 떡볶이는 먹고싶어", author: "박세희", progress: "읽기 전", category: "에세이", star: "🙂" },
+      { id: 13, bookname: "죽고싶지만 떡볶이는 먹고싶어", author: "박세희", progress: "읽는 중", category: "에세이", star: "🙂" },
+      { id: 14, bookname: "채식주의자", author: "한강", progress: "완료", category: "소설", star: "😊" },
+      { id: 15, bookname: "채식주의자", author: "한강", progress: "읽기 전", category: "소설", star: "😊" },
+      { id: 16, bookname: "채식주의자", author: "한강", progress: "완료", category: "소설", star: "😊" },
     ];
 
     setListData(mockData);
@@ -60,17 +60,17 @@ const Wish = () => {
   }, []);
   
   //진행 상황
-  const statusOptions = ["읽기 전", "읽는 중", "완료"];
+  const progressOptions = ["읽기 전", "읽는 중", "완료"];
 
   //statusButton 클릭 시 상태 바뀜
-  const handleStatusClick = (index) => {
+  const handleProgressClick = (index) => {
     setListData((prev) =>
       prev.map((item, i) => {
         if (i === index) {
-          const currentIndex = statusOptions.indexOf(item.status);
-          const nextStatus =
-            statusOptions[(currentIndex + 1) % statusOptions.length];
-          return { ...item, status: nextStatus };
+          const currentIndex = progressOptions.indexOf(item.progress);
+          const nextProgress =
+            progressOptions[(currentIndex + 1) % progressOptions.length];
+          return { ...item, progress: nextProgress };
         }
         return item;
       })
@@ -110,7 +110,7 @@ const Wish = () => {
             <tr>
               <th className={styles.titleCol}>독서 목록</th>
               <th className={styles.authorCol}>작가명</th>
-              <th className={styles.statusCol}>진행상황</th>
+              <th className={styles.progressCol}>진행상황</th>
               <th className={styles.categoryCol}>카테고리</th>
               <th className={styles.starCol}>만족도</th>
               <th className={styles.actionCol}></th>
@@ -119,20 +119,21 @@ const Wish = () => {
 
           <tbody>
             {currentItems.map((item, index) => (
-              <tr key={index}>
+              <tr key={item.id} onClick={() => navigate(`/wish-detail/${item.id}`)} className={styles.tableRow}>
                 <td>{item.bookname}</td>
                 <td>{item.author}</td>
-                <td>
-                  <button className={`${styles.statusButton} ${styles[item.status]}`}
-                  onClick={() => handleStatusClick(startIndex + index)}>
-                    <span className={styles.statusDot}></span>
-                    {item.status}
+                <td onClick={(e) => e.stopPropagation()}>
+                  <button className={`${styles.progressButton} ${styles[item.progress]}`}
+                  onClick={() => handleProgressClick(startIndex + index)}>
+                    <span className={styles.progressDot}></span>
+                    {item.progress}
                   </button>
                 </td>
                 <td>{item.category}</td>
                 <td>{item.star}</td>
-                <td>
-                  <button className={styles.editButton}>✎</button>
+                <td onClick={(e) => e.stopPropagation()}> 
+                  <button className={styles.editButton}
+                  onClick={() => navigate(`/wish-edit/${item.id}`)}>✎</button>
                 </td>
               </tr>
             ))}
