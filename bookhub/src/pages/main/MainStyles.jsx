@@ -171,7 +171,11 @@ export const StyledTodayBook = styled.div`
     font-size: 19px;
     text-align: left;
     letter-spacing: 2px;
+      
+    ${media.mobile} {
+      font-size: 14px;
     }
+  }
 
   p {
     font-family: "Slackey-Regular", Helvetica;
@@ -181,13 +185,18 @@ export const StyledTodayBook = styled.div`
     text-align: left;
     margin: 5px 0;
 
-    @media (max-width: 820px) {
-      font-size: 25px;
-    }
-
-    @media (max-width: 480px) {
+    ${media.mobile} {
       font-size: 14px;
     }
+  }
+  
+  ${media.mobile} {
+    margin-left: 20px;
+    padding-bottom: 40px;
+    transform: translateY(-80px); 
+  }
+  ${media.tablet} {
+    margin-left: 120px;
   }
 `;
 
@@ -197,6 +206,9 @@ export const ArrowImage = styled.img`
   margin-left: 35px;
   width: ${(props) => (props.small ? "120px" : "138px")}; // 길이 조건부
   transform: ${(props) => (props.flip ? "scaleX(-1)" : "none")};
+  ${media.mobile} {
+    width: 100px;
+  }
 `;
 
 // best 화살표
@@ -205,6 +217,10 @@ export const ArrowImage_best = styled.img`
   margin-right: 100px;
   width: ${(props) => (props.small ? "120px" : "138px")}; // 길이 조건부
   transform: ${(props) => (props.flip ? "scaleX(-1)" : "none")};
+  ${media.mobile} {
+  width: 90px;
+  margin-right: 5%;
+  }
 `;
 
 export const StyledBookCard = styled.div`
@@ -219,13 +235,14 @@ export const StyledBookCard = styled.div`
   transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
   animation: ${floatAnimation} 3s ease-in-out infinite;
 
-  @media (max-width: 820px) {
+  ${media.tablet} {
     margin-left: 80px;
     margin-top: 80px;
   }
 
-  @media (max-width: 480px) {
-    margin-left: 25%;
+  ${media.mobile} {
+    margin-left: 1.7%;
+    margin-top: -40px;
   }
     z-index: 1000;
 `;
@@ -238,11 +255,11 @@ export const BookImage = styled.img`
   transform: translateY(${(props) => (props.isVisible ? "0" : "30px")});
   transition: opacity 1s ease-in-out, transform 1s ease-in-out;
 
-  @media (max-width: 820px) {
+  ${media.tablet} {
     width: 280px;
   }
 
-  @media (max-width: 480px) {
+  ${media.mobile} {
     width: 180px;
     margin-left: 10px;
   }
@@ -267,13 +284,14 @@ z-index:1010;
 border-radius: 30px;
 height: 91%;
 object-fit: cover
-@media (max-width: 820px) {
+
+${media.tablet} {
   font-size: 40px;
   width: 88%;
   margin-left: 29%;
 }
 
-@media (max-width: 480px) {
+${media.mobile} {
   font-size: 25px;
   margin-left: 4%;
   height: 92%;
@@ -285,12 +303,13 @@ export const BookWrapper = styled.div`
   display: inline-block;
   width: 360px;
   height: 480px;
-    @media (max-width: 820px) {
+  
+  ${media.tablet} {
     width: 280px;
     height: 400px;
   }
 
-  @media (max-width: 480px) {
+  ${media.mobile} {
     width: 180px;
     height: 280px;
   }
@@ -309,11 +328,11 @@ export const BookName = styled.div`
   width: 80%;
   margin-left: 60px;
 
-  @media (max-width: 820px) {
+  ${media.tablet} {
     font-size: 40px;
   }
 
-  @media (max-width: 480px) {
+  ${media.mobile} {
     font-size: 25px;
     left : -40px;
   }
@@ -330,7 +349,7 @@ export const BlurEffect = styled.div`
   opacity: ${(props) => (props.isVisible ? "1" : "0")}; 
   transition: opacity 1s ease-in-out;
   filter: blur(50px);
-
+  pointer-events: none;
   &.top-left {
     top: -20%;
     left: -15%;
@@ -342,6 +361,13 @@ export const BlurEffect = styled.div`
     right: -10%;
     z-index: 1001;
   }
+
+  ${media.tablet} {
+    width: 400px;
+  }
+  ${media.mobile} {
+    width: 200px;
+  }
 `;
 
 // main - 3번째
@@ -349,13 +375,19 @@ export const Main3Container = styled.div `
  position: relative;
  width: 100%;
  margin-top: 100px;
+ 
+ ${media.tablet} {
+  padding-bottom: 20px;
+ }
+  ${media.mobile} {
+  padding-bottom: 80px;
+  }
 `;
 
 // best seller 글씨
 export const StyledTodayBook_best = styled.div`
   margin-top: 300px;
   transform: translateY(-170px);
-
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -371,13 +403,22 @@ export const StyledTodayBook_best = styled.div`
     color: #333;
     margin: 0;
 
-    @media (max-width: 820px) {
+    ${media.tablet} {
       font-size: 25px;
     }
 
-    @media (max-width: 480px) {
+    ${media.mobile} {
       font-size: 14px;
     }
+  }
+
+  ${media.tablet} {
+    margin-right: 50px;
+    padding-top: 50%;
+    transform: translateY(-350px); 
+  }
+  ${media.mobile} {
+    margin-right: 5px;
   }
 `;
 
@@ -399,14 +440,27 @@ export const StyledTodayBook_pub = styled.div`
     text-align: left;
     margin: 5px 0;
     margin-top: -300px;
-    @media (max-width: 820px) {
+    ${media.tablet} {
       font-size: 25px;
     }
 
-    @media (max-width: 480px) {
+    ${media.mobile} {
       font-size: 14px;
+
     }
   }
+  
+  ${media.tablet} {
+    margin-left: 100px;
+    transform: translateY(-210px); 
+  }
+
+  ${media.mobile}   {         
+    margin-left: 4%;
+    transform: translateY(-200px); 
+
+  }
+
 `;
 
 // best seller 밑 밑줄
@@ -428,6 +482,13 @@ export const BookCardContainer_best = styled.div`
   gap: 30px;
   opacity: ${(props) => (props.isVisible ? "1" : "0")};
   transition: opacity 0.5s ease-in-out;
+
+  ${media.tablet} {
+    margin-left: 20px;
+  }
+  ${media.mobile} {
+    margin-left: 10px;
+  }
 `;
 
 // new published
@@ -440,18 +501,44 @@ export const BookCardContainer_pub = styled.div`
   opacity: ${(props) => (props.isVisible ? "1" : "0")};
   transition: opacity 0.5s ease-in-out;
   transition-delay: ${(props) => (props.isVisible ? "0.5s" : "0s")};
+
+  ${media.tablet} {
+    margin-left: 40px;
+    transform: translateY(180px); 
+  }
+
+  ${media.mobile}{
+    margin-left: 20px;
+    transform: translateY(140px);
+    margin-bottom: 70px;
+  }
 `;
 
 export const StyledEllipsis_best = styled.div`
   display: flex;
   margin-top: 10px;
   margin-left: 38%;
+  ${media.mobile} {
+    transform: translateY(170px);
+    margin-left: 45%; 
+  } 
+  ${media.tablet} {
+  margin-left: 45%;
+  }
 `;
 export const StyledEllipsis_pub = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 10px;
   margin-left: 17%;
+  ${media.mobile} {
+  margin-left: 5%;
+    transform: translateY(270px); 
+  } 
+  ${media.tablet} {
+    transform: translateY(190px);
+    margin: 0 auto;
+  }
 `;
 
 export const Dot = styled.div`
@@ -495,7 +582,10 @@ export const BookCover = styled.div`
 width: 50%;
 background-size: cover;
 background-position: center;
-`;
+${media.mobile} {
+width: 200px;
+height: auto;
+}`;
 
 // 오른쪽: 책 내용
 export const BookContent = styled.div`
@@ -517,6 +607,10 @@ export const BookDescriptionPopup = styled.p`
 font-size: 16px;
 line-height: 2.0;
 flex-grow: 1;
+${media.mobile} {
+  height: 100px;
+  overflow-y: auto;
+}
 `;
 
 export const BookAuthorPopup = styled.h4`
@@ -551,4 +645,8 @@ export const NavButton = styled.button`
   &:hover {
     color: #000;
   }
+  
+  ${media.mobile} {
+    transform: translateY(170px); 
+  } 
 `;
