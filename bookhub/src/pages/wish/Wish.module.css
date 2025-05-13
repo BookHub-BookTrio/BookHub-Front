@@ -83,6 +83,13 @@
   text-align: left;
   align-items: center;
 }
+
+.table tbody tr:hover {
+  background-color: #f5f0e6;
+  transition: background-color 0.2s ease-in-out;
+  cursor: pointer;
+}
+
 /* 테이블 양 옆 줄 없앰  */
 table th:first-child,
 table td:first-child {
@@ -103,8 +110,8 @@ table td:last-child {
   width: 20%;
 }
 
-.table th.statusCol,
-.table td.statusCol {
+.table th.progressCol,
+.table td.progressCol {
   width: 15%;
 }
 
@@ -124,7 +131,7 @@ table td:last-child {
   text-align: center;
 }
 
-.statusButton {
+.progressButton {
   padding: 8px 15px;
   background-color: transparent;
   box-sizing: border-box;
@@ -133,6 +140,7 @@ table td:last-child {
   box-shadow: 0px -3px 3px #ffffff, 0px 3px 3px #cccccc;
   
   min-width: 80px;
+  cursor: pointer;
 }
 
 .editButton {
