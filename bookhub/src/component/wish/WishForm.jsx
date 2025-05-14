@@ -17,17 +17,11 @@ const WishForm = ({
     onContentChange,
     onToggleCategoryOptions,
     onToggleStarOptions,
-    onBack,
-    onCreate,
-    onDone,
-    onEdit,
-    onDelete,
 		showBack = false,
 		showCreate = false,
 		showEdit = false,
 		showDelete = false,
   	showDone = false,
-    isEdit = false,
   }) => {
     const categoryDisplay = {
       ESSAY: "에세이",
@@ -38,7 +32,7 @@ const WishForm = ({
       ETC: "기타",
     };
   
-    const starOptions = ["😊", "😐", "😞"];
+    const starOptions = {GOOD: "😊", NORMAL: "😐", BAD: "😞", "😊":"😊", "😐":"😐", "😞":"😞"};
   
     return (
       <div className={styles.background}>
@@ -113,7 +107,7 @@ const WishForm = ({
                       </div>
                     ) : (
                       <button className={styles.starButton} onClick={onToggleStarOptions}>
-                        {star}
+                        {starOptions[star] || star}
                       </button>
                     )}
                   </div>
@@ -134,19 +128,19 @@ const WishForm = ({
           <div className={styles.buttonGroup}>
             <div className={styles.leftGroup}>
               {showBack && (
-							<button className={styles.backButton} onClick={onBack}>BACK</button>)}
+							<button className={styles.backButton} onClick={showBack}>BACK</button>)}
             </div>
 
             <div className={styles.rightGroup}>
               {showCreate && (
-                <button className={styles.createButton} onClick={onCreate}>CREATE</button>)}
+                <button className={styles.createButton} onClick={showCreate}>CREATE</button>)}
               {showDone && (
-		  					<button className={styles.doneButton} onClick={onDone}>DONE</button>)}
+		  					<button className={styles.doneButton} onClick={showDone}>DONE</button>)}
 			  			<div className={styles.detailButton}> 
 				  			{showDelete && (
-              	  <button className={styles.deleteButton} onClick={onDelete}>DELETE</button>)}
+              	  <button className={styles.deleteButton} onClick={showDelete}>DELETE</button>)}
 						  	{showEdit && (
-               	  <button className={styles.editButton} onClick={onEdit}>EDIT</button>)}
+               	  <button className={styles.editButton} onClick={showEdit}>EDIT</button>)}
               </div>      		
 					  </div>      
 			  	</div>

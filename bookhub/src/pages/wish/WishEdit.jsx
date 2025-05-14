@@ -57,8 +57,15 @@ const WishEdit = () => {
   //수정 요청
   const handleEdit = async () => {
     try {
-      await axios.patch(`${process.env.REACT_APP_BACKEND_URL}/api/v1/wish/`, {
-        params: { id },
+      await axios.put(`${process.env.REACT_APP_BACKEND_URL}/api/v1/wish?id=${id}`,
+        {
+          bookname: wish.bookname,
+          author: wish.author,
+          progress: wish.progress,
+          category: wish.category,
+          star: wish.star,
+          content: wish.content,
+        }, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
@@ -96,7 +103,7 @@ const WishEdit = () => {
       onToggleCategoryOptions={() => setShowCategoryOptions((prev) => !prev)}
       onToggleStarOptions={() => setShowStarOptions((prev) => !prev)}
       showBack={() => navigate(-1)}
-      showEdit={handleEdit}
+      showDone={handleEdit}
       isEdit={true}
     />
   );
