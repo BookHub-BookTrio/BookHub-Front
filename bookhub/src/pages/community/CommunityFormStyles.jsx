@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import media from "../../assets/media";
 
 export const Rectangle = styled.div`
   position: absolute;
@@ -10,6 +11,15 @@ export const Rectangle = styled.div`
   border-radius: 4px;
   opacity: 0.5;
   z-index: -1;
+  ${media.tablet} {
+    left: 100px;
+    top: 470px;
+  }
+    ${media.mobile} {
+    left: 5px;
+    top: 220px;
+    height: 410px;
+    }
 `;
 
 export const CommunityArticle = styled.div`
@@ -26,6 +36,12 @@ export const CommunityArticle = styled.div`
   box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.05);
   position: relative;
   border-top: 1px solid;
+  ${media.tablet} {
+    width: 80%;
+  }
+  ${media.mobile} {
+    width: 70%;
+  }
 `;
 
 export const InnerContainer = styled.div`

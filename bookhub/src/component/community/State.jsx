@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import React from "react";
+import media from "../../assets/media";
 
 // 커뮤니티 상태에 따라 writing ../ post/ editing .. 으로 변경
 const BadgeWrapper = styled.div`
@@ -33,6 +34,17 @@ const BadgeWrapper = styled.div`
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
   border: ${({ type }) => (type === "post" ? "none" : "1.5px solid #d9d9d9")};
   white-space: nowrap; // 텍스트 줄바꿈 방지
+
+  ${media.tablet} {
+    z-index: 1011;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    top: 22%;
+  }
+    ${media.mobile} {
+    left: 10%;  
+    z-index: 1011;
+  }
 `;
 
 const State = ({ type, isPostAuthor }) => {
