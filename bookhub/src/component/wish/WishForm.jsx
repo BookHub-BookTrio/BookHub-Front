@@ -23,6 +23,12 @@ const WishForm = ({
 		showDelete = false,
   	showDone = false,
   }) => {
+    const progressDisplay = {
+      "UNREAD": "읽기 전",
+      "READING": "읽는 중",
+      "FINISHED": "완료",
+    };
+
     const categoryDisplay = {
       ESSAY: "에세이",
       NOVEL: "소설",
@@ -32,7 +38,11 @@ const WishForm = ({
       ETC: "기타",
     };
   
-    const starOptions = {GOOD: "😊", NORMAL: "😐", BAD: "😞", "😊":"😊", "😐":"😐", "😞":"😞"};
+    const starOptions = [
+      { key: "GOOD", emoji: "😊" },
+      { key: "NORMAL", emoji: "😐" },
+      { key: "BAD", emoji: "😞" },
+  ];
   
     return (
       <div className={styles.background}>
@@ -66,7 +76,7 @@ const WishForm = ({
                 <th>진행상황</th>
                 <td>
                   <button className={styles.progressButton} onClick={onProgressClick}>
-                    <span className={styles.progressDot}></span> {progress}
+                    <span className={styles.progressDot}></span> {progressDisplay[progress] || progress}
                   </button>
                 </td>
               </tr>
@@ -99,15 +109,15 @@ const WishForm = ({
                   <div className={styles.starArea}>
                     {showStarOptions ? (
                       <div className={styles.starOptions}>
-                        {starOptions.map((opt) => (
-                          <button key={opt} onClick={() => onStarClick(opt)}>
-                            {opt}
+                        {starOptions.map(({key, emoji}) => (
+                          <button key={key} onClick={() => onStarClick(key)}>
+                            {emoji}
                           </button>
                         ))}
                       </div>
                     ) : (
                       <button className={styles.starButton} onClick={onToggleStarOptions}>
-                        {starOptions[star] || star}
+                        {starOptions.find((opt) => opt.key === star)?.emoji || ""}
                       </button>
                     )}
                   </div>

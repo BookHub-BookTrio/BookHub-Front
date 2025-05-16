@@ -73,7 +73,7 @@ const WishDetail = () => {
       content={wish.content}
       showBack={() => navigate(-1)}
       showDelete={handleDelete}
-      showEdit={() => navigate("/wish-edit/:id")}
+      showEdit={() => navigate(`/wish-edit/${id}`)}
       isEdit={true}
     />
   );
