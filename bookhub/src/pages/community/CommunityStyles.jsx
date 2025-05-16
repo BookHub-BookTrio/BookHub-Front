@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import GradientBg from "../../component/image/Eclipse.png";
+import media from "../../assets/media";
 
 export const CommunityContainer = styled.div`
   width: 100vw;
@@ -19,11 +20,25 @@ export const CommunityContainer = styled.div`
     margin-top: 10px;
     align-items: left;
     position: fixed; 
-    top: 140px;        
+    top: 140px;   
+    ${media.tablet} {
+      margin-left: 120px;
+      margin-top: 90px;
+    }  
+    ${media.mobile} {
+      margin-left: 20px;
+      font-size: 20px;
+    }   
   }
   background-image: url(${GradientBg});
   background-repeat: no-repeat;
   background-size: cover;
+  ${media.tablet} {
+    background-position: center center;
+  }
+  ${media.mobile} {
+      background-position: center center;
+  }
 `;
 
 export const CommunityArticle = styled.div`
@@ -47,6 +62,9 @@ export const CommunityArticle = styled.div`
     background-color:rgb(244, 244, 244);
     cursor: pointer;
   }
+  ${media.tablet} {
+    width: 80%;
+  }
 `;
 
 export const CommunityTitle = styled.div`
@@ -69,6 +87,10 @@ export const CommunityDate = styled.div`
   letter-spacing: 1px;
   font-family: "Pretendard-Medium", Helvetica;
   margin-right: 150px;
+
+  ${media.tablet} {
+    margin-right: 100px;
+  }
 `;
 
 export const CommunityArrow = styled.img`
@@ -86,4 +108,13 @@ export const Rectangle = styled.div`
   border-radius: 4px;
   opacity: 0.5;
   z-index: -1;
+
+  ${media.tablet} {
+    left: 100px;
+    top: 440px;
+  }
+  ${media.mobile} {
+    left: 10px;
+    top: 202px;
+  }
 `;

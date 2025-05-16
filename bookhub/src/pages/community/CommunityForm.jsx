@@ -11,15 +11,11 @@ const CommunityForm = ({
   content,
   onChangeTitle,
   onChangeContent,
-  writer
+  writer,
+  createdat
 }) => {
   const isReadOnly = mode === "read";
   const [nickname, setNickname] = useState("별명");
-  const createdat = new Date().toLocaleDateString("ko-KR", {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit"
-  }).replace(/\.$/, "");
 
   useEffect(() => {
     if (isReadOnly) {
@@ -59,7 +55,7 @@ const CommunityForm = ({
               />
             )}
             <S.CommunityDateBadge>
-              {createdat}
+              {(createdat || new Date().toISOString()).substring(0, 10).replace(/-/g, '.')}
             </S.CommunityDateBadge>
           </S.TitleRow>
 

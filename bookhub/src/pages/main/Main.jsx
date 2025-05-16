@@ -206,7 +206,7 @@ const fetchTodayBooks = async () => {
             </S.BookContent>
          </S.PopupBox>
         </S.PopupOverlay>
-      )};
+      )}
 
       {/* Main_3 */}
       <S.Main3Container>

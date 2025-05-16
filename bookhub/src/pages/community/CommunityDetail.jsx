@@ -9,7 +9,6 @@ import Modal from "../../component/modal/Modal.jsx";
 const CommunityDetail = () => {
   const [communityData, setCommunityData] = useState(null);
   const [currentUserNickname, setCurrentUserNickname] = useState(null);
-  const [isPostAuthor, setIsPostAuthor] = useState(false);
   const { id } = useParams();
   const navigate = useNavigate();
   const [showDeleteModal, setShowDeleteModal] = useState(false);

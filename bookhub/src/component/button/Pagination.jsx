@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import media from "../../assets/media";
 
 const PaginationWrapper = styled.div`
   text-align: center;
@@ -12,6 +13,14 @@ const PaginationWrapper = styled.div`
   left: 50%; 
   transform: translateX(-50%); 
   padding-bottom: 120px;
+  
+  ${media.tablet} {
+    padding-bottom: 220px;
+  }
+  
+  ${media.mobile} {
+    padding-bottom: 150px;
+  }
 `;
 
 const PaginationButton = styled.button`

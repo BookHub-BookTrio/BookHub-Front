@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import media from "../../assets/media";
 
 const ButtonContainer = styled.div`
   position: fixed;
@@ -14,6 +15,16 @@ const ButtonContainer = styled.div`
   margin-bottom: 40px;
   margin-left: 200px;
   z-index: 1011;
+  
+  ${media.tablet} {
+    margin-left: 10%;
+    margin-bottom: 15%;
+  }
+  ${media.mobile} {
+    right: 60px;   
+    flex-wrap: nowrap;
+    gap: 50px;
+  }
 `;
 
 const ButtonGroup = styled.div`
@@ -39,6 +50,10 @@ const SubmitButton = styled.button`
   white-space: nowrap;
   letter-spacing: 0.7px;
   z-index:1011;
+  ${media.mobile} {
+    width: 100px;
+    font-size: 14px;
+  }
 `;
 
 const FooterButton = ({ status, onClickCreate, onClickDelete, onClickEdit, onClickDone }) => {
