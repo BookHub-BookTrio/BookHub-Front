@@ -133,14 +133,23 @@ table td:last-child {
 
 .progressButton {
   padding: 8px 15px;
+  display: flex;
+	align-items: center;
+	gap: 8px;
+	border: 1px solid #4e594b;
+	border-radius: 999px;
   background-color: transparent;
-  box-sizing: border-box;
-  border: 0;
-  border-radius: 50px;
-  box-shadow: 0px -3px 3px #ffffff, 0px 3px 3px #cccccc;
-  
-  min-width: 80px;
-  cursor: pointer;
+
+	cursor: pointer;
+	font-family: "Pretendard-Regular", Helvetica;
+  font-weight: 400;
+}
+
+.progressDot {
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	background: #4e594b;
 }
 
 .editButton {
