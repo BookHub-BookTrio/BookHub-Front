@@ -6,49 +6,83 @@ import Home from "../home/Home.jsx";
 
 const KakaoCallback = () => {
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(true);
-  const [showModal, setShowModal] = useState(false);
+  const [modal, setModal] = useState({
+    visible: false,
+    title: "",
+    content: "",
+    success: false,
+    isLoading: false,
+  });
+
   const code = new URL(window.location.href).searchParams.get("code");
 
   useEffect(() => {
-    if (code) {
-      axios
-        .get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/oauth2?code=${code}`)
-        .then((response) => {
-          const { accessToken, refreshToken } = response.data.data;
-          localStorage.setItem("accessToken", accessToken);
-          localStorage.setItem("refreshToken", refreshToken);
-          navigate("/", { replace: true });
-        })
-        .catch((error) => {
-          console.error("로그인 실패", error);
-          setShowModal(true); // 실패 시 모달 표시
-        })
-        .finally(() => {
-          setIsLoading(false); // 요청 끝나면 로딩 상태 해제
-        });
-    } else {
-      setIsLoading(false); // code가 없으면 바로 로딩 해제
-    }
-  }, [code, navigate]);
+    const fetchTokens = async () => {
+      if (!code) {
+        return;
+      }
 
-  const handleCloseModal = () => {
-    setShowModal(false);
-    navigate("/home", { replace: true });
+      setModal({
+        visible: true,
+        title: "로딩 중",
+        content: "로그인 처리 중입니다...",
+        success: false,
+        isLoading: true,
+      });
+
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_BACKEND_URL}/api/v1/oauth2?code=${code}`
+        );
+
+        const { accessToken, refreshToken } = response.data.data;
+        localStorage.setItem("accessToken", accessToken);
+        localStorage.setItem("refreshToken", refreshToken);
+
+        setModal({
+          visible: true,
+          title: "로그인 성공",
+          content: "로그인에 성공했습니다! 🎉",
+          success: true,
+          isLoading: false,
+        });
+      } catch (error) {
+        console.error("로그인 실패", error);
+
+        const errorMessage =
+          error?.response?.data?.message || "로그인에 실패했습니다.\n다시 시도해주세요.";
+
+        setModal({
+          visible: true,
+          title: "로그인 실패",
+          content: errorMessage,
+          success: false,
+          isLoading: false,
+        });
+      } finally {
+      }
+    };
+
+    fetchTokens();
+  }, [code]);
+
+  const handleModalClose = () => {
+    setModal({ ...modal, visible: false });
+    if (!modal.isLoading) {
+      navigate(modal.success ? "/" : "/home", { replace: true });
+    }
   };
 
   return (
     <div>
       <Home />
 
-      {isLoading && (
-        <Modal message="로딩중 ..." onClose={() => {}} />
-      )}
-
-      {showModal && (
+      {modal.visible && (
         <Modal
-          message={"로그인에 실패했습니다.\n 다시 시도해주세요."}
-          onClose={handleCloseModal}
+          title={modal.title}
+          content={modal.content}
+          onClose={handleModalClose}
+          onCancel={handleModalClose}
         />
       )}
     </div>
