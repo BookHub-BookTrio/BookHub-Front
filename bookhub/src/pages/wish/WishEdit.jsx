@@ -10,7 +10,7 @@ const WishEdit = () => {
   const [wish, setWish] = useState({
     bookname: "",
     author: "",
-    progress: "읽기 전",
+    progress: "",
     category: "",
     star: "",
     content: "",
@@ -19,7 +19,7 @@ const WishEdit = () => {
   const [showStarOptions, setShowStarOptions] = useState(false);
   const [showCategoryOptions, setShowCategoryOptions] = useState(false);
 
-  const progressOptions = ["읽기 전", "읽는 중", "완료"];
+  const progressOptions = ["UNREAD", "READING", "FINISHED"];
 
   //데이터 불러오기
   useEffect(() => {
@@ -35,6 +35,10 @@ const WishEdit = () => {
           }
         );
         setWish(response.data.data);
+
+        if (!response.data.data.star) {
+          setShowStarOptions(true);
+        }
       } catch (error) {
         console.error("불러오기 실패:", error.response?.data || error.message);
         alert("게시글을 불러오는 데 실패했습니다.");
