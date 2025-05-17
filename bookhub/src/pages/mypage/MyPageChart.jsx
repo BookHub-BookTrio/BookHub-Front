@@ -81,7 +81,6 @@ const MyPageChart = () => {
   const pieData = useMemo(() => ({
     labels: genreData.map(item => categoryDisplay[item.category] || item.category),
     datasets: [{
-      label: 'Genre',
       data: genreData.map(item => item.percentage),
       backgroundColor: ['#42593C', '#A2AF94', '#D3D7C7', '#D1C4A7', '#E9DCC7', '#F0EDE5'],
     }],
