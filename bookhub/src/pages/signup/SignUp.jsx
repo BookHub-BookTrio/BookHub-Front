@@ -8,14 +8,7 @@ import Wrapper from "../../component/layout/Wrapper.jsx";
 export const Signup = () => {
     const navigate = useNavigate();
     const [showModal, setShowModal] = useState(false);
-
-    
-    const handleCloseModal = () => {
-        setShowModal(false);
-        navigate("/", { replace: true });
-    };
-
-    // 입력값과 에러 상태 관리
+    const [modalType, setModalType] = useState("success");
     const [formData, setFormData] = useState({
         name: "",
         nickname: "",
@@ -23,23 +16,54 @@ export const Signup = () => {
         password: "",
         passwordCheck: "",
     });
-    
-    // 서버 에러 메시지 상태 (필드별로 관리)
     const [serverErrors, setServerErrors] = useState({});
 
-    // 입력값 변경 핸들러
+    const handleCloseModal = () => {
+        setShowModal(false);
+        if (modalType === "success") {
+            navigate("/", { replace: true });
+        }
+    };
+
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: value,
-        });
+        setFormData((prev) => ({ ...prev, [name]: value }));
 
-        // 입력 중이면 해당 필드의 에러 메시지 초기화
-        setServerErrors({
-            ...serverErrors,
-            [name]: "",
-        });
+        const errorMessage = validateField(name, value);
+        setServerErrors((prev) => ({ ...prev, [name]: errorMessage }));
+    };
+
+    const validateField = (name, value) => {
+        if (value.trim() === "") {
+            switch (name) {
+                case "name": return "이름을 입력해주세요.";
+                case "nickname": return "별명을 입력해주세요.";
+                case "email": return "이메일을 입력해주세요.";
+                case "password": return "비밀번호를 입력해주세요.";
+                case "passwordCheck": return "비밀번호 확인을 입력해주세요.";
+                default: return "입력해주세요.";
+            }
+        }
+
+        if (name === "email") {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(value)) return "유효한 이메일 형식이 아닙니다.";
+        }
+
+        if (name === "passwordCheck" && value !== formData.password) {
+            return "비밀번호가 일치하지 않습니다.";
+        }
+
+        return "";
+    };
+
+    const handleBlur = (e) => {
+        const { name, value } = e.target;
+        const errorMessage = validateField(name, value);
+
+        if (errorMessage) {
+            setServerErrors((prev) => ({ ...prev, [name]: errorMessage }));
+        }
     };
 
     const handleKeyDown = (e) => {
@@ -48,10 +72,22 @@ export const Signup = () => {
         }
     };
 
-    // 폼 제출 핸들러
     const handleSubmit = async (e) => {
-        e.preventDefault();
-        setServerErrors({}); // 기존 에러 초기화
+        if (e) e.preventDefault();
+        setServerErrors({});
+
+        const newErrors = {};
+        Object.entries(formData).forEach(([key, value]) => {
+            const error = validateField(key, value);
+            if (error) newErrors[key] = error;
+        });
+
+        if (Object.keys(newErrors).length > 0) {
+            setServerErrors(newErrors);
+            setModalType("missing");
+            setShowModal(true);
+            return;
+        }
 
         try {
             const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/v1/internal/join`, {
@@ -66,24 +102,21 @@ export const Signup = () => {
 
             if (data.statusCode === 200) {
                 const { accessToken, refreshToken } = data.data;
-
-                
                 localStorage.setItem("accessToken", accessToken);
                 localStorage.setItem("refreshToken", refreshToken);
-                
+                setModalType("success");
                 setShowModal(true);
             } else {
                 if (data.errors) {
-                    setServerErrors(data.errors);  // 각 필드 에러 (name, email 등)
+                    setServerErrors(data.errors);
                 } else {
-                    setServerErrors({ general: data.message || "회원가입 실패" });  // 일반 에러
+                    setServerErrors({ general: data.message || "회원가입 실패" });
                 }
             }
         } catch (error) {
             setServerErrors({ general: "서버 오류가 발생했습니다." });
         }
     };
-    
 
     return (
         <Wrapper>
@@ -102,6 +135,7 @@ export const Signup = () => {
                             name="name"
                             value={formData.name}
                             onChange={handleChange}
+                            onBlur={handleBlur}
                             placeholder="이름 입력"
                         />
                     </TextFrame>
@@ -114,6 +148,7 @@ export const Signup = () => {
                             name="nickname"
                             value={formData.nickname}
                             onChange={handleChange}
+                            onBlur={handleBlur}
                             placeholder="별명 입력"
                         />
                     </TextFrame>
@@ -126,6 +161,7 @@ export const Signup = () => {
                             name="email"
                             value={formData.email}
                             onChange={handleChange}
+                            onBlur={handleBlur}
                             placeholder="이메일 입력"
                         />
                     </TextFrame>
@@ -138,6 +174,7 @@ export const Signup = () => {
                             name="password"
                             value={formData.password}
                             onChange={handleChange}
+                            onBlur={handleBlur}
                             placeholder="비밀번호 입력"
                         />
                     </TextFrame>
@@ -150,6 +187,7 @@ export const Signup = () => {
                             name="passwordCheck"
                             value={formData.passwordCheck}
                             onChange={handleChange}
+                            onBlur={handleBlur}
                             placeholder="비밀번호 확인"
                         />
                     </TextFrame>
@@ -159,15 +197,23 @@ export const Signup = () => {
                 <SignupButton type="submit">회원가입</SignupButton>
             </form>
 
-            {showModal && (
-                <Modal
-                    title="회원가입 성공 🎉"
-                    content="BookHub에 오신 걸 환영합니다!"
-                    onClose={handleCloseModal}
-                    onKeyDown={handleKeyDown}
-                />
-            )}
-        </div>
+                {showModal && (
+                    <Modal
+                        title={
+                            modalType === "success"
+                                ? "회원가입 성공 🎉"
+                                : "입력 누락 ⚠️"
+                        }
+                        content={
+                            modalType === "success"
+                                ? "BookHub에 오신 걸 환영합니다!"
+                                : "필수 항목을 모두 입력해주세요."
+                        }
+                        onClose={handleCloseModal}
+                        onKeyDown={handleKeyDown}
+                    />
+                )}
+            </div>
         </Wrapper>
     );
 };
