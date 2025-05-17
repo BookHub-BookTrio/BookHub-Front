@@ -48,6 +48,7 @@ export const InnerContainer = styled.div`
   width: 100%;
   padding: 0 1rem; 
   box-sizing: border-box;
+  z-index: 1000;
 `;
 
 export const TitleRow = styled.div`
@@ -95,6 +96,8 @@ export const CommunityContent = styled.div`
 export const BookmarkIcon = styled.div`
   margin-right: 0.5rem;
   cursor: pointer;
+  color: ${({ isBookmarked }) => (isBookmarked ? "#FFD700" : "#999")};
+  z-index: 1011;
 `;
 
 export const InfoRow = styled.div`

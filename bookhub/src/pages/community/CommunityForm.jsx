@@ -55,7 +55,9 @@ const CommunityForm = ({
               />
             )}
             <S.CommunityDateBadge>
-              {(createdat || new Date().toISOString()).substring(0, 10).replace(/-/g, '.')}
+                {`${new Date(createdat || Date.now()).getFullYear()}
+                .${String(new Date(createdat || Date.now()).getMonth() + 1).padStart(2, '0')}
+                .${String(new Date(createdat || Date.now()).getDate()).padStart(2, '0')}`}
             </S.CommunityDateBadge>
           </S.TitleRow>
 
