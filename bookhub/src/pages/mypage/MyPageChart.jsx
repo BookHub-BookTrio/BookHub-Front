@@ -32,7 +32,9 @@ const categoryDisplay = {
 const MyPageChart = () => {
   const [recentCounts, setRecentCounts] = useState([]);
   const [genreData, setGenreData] = useState([]);
-  const { labels: recentLabel, monthArr } = getLast6Months();
+  const { labels: recentLabel, monthArr } = useMemo(() => {
+		return getLast6Months();
+	}, []);
 
   useEffect(() => {
     const fetchMonthlyCounts = async () => {
