@@ -4,7 +4,6 @@ import * as S from "./CommunityFormStyles.jsx";
 import * as Sd from "./CommunityStyles.jsx";
 import ProfileImage from "../../component/image/Profile.png";
 import { FiBookmark } from "react-icons/fi";
-import { BsBookmarkFill } from "react-icons/bs";
 
 const CommunityForm = ({ 
   mode,
@@ -14,8 +13,8 @@ const CommunityForm = ({
   onChangeContent,
   writer,
   createdat,
-  isBookmarked,
-  onBookmarkClick
+  onClickBookmark,
+  isBookmarked
 }) => {
   const isReadOnly = mode === "read";
   const [nickname, setNickname] = useState("별명");
@@ -77,9 +76,12 @@ const CommunityForm = ({
           )}
 
           <S.InfoRow>
-            <S.BookmarkIcon onClick={onBookmarkClick}>
-              {isBookmarked ? <BsBookmarkFill size={20} /> : <FiBookmark size={20} />}
-            </S.BookmarkIcon>
+<S.BookmarkIcon onClick={onClickBookmark}>
+  <FiBookmark 
+    size={20} 
+    color={isBookmarked ? "#FFD700" : "#ccc"}  
+  />
+</S.BookmarkIcon>
 
             <S.UserInfoContainer>
               <S.UserInfoWrapper>
