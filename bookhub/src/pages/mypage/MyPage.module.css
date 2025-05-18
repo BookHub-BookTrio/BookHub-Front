@@ -78,7 +78,8 @@
 }
 
 /* 오른쪽 스크롤 메인 콘텐츠 */
-.mainContent {
+.mainContainer {
+  overflow-y: auto;
   top: 300px;
   margin: 160px 180px 80px 380px;
   padding: 5rem;
@@ -91,6 +92,12 @@
   border: 3px #455D3E solid;
   border-radius: 30px;
   filter: drop-shadow(8px 8px 4px rgba(0, 0, 0, 0.25));
+}
+
+.mainContent {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
 }
 
 .barTitle {
@@ -125,4 +132,74 @@
   width: 40%;
   min-width: 250px;
   text-align: center;
+}
+
+/* Bookmark 영역 */
+.bookmarkTitle {
+  font-family: "Slackey-Regular", Helvetica;
+  font-weight: 700;
+  font-size: 24px;
+}
+
+.bookmarkTable {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.bookmarkTable th,
+.bookmarkTable td,
+.bookmarkTable thead {
+  height: 45px;
+  padding: 8px;
+  border-bottom: 1px solid #ccc;
+  vertical-align: middle;
+}
+
+.bookmarkRow td:nth-child(1) {
+  border-right: 1px solid #ccc;
+}
+
+.bmTitle {
+  width: 50%;
+}
+
+.bmNickname {
+  width: 20%;
+}
+
+.dateCol {
+  padding: 8px;
+  width: 20%;
+}
+
+.bmDate {
+  display: inline-block;
+  background-color: black;
+  color: white;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 30px;
+  line-height: 1.2;
+  text-align: center;
+  align-items: center;
+  white-space: nowrap;
+  height: 30px;
+  width: 100px;
+}
+
+.pagination {
+  margin: 50px 0 0 0;
+  text-align: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.pagination button {
+  margin: 0 5px;
+  border: none;
+  background: none;
+  font-size: 18px;
+  cursor: pointer;
 }
