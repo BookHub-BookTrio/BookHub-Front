@@ -17,6 +17,7 @@ const CommunityDetail = () => {
   const [editedTitle, setEditedTitle] = useState("");
   const [editedContent, setEditedContent] = useState("");
   const [isAuthor, setIsAuthor] = useState(false);
+  const [isBookmarked, setIsBookmarked] = useState(false);
 
   // 게시글 데이터 불러오기
   const fetchCommunityData = async () => {
@@ -49,6 +50,46 @@ const CommunityDetail = () => {
       setCurrentUserNickname(userNickname);
     } catch (error) {
       console.error("현재 사용자 정보 불러오기 실패:", error);
+    }
+  };
+
+  // 북마크 상태 불러오기
+  useEffect(() => {
+    const fetchBookmarkStatus = async () => {
+      if (!id) return;
+      try {
+        const token = localStorage.getItem("accessToken");
+        const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/community/bookmark`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        const bookmarkedList = res.data?.data || [];
+        const matched = bookmarkedList.some((item) => item.communityId === Number(id));
+        setIsBookmarked(matched);
+      } catch (err) {
+        console.error("북마크 상태 조회 실패:", err);
+      }
+    };
+    fetchBookmarkStatus();
+  }, [id]);
+
+  // 북마크 토글 함수
+  const handleBookmarkClick = async () => {
+    try {
+      const token = localStorage.getItem("accessToken");
+      if (isBookmarked) {
+        await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/api/v1/community/bookmark?communityId=${id}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setIsBookmarked(false);
+      } else {
+        await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/community/bookmark?communityId=${id}`, {}, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setIsBookmarked(true);
+      }
+    } catch (err) {
+      console.error("북마크 토글 실패:", err);
     }
   };
 
@@ -149,6 +190,9 @@ const CommunityDetail = () => {
           content={communityData.content}
           writer={communityData.nickname}
           createdat={communityData.createdat}
+          communityId={communityData.id}
+          isBookmarked={isBookmarked}
+          onBookmarkClick={handleBookmarkClick}
         />
       )}
 
