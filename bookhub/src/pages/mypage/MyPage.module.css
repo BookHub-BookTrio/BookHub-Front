@@ -2,6 +2,7 @@
   background: radial-gradient(90% 60% at 50% 100%, #dce4cc 0%, #e3e9d8 70%, #ffffff 110%);
   background-attachment: fixed;
 
+  position: relative;
   width: 100%;
   min-height: 100vh;
   display: flex;
@@ -14,7 +15,7 @@
 .container {
   position: fixed;
   top: 180px;
-  left: 50px;
+  left: 80px;
   width: 250px;
   display: flex;
   flex-direction: column;
@@ -49,22 +50,23 @@
 
 .infoRow {
   display: flex;
-  justify-content: left;
-  width: 100%;
+  justify-content: center;
+  width: 80%;
   margin: 10px 0;
 }
 
 .label {
   font-weight: bold;
-  width: 50px;
+  width: 100px;
   text-align: left;
 }
 
 .value {
   width: 200px;
+  margin-left: 20px;
 }
 
-/* 완료 버튼 */
+/* 수정 버튼 */
 .editButton {
   background: black;
   color: white;
@@ -79,7 +81,8 @@
 
 /* 오른쪽 스크롤 메인 콘텐츠 */
 .mainContainer {
-  overflow-y: auto;
+  overflow-y: auto; /*세로 스크롤*/
+  max-height: 500px;
   top: 300px;
   margin: 160px 180px 80px 380px;
   padding: 5rem;
@@ -97,9 +100,21 @@
 .mainContent {
   display: flex;
   flex-direction: column;
-  gap: 50px;
+  gap: 100px;
 }
 
+.fadeInSection {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Bar chart 영역 */
 .barTitle {
   font-family: "Slackey-Regular", Helvetica;
   font-weight: 700;
@@ -114,20 +129,19 @@
   max-width: 800px;
 }
 
-/* Bar chart 영역 */
 .barChart {
   width: 50%;
   min-width: 300px;
   margin-left: 30px;
 }
 
+/* Pie chart 영역 */
 .pieTitle {
   font-family: "Slackey-Regular", Helvetica;
   font-weight: 700;
   font-size: 24px;
 }
 
-/* Pie chart 영역 */
 .dnaSection {
   width: 40%;
   min-width: 250px;

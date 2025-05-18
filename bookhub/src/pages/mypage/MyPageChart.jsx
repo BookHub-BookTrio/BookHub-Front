@@ -87,7 +87,7 @@ const MyPageChart = () => {
   }), [genreData]);
 
   return (
-    <main className={styles.mainContent}>
+    <section>
       <h2 className={styles.barTitle}>My Literary Journey</h2>
       <div className={styles.chartWrapper}>
         <div className={styles.barChart}>
@@ -98,7 +98,7 @@ const MyPageChart = () => {
           <Pie data={pieData} />
         </div>
       </div>
-    </main>
+    </section>
   );
 };
 

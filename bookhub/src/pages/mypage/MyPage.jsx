@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import styles from "./MyPage.module.css";
 import MyPageProfile from "./MyPageProfile";
 import MyPageChart from "./MyPageChart";
+import MyPageBookmark from "./MyPageBookmark";
 
 const Mypage = () => {
   const navigate = useNavigate();
@@ -14,6 +15,11 @@ const Mypage = () => {
     introduction: "",
     email: "",
   });
+
+  const chartRef = useRef(null);
+  const bookmarkRef = useRef(null);
+  const [chartVisible, setChartVisible] = useState(false);
+  const [bookmarkVisible, setBookmarkVisible] = useState(false);
 
   const handleEditClick = () => {
     navigate(`/mypage-edit`);
@@ -60,10 +66,46 @@ const Mypage = () => {
     fetchMemberInfo();
   }, [navigate]);
 
+  useEffect(() => {
+    const options ={
+     threshold: 0.1,
+      root: document.querySelector(`.${styles.mainContainer}`),
+    };
+
+    const chartObserver = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) setChartVisible(true);
+    }, { options });
+
+    const bookmarkObserver = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) setBookmarkVisible(true);
+    }, { options });
+
+    if (chartRef.current) chartObserver.observe(chartRef.current);
+    if (bookmarkRef.current) bookmarkObserver.observe(bookmarkRef.current);
+
+    return () => {
+      chartObserver.disconnect();
+      bookmarkObserver.disconnect();
+    };
+  }, []);
+
   return (
     <div className={styles.background}>
-      <MyPageProfile formData={formData} onEditClick={handleEditClick} />
-      <MyPageChart />
+      <div className={styles.container}> {/* 왼쪽 프로필 고정 */}
+        <MyPageProfile formData={formData} onEditClick={handleEditClick} />
+      </div>
+
+      <div className={styles.mainContainer}>
+        <div className={styles.mainContent}> {/* 오른쪽 스크롤 영역 */}
+          <div ref={chartRef} className={`${styles.fadeInSection} ${chartVisible ? styles.visible : ''}`}
+          style={{ marginBottom: "500px"}}>
+            <MyPageChart />
+          </div>
+          <div ref={bookmarkRef} className={`${styles.fadeInSection} ${bookmarkVisible ? styles.visible : ''}`}>
+            <MyPageBookmark />
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

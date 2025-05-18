@@ -50,8 +50,7 @@ const MyPageBookmark = () => {
   };
 
   return (
-    <div className={styles.mainContainer}>
-      <div className={styles.mainContent}>
+    <section>
       <h2 className={styles.bookmarkTitle}>My Community Bookmark</h2>
       <table className={styles.bookmarkTable}>
         <thead><tr><th></th></tr></thead>
@@ -75,16 +74,15 @@ const MyPageBookmark = () => {
         </tbody>
       </table>
       <div className={styles.pagination}>
-          <button onClick={handlePrev} disabled={currentPage === 1}>
-            &lt;
-          </button>
-          <span>&nbsp;&nbsp; {currentPage} &nbsp;&nbsp;</span>
-          <button onClick={handleNext} disabled={currentPage === totalPages}>
-            &gt;
-          </button>
-        </div>
+        <button onClick={handlePrev} disabled={currentPage === 1}>
+          &lt;
+        </button>
+        <span>&nbsp;&nbsp; {currentPage} &nbsp;&nbsp;</span>
+        <button onClick={handleNext} disabled={currentPage === totalPages}>
+          &gt;
+        </button>
       </div>
-    </div>
+    </section>
   );
 };
 
