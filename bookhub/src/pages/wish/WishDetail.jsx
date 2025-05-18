@@ -48,7 +48,7 @@ const WishDetail = () => {
   const handleDelete = async () => {
     try {
       await axios.delete(
-        `${process.env.REACT_APP_BACKEND_URL}/api/v1/wish/${id}`,
+        `${process.env.REACT_APP_BACKEND_URL}/api/v1/wish?id=${id}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -73,7 +73,7 @@ const WishDetail = () => {
       content={wish.content}
       showBack={() => navigate(-1)}
       showDelete={handleDelete}
-      showEdit={() => navigate("/wish-edit/:id")}
+      showEdit={() => navigate(`/wish-edit/${id}`)}
       isEdit={true}
     />
   );

@@ -23,12 +23,6 @@ const WishCreate = () => {
     "완료": "FINISHED",
   };
 
-  const starMap = {
-    "😊": "GOOD",
-    "😐": "NORMAL",
-    "😞": "BAD",
-  };
-
   const handleProgressClick = () => {
     const currentIndex = progressOptions.indexOf(progress);
     const nextProgress = progressOptions[(currentIndex + 1) % progressOptions.length];
@@ -44,7 +38,7 @@ const WishCreate = () => {
           author,
           progress: progressMap[progress],
           category,
-          star: starMap[star],
+          star,
           content,
         },
         {
@@ -78,8 +72,8 @@ const WishCreate = () => {
       setCategory(key);
       setShowCategoryOptions(false);
     }}
-    onStarClick={(emoji) => {
-      setStar(emoji);
+    onStarClick={(key) => {
+      setStar(key);
       setShowStarOptions(false);
     }}
     onContentChange={(e) => setContent(e.target.value)}

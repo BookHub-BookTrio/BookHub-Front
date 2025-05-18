@@ -17,18 +17,18 @@ const WishForm = ({
     onContentChange,
     onToggleCategoryOptions,
     onToggleStarOptions,
-    onBack,
-    onCreate,
-    onDone,
-    onEdit,
-    onDelete,
 		showBack = false,
 		showCreate = false,
 		showEdit = false,
 		showDelete = false,
   	showDone = false,
-    isEdit = false,
   }) => {
+    const progressDisplay = {
+      "UNREAD": "읽기 전",
+      "READING": "읽는 중",
+      "FINISHED": "완료",
+    };
+
     const categoryDisplay = {
       ESSAY: "에세이",
       NOVEL: "소설",
@@ -38,7 +38,11 @@ const WishForm = ({
       ETC: "기타",
     };
   
-    const starOptions = ["😊", "😐", "😞"];
+    const starOptions = [
+      { key: "GOOD", emoji: "😊" },
+      { key: "NORMAL", emoji: "😐" },
+      { key: "BAD", emoji: "😞" },
+  ];
   
     return (
       <div className={styles.background}>
@@ -72,7 +76,7 @@ const WishForm = ({
                 <th>진행상황</th>
                 <td>
                   <button className={styles.progressButton} onClick={onProgressClick}>
-                    <span className={styles.progressDot}></span> {progress}
+                    <span className={styles.progressDot}></span> {progressDisplay[progress] || progress}
                   </button>
                 </td>
               </tr>
@@ -105,15 +109,15 @@ const WishForm = ({
                   <div className={styles.starArea}>
                     {showStarOptions ? (
                       <div className={styles.starOptions}>
-                        {starOptions.map((opt) => (
-                          <button key={opt} onClick={() => onStarClick(opt)}>
-                            {opt}
+                        {starOptions.map(({key, emoji}) => (
+                          <button key={key} onClick={() => onStarClick(key)}>
+                            {emoji}
                           </button>
                         ))}
                       </div>
                     ) : (
                       <button className={styles.starButton} onClick={onToggleStarOptions}>
-                        {star}
+                        {starOptions.find((opt) => opt.key === star)?.emoji || ""}
                       </button>
                     )}
                   </div>
@@ -132,19 +136,24 @@ const WishForm = ({
           </div>
   
           <div className={styles.buttonGroup}>
-						{showBack && (
-							<button className={styles.backButton} onClick={onBack}>BACK</button>)}            
-						{showCreate && (
-              <button className={styles.createButton} onClick={onCreate}>CREATE</button>)}
-            {showDone && (
-							<button className={styles.doneButton} onClick={onDone}>DONE</button>)}
-						<div className={styles.detailButton}> 
-							{showDelete && (
-            	  <button className={styles.deleteButton} onClick={onDelete}>DELETE</button>)}
-							{showEdit && (
-             	  <button className={styles.editButton} onClick={onEdit}>EDIT</button>)}
-						</div>      
-					</div>
+            <div className={styles.leftGroup}>
+              {showBack && (
+							<button className={styles.backButton} onClick={showBack}>BACK</button>)}
+            </div>
+
+            <div className={styles.rightGroup}>
+              {showCreate && (
+                <button className={styles.createButton} onClick={showCreate}>CREATE</button>)}
+              {showDone && (
+		  					<button className={styles.doneButton} onClick={showDone}>DONE</button>)}
+			  			<div className={styles.detailButton}> 
+				  			{showDelete && (
+              	  <button className={styles.deleteButton} onClick={showDelete}>DELETE</button>)}
+						  	{showEdit && (
+               	  <button className={styles.editButton} onClick={showEdit}>EDIT</button>)}
+              </div>      		
+					  </div>      
+			  	</div>
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-// import axios from "axios";
+import axios from "axios";
 import styles from "./Wish.module.css";
 
 const Wish = () => {
@@ -22,59 +22,43 @@ const Wish = () => {
 
 
   useEffect(() => {
-    const mockData = [
-      { bookname: "죽고싶지만 떡볶이는 먹고싶어", author: "박세희", status: "읽기 전", category: "에세이", star: "🙂" },
-      { bookname: "죽고싶지만 떡볶이는 먹고싶어", author: "박세희", status: "읽기 전", category: "에세이", star: "🙂" },
-      { bookname: "죽고싶지만 떡볶이는 먹고싶어", author: "박세희", status: "읽는 중", category: "에세이", star: "🙂" },
-      { bookname: "죽고싶지만 떡볶이는 먹고싶어", author: "박세희", status: "읽는 중", category: "에세이", star: "🙂" },
-      { bookname: "죽고싶지만 떡볶이는 먹고싶어", author: "박세희", status: "읽기 전", category: "에세이", star: "🙂" },
-      { bookname: "채식주의자", author: "한강", status: "완료", category: "소설", star: "😊" },
-      { bookname: "채식주의자", author: "한강", status: "완료", category: "소설", star: "😊" },
-      { bookname: "채식주의자", author: "한강", status: "완료", category: "소설", star: "😊" },
-      { bookname: "죽고싶지만 떡볶이는 먹고싶어", author: "박세희", status: "읽기 전", category: "에세이", star: "🙂" },
-      { bookname: "죽고싶지만 떡볶이는 먹고싶어", author: "박세희", status: "읽는 중", category: "에세이", star: "🙂" },
-      { bookname: "죽고싶지만 떡볶이는 먹고싶어", author: "박세희", status: "읽는 중", category: "에세이", star: "🙂" },
-      { bookname: "죽고싶지만 떡볶이는 먹고싶어", author: "박세희", status: "읽기 전", category: "에세이", star: "🙂" },
-      { bookname: "죽고싶지만 떡볶이는 먹고싶어", author: "박세희", status: "읽는 중", category: "에세이", star: "🙂" },
-      { bookname: "채식주의자", author: "한강", status: "완료", category: "소설", star: "😊" },
-      { bookname: "채식주의자", author: "한강", status: "읽기 전", category: "소설", star: "😊" },
-      { bookname: "채식주의자", author: "한강", status: "완료", category: "소설", star: "😊" },
-    ];
-
-    setListData(mockData);
-    // const fetchWishList = async () => {
-    //   try {
-    //     const response = await axios.get(
-    //       `${process.env.REACT_APP_BACKEND_URL}/api/v1/wish`, {
-    //         headers: {
-    //           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-    //         },
-    //       }
-    //     );
-    //     setListData(response.data.data);
-    //   } catch (error) {
-    //     console.error("위시리스트 가져오기 실패:", error.response?.data || error.message);
-    //   }
-    // };
-    // fetchWishList();
+    const fetchWishList = async () => {
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_BACKEND_URL}/api/v1/wish`, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            },
+          }
+        );
+        setListData(response.data.data);
+      } catch (error) {
+        console.error("위시리스트 가져오기 실패:", error.response?.data || error.message);
+      }
+    };
+    fetchWishList();
   }, []);
   
   //진행 상황
-  const statusOptions = ["읽기 전", "읽는 중", "완료"];
+  const progressOptions = {
+    UNREAD: "읽기 전",
+    READING: "읽는 중",
+    FINISHED: "완료",
+  };
 
-  //statusButton 클릭 시 상태 바뀜
-  const handleStatusClick = (index) => {
-    setListData((prev) =>
-      prev.map((item, i) => {
-        if (i === index) {
-          const currentIndex = statusOptions.indexOf(item.status);
-          const nextStatus =
-            statusOptions[(currentIndex + 1) % statusOptions.length];
-          return { ...item, status: nextStatus };
-        }
-        return item;
-      })
-    );
+  const categoryOptions = {
+    ESSAY: "에세이",
+    NOVEL: "소설",
+    SELF_HELP: "자기개발",
+    POETRY: "시",
+    TECHNOLOGY: "기술/IT",
+    ETC: "기타",
+  };
+
+  const starOptions = {
+    GOOD: "😊",
+    NORMAL: "😐",
+    BAD: "😞",
   };
 
   const handlePrev = () => {
@@ -110,7 +94,7 @@ const Wish = () => {
             <tr>
               <th className={styles.titleCol}>독서 목록</th>
               <th className={styles.authorCol}>작가명</th>
-              <th className={styles.statusCol}>진행상황</th>
+              <th className={styles.progressCol}>진행상황</th>
               <th className={styles.categoryCol}>카테고리</th>
               <th className={styles.starCol}>만족도</th>
               <th className={styles.actionCol}></th>
@@ -118,21 +102,16 @@ const Wish = () => {
           </thead>
 
           <tbody>
-            {currentItems.map((item, index) => (
-              <tr key={index}>
+            {currentItems.map((item) => (
+              <tr key={item.id} onClick={() => navigate(`/wish-detail/${item.id}`)} className={styles.tableRow}>
                 <td>{item.bookname}</td>
                 <td>{item.author}</td>
-                <td>
-                  <button className={`${styles.statusButton} ${styles[item.status]}`}
-                  onClick={() => handleStatusClick(startIndex + index)}>
-                    <span className={styles.statusDot}></span>
-                    {item.status}
-                  </button>
-                </td>
-                <td>{item.category}</td>
-                <td>{item.star}</td>
-                <td>
-                  <button className={styles.editButton}>✎</button>
+                <td><button className={styles.progressButton}><span className={styles.progressDot}></span>{progressOptions[item.progress]}</button></td>
+                <td>{categoryOptions[item.category]}</td>
+                <td>{starOptions[item.star]}</td>
+                <td onClick={(e) => e.stopPropagation()}> 
+                  <button className={styles.editButton}
+                  onClick={() => navigate(`/wish-edit/${item.id}`)}>✎</button>
                 </td>
               </tr>
             ))}
