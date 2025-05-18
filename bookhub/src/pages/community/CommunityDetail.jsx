@@ -53,50 +53,30 @@ const CommunityDetail = () => {
     }
   };
 
-  // 북마크 상태 불러오기
-  useEffect(() => {
-    const fetchBookmarkStatus = async () => {
-      if (!id) return;
-      try {
-        const token = localStorage.getItem("accessToken");
-        const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/community/bookmark`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-
-        const bookmarkedList = res.data?.data || [];
-        const matched = bookmarkedList.some((item) => item.communityId === Number(id));
-        setIsBookmarked(matched);
-      } catch (err) {
-        console.error("북마크 상태 조회 실패:", err);
-      }
-    };
-    fetchBookmarkStatus();
-  }, [id]);
-
-  // 북마크 토글 함수
-  const handleBookmarkClick = async () => {
-    try {
-      const token = localStorage.getItem("accessToken");
-      if (isBookmarked) {
-        await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/api/v1/community/bookmark?communityId=${id}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        setIsBookmarked(false);
-      } else {
-        await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/community/bookmark?communityId=${id}`, {}, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        setIsBookmarked(true);
-      }
-    } catch (err) {
-      console.error("북마크 토글 실패:", err);
-    }
-  };
-
   useEffect(() => {
     fetchCommunityData();
     fetchCurrentUser();
+    fetchBookmarkStatus();
   }, [id]);
+
+  const fetchBookmarkStatus = async () => {
+  try {
+    const response = await axios.get(
+      `${process.env.REACT_APP_BACKEND_URL}/api/v1/community/bookmark`,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      }
+    );
+    const bookmarkedList = response.data;
+    const isBookmarkedPost = bookmarkedList.some((item) => item.id.toString() === id); 
+
+    setIsBookmarked(isBookmarkedPost);
+  } catch (error) {
+    console.error("북마크 상태 확인 실패:", error);
+  }
+};
 
   useEffect(() => {
     if (communityData && currentUserNickname) {
@@ -161,6 +141,38 @@ const CommunityDetail = () => {
     }
   };
 
+  const onClickBookmark = async () => {
+  try {
+    if (!isBookmarked) {
+      await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/api/v1/community/bookmark`,
+        {},
+        {
+          params: { communityId: id },
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      );
+      setIsBookmarked(true);
+    } else {
+      await axios.delete(
+        `${process.env.REACT_APP_BACKEND_URL}/api/v1/community/bookmark`,
+        {
+          params: { communityId: id },
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      );
+      setIsBookmarked(false);
+    }
+  } catch (error) {
+    alert("북마크 처리 중 오류가 발생했습니다.");
+    console.error("북마크 에러:", error);
+  }
+};
+
   if (!communityData) {
     return <div>로딩 중...</div>;
   }
@@ -170,6 +182,7 @@ const CommunityDetail = () => {
       <State type={isEditing ? "edit" : communityData ? "post" : "write"} isPostAuthor={isAuthor} />
       <FooterButton
         status={isEditing ? "edit" : isAuthor ? "mypost" : "other"}
+        isBookmarked={isBookmarked}
         onClickEdit={onClickEdit}
         onClickDelete={() => setShowDeleteModal(true)}
         onClickDone={onClickDone}
@@ -190,9 +203,8 @@ const CommunityDetail = () => {
           content={communityData.content}
           writer={communityData.nickname}
           createdat={communityData.createdat}
-          communityId={communityData.id}
+          onClickBookmark={onClickBookmark}
           isBookmarked={isBookmarked}
-          onBookmarkClick={handleBookmarkClick}
         />
       )}
 
