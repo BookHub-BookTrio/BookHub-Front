@@ -96,6 +96,7 @@ export const CommunityContent = styled.div`
 export const BookmarkIcon = styled.div`
   margin-right: 0.5rem;
   cursor: pointer;
+  font-size: 20px;
   color: ${({ isBookmarked }) => (isBookmarked ? "#FFD700" : "#999")};
   z-index: 1011;
 `;
