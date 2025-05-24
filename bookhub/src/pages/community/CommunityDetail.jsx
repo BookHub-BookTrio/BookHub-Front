@@ -18,6 +18,7 @@ const CommunityDetail = () => {
   const [editedContent, setEditedContent] = useState("");
   const [isAuthor, setIsAuthor] = useState(false);
   const [isBookmarked, setIsBookmarked] = useState(false);
+  const [animating, setAnimating] = useState(false);
 
   // 게시글 데이터 불러오기
   const fetchCommunityData = async () => {
@@ -141,7 +142,12 @@ const CommunityDetail = () => {
     }
   };
 
-  const onClickBookmark = async () => {
+  const onClickBookmark = async (e) => {
+    e.currentTarget.classList.remove('animate');
+    void e.currentTarget.offsetWidth;
+    e.currentTarget.classList.add('animate');
+    setAnimating(true);
+    setTimeout(() => setAnimating(false), 750);
   try {
     if (!isBookmarked) {
       await axios.post(
@@ -205,6 +211,7 @@ const CommunityDetail = () => {
           createdat={communityData.createdat}
           onClickBookmark={onClickBookmark}
           isBookmarked={isBookmarked}
+          animating={animating}
         />
       )}
 

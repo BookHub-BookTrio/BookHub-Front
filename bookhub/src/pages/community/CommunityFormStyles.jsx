@@ -1,5 +1,6 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import media from "../../assets/media";
+import { BubblyButton } from "../../component/community/BubblyButton";
 
 export const Rectangle = styled.div`
   position: absolute;
@@ -93,7 +94,18 @@ export const CommunityContent = styled.div`
   font-size: 16px;
 `;
 
-export const BookmarkIcon = styled.div`
+export const pop = keyframes`
+  0%   { transform: scale(1); }
+  25%  { transform: scale(1.3); }
+  50%  { transform: scale(0.9); }
+  75%  { transform: scale(1.1); }
+  100% { transform: scale(1); }
+`;
+
+export const BookmarkIcon = styled(BubblyButton)`
+  &.animate {
+    animation: ${pop} 0.7s forwards;
+  }
   margin-right: 0.5rem;
   cursor: pointer;
   font-size: 20px;

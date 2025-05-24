@@ -15,7 +15,8 @@ const CommunityForm = ({
   writer,
   createdat,
   onClickBookmark,
-  isBookmarked
+  isBookmarked,
+  animating
 }) => {
   const isReadOnly = mode === "read";
   const [nickname, setNickname] = useState("별명");
@@ -77,7 +78,7 @@ const CommunityForm = ({
           )}
 
           <S.InfoRow>
-            <S.BookmarkIcon onClick={onClickBookmark}>
+            <S.BookmarkIcon className={`bubbly-button ${animating ? 'animate' : ''}`} onClick={onClickBookmark}>
               {isBookmarked ? ( <FaBookmark /> ) : ( <FiBookmark /> )}
             </S.BookmarkIcon>
 
