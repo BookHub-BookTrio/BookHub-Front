@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import styles from "./Wish.module.css";
+import Modal from "../../component/modal/Modal";
 
 const Wish = () => {
   const [listData, setListData] = useState([]);
@@ -9,6 +10,19 @@ const Wish = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const navigate = useNavigate();
   const location = useLocation();
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    if (!token) {
+      setIsLoggedIn(false);
+      setShowLoginModal(true);
+    } else {
+      setIsLoggedIn(true);
+    }
+  }, []);
 
   useEffect(() => {
     const pageFromState = location.state?.page;
@@ -43,8 +57,8 @@ const Wish = () => {
         console.error("위시리스트 가져오기 실패:", error.response?.data || error.message);
       }
     };
-    fetchWishList();
-  }, []);
+    if (isLoggedIn) fetchWishList();
+  }, [isLoggedIn]);
   
   //진행 상황
   const progressOptions = {
@@ -77,6 +91,16 @@ const Wish = () => {
   };
 
   return (
+    <>
+    {!isLoggedIn && showLoginModal && (
+      <Modal
+      title="로그인이 필요합니다"
+      content="로그인 페이지로 이동하시겠습니까?"
+      onClose={() => navigate("/home")}
+      onCancel={() => navigate("/")} />
+    )}
+
+    {isLoggedIn && (
     <div className={styles.background}>
       <div className={styles.container}>
         <div className={styles.headerArea}>
@@ -149,6 +173,8 @@ const Wish = () => {
         <button className={styles.createButton} onClick={() => navigate("/wish-create")}>CREATE</button>
       </div>
     </div>
+    )}
+    </>
   );
 };
 
