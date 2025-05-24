@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import styles from "./Wish.module.css";
 
@@ -8,6 +8,12 @@ const Wish = () => {
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    const pageFromState = location.state?.page;
+    if (pageFromState) setCurrentPage(pageFromState);
+  }, [location.state]);
 
   const itemsPerPage = 7;
 
@@ -31,7 +37,8 @@ const Wish = () => {
             },
           }
         );
-        setListData(response.data.data);
+        const sorted = response.data.data.sort((a, b) => b.id - a.id);
+        setListData(sorted);
       } catch (error) {
         console.error("위시리스트 가져오기 실패:", error.response?.data || error.message);
       }
@@ -103,7 +110,7 @@ const Wish = () => {
 
           <tbody>
             {currentItems.map((item) => (
-              <tr key={item.id} onClick={() => navigate(`/wish-detail/${item.id}`)} className={styles.tableRow}>
+              <tr key={item.id} onClick={() => navigate(`/wish-detail/${item.id}`, {state: {page: currentPage}})} className={styles.tableRow}>
                 <td>{item.bookname}</td>
                 <td>{item.author}</td>
                 <td><button className={styles.progressButton}><span className={styles.progressDot}></span>{progressOptions[item.progress]}</button></td>
@@ -111,7 +118,7 @@ const Wish = () => {
                 <td>{starOptions[item.star]}</td>
                 <td onClick={(e) => e.stopPropagation()}> 
                   <button className={styles.editButton}
-                  onClick={() => navigate(`/wish-edit/${item.id}`)}>✎</button>
+                  onClick={() => navigate(`/wish-edit/${item.id}`, {state: {page: currentPage}})}>✎</button>
                 </td>
               </tr>
             ))}
