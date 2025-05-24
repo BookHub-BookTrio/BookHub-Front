@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import WishForm from "../../component/wish/WishForm";
 import Modal from "../../component/modal/Modal";
@@ -7,9 +7,11 @@ import Modal from "../../component/modal/Modal";
 const WishDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [wish, setWish] = useState(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const currentPage = location.state?.page || 1;
 
   useEffect(() => {
     const fetchWish = async () => {
@@ -27,12 +29,12 @@ const WishDetail = () => {
       } catch (error) {
         console.error("불러오기 실패:", error);
         alert("데이터를 불러오지 못했습니다.");
-        navigate("/wish");
+        navigate("/wish", {state: { page: currentPage}});
       }
     };
 
     fetchWish();
-  }, [id, navigate]);
+  }, [id, navigate, currentPage]);
 
   // 삭제 처리
   const confirmDelete = async () => {
@@ -45,7 +47,7 @@ const WishDetail = () => {
           },
         }
       );
-      navigate("/wish");
+      navigate("/wish", {state: { page: currentPage}});
     } catch (error) {
       alert("삭제 실패!");
     } finally {
@@ -64,9 +66,9 @@ const WishDetail = () => {
         category={wish.category}
         star={wish.star}
         content={wish.content}
-        showBack={() => navigate(-1)}
-        showDelete={() => setShowDeleteModal(true)} // ✅ 모달 열기
-        showEdit={() => navigate(`/wish-edit/${id}`)}
+        showBack={() => navigate("/wish", {state: { page: currentPage}})}
+        showDelete={() => setShowDeleteModal(true)}
+        showEdit={() => navigate(`/wish-edit/${id}`, {state: { page: currentPage}})}
         isEdit={true}
       />
 

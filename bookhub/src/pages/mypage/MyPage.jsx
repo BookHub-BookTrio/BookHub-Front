@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import styles from "./MyPage.module.css";
+import Modal from "../../component/modal/Modal";
 import MyPageProfile from "./MyPageProfile";
 import MyPageChart from "./MyPageChart";
 import MyPageBookmark from "./MyPageBookmark";
@@ -21,6 +22,9 @@ const Mypage = () => {
   const [chartVisible, setChartVisible] = useState(false);
   const [bookmarkVisible, setBookmarkVisible] = useState(false);
 
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+
   const handleEditClick = () => {
     navigate(`/mypage-edit`);
   };
@@ -32,12 +36,8 @@ const Mypage = () => {
 
       //로그인 상태 아니면 접근 불가
       if (!token) {
-        const goLogin = window.confirm("로그인이 필요합니다. 로그인 페이지로 이동할까요?");
-        if (goLogin) {
-          navigate("/home");
-        }else {
-          navigate("/");
-        }
+        setIsLoggedIn(false); 
+        setShowLoginModal(true);
         return;
       }
 
@@ -90,6 +90,15 @@ const Mypage = () => {
   }, []);
 
   return (
+    <>
+    {!isLoggedIn && showLoginModal && (
+      <Modal
+      title="로그인이 필요합니다"
+      content="로그인 페이지로 이동하시겠습니까?"
+      onClose={() => navigate("/home")}
+      onCancel={() => navigate("/")} />
+    )}
+    {isLoggedIn && (
     <div className={styles.background}>
       <div className={styles.container}> {/* 왼쪽 프로필 고정 */}
         <MyPageProfile formData={formData} onEditClick={handleEditClick} />
@@ -107,6 +116,8 @@ const Mypage = () => {
         </div>
       </div>
     </div>
+    )}
+    </>
   );
 };
 

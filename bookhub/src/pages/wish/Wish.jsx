@@ -1,13 +1,33 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import styles from "./Wish.module.css";
+import Modal from "../../component/modal/Modal";
 
 const Wish = () => {
   const [listData, setListData] = useState([]);
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    if (!token) {
+      setIsLoggedIn(false);
+      setShowLoginModal(true);
+    } else {
+      setIsLoggedIn(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    const pageFromState = location.state?.page;
+    if (pageFromState) setCurrentPage(pageFromState);
+  }, [location.state]);
 
   const itemsPerPage = 7;
 
@@ -31,13 +51,14 @@ const Wish = () => {
             },
           }
         );
-        setListData(response.data.data);
+        const sorted = response.data.data.sort((a, b) => b.id - a.id);
+        setListData(sorted);
       } catch (error) {
         console.error("위시리스트 가져오기 실패:", error.response?.data || error.message);
       }
     };
-    fetchWishList();
-  }, []);
+    if (isLoggedIn) fetchWishList();
+  }, [isLoggedIn]);
   
   //진행 상황
   const progressOptions = {
@@ -70,6 +91,16 @@ const Wish = () => {
   };
 
   return (
+    <>
+    {!isLoggedIn && showLoginModal && (
+      <Modal
+      title="로그인이 필요합니다"
+      content="로그인 페이지로 이동하시겠습니까?"
+      onClose={() => navigate("/home")}
+      onCancel={() => navigate("/")} />
+    )}
+
+    {isLoggedIn && (
     <div className={styles.background}>
       <div className={styles.container}>
         <div className={styles.headerArea}>
@@ -103,7 +134,7 @@ const Wish = () => {
 
           <tbody>
             {currentItems.map((item) => (
-              <tr key={item.id} onClick={() => navigate(`/wish-detail/${item.id}`)} className={styles.tableRow}>
+              <tr key={item.id} onClick={() => navigate(`/wish-detail/${item.id}`, {state: {page: currentPage}})} className={styles.tableRow}>
                 <td>{item.bookname}</td>
                 <td>{item.author}</td>
                 <td><button className={styles.progressButton}><span className={styles.progressDot}></span>{progressOptions[item.progress]}</button></td>
@@ -111,7 +142,7 @@ const Wish = () => {
                 <td>{starOptions[item.star]}</td>
                 <td onClick={(e) => e.stopPropagation()}> 
                   <button className={styles.editButton}
-                  onClick={() => navigate(`/wish-edit/${item.id}`)}>✎</button>
+                  onClick={() => navigate(`/wish-edit/${item.id}`, {state: {page: currentPage}})}>✎</button>
                 </td>
               </tr>
             ))}
@@ -142,6 +173,8 @@ const Wish = () => {
         <button className={styles.createButton} onClick={() => navigate("/wish-create")}>CREATE</button>
       </div>
     </div>
+    )}
+    </>
   );
 };
 
