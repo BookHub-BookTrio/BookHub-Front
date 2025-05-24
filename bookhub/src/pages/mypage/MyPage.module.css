@@ -170,6 +170,15 @@
   vertical-align: middle;
 }
 
+.bookmarkRow {
+  cursor: pointer;
+}
+
+.bookmarkRow:hover {
+  background-color: #edf4e5; 
+  transition: background-color 0.2s ease;
+}
+
 .bookmarkRow td:nth-child(1) {
   border-right: 1px solid #ccc;
 }

@@ -2,26 +2,15 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import WishForm from "../../component/wish/WishForm";
+import Modal from "../../component/modal/Modal";
 
 const WishDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
   const [wish, setWish] = useState(null);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
-	useEffect(() => {
-		// 디자인용 가짜 데이터
-		const mockWish = {
-			bookname: "소년이 온다",
-			author: "한강",
-			progress: "읽는 중",
-			category: "NOVEL",
-			star: "😊",
-			content: "꼭 완독해야지!!!",
-		};
-		setWish(mockWish);
-	}, []);
-	
   useEffect(() => {
     const fetchWish = async () => {
       try {
@@ -45,7 +34,8 @@ const WishDetail = () => {
     fetchWish();
   }, [id, navigate]);
 
-  const handleDelete = async () => {
+  // 삭제 처리
+  const confirmDelete = async () => {
     try {
       await axios.delete(
         `${process.env.REACT_APP_BACKEND_URL}/api/v1/wish?id=${id}`,
@@ -58,24 +48,42 @@ const WishDetail = () => {
       navigate("/wish");
     } catch (error) {
       alert("삭제 실패!");
+    } finally {
+      setShowDeleteModal(false);
     }
   };
 
-  if (!wish) return <div>Loading...</div>
+  if (!wish) return <div>Loading...</div>;
 
   return (
-    <WishForm
-      bookname={wish.bookname}
-      author={wish.author}
-      progress={wish.progress}
-      category={wish.category}
-      star={wish.star}
-      content={wish.content}
-      showBack={() => navigate(-1)}
-      showDelete={handleDelete}
-      showEdit={() => navigate(`/wish-edit/${id}`)}
-      isEdit={true}
-    />
+    <>
+      <WishForm
+        bookname={wish.bookname}
+        author={wish.author}
+        progress={wish.progress}
+        category={wish.category}
+        star={wish.star}
+        content={wish.content}
+        showBack={() => navigate(-1)}
+        showDelete={() => setShowDeleteModal(true)} // ✅ 모달 열기
+        showEdit={() => navigate(`/wish-edit/${id}`)}
+        isEdit={true}
+      />
+
+      {showDeleteModal && (
+        <Modal
+          title="삭제하시겠습니까?"
+          content={
+            <>
+              삭제하면 해당 기록은 <br />
+              되돌릴 수 없습니다.
+            </>
+          }
+          onClose={confirmDelete}
+          onCancel={() => setShowDeleteModal(false)}
+        />
+      )}
+    </>
   );
 };
 
