@@ -4,6 +4,7 @@ import * as S from "./CommunityFormStyles.jsx";
 import * as Sd from "./CommunityStyles.jsx";
 import ProfileImage from "../../component/image/Profile.png";
 import { FiBookmark } from "react-icons/fi";
+import { FaBookmark } from "react-icons/fa";
 
 const CommunityForm = ({ 
   mode,
@@ -14,7 +15,8 @@ const CommunityForm = ({
   writer,
   createdat,
   onClickBookmark,
-  isBookmarked
+  isBookmarked,
+  animating
 }) => {
   const isReadOnly = mode === "read";
   const [nickname, setNickname] = useState("별명");
@@ -76,12 +78,9 @@ const CommunityForm = ({
           )}
 
           <S.InfoRow>
-<S.BookmarkIcon onClick={onClickBookmark}>
-  <FiBookmark 
-    size={20} 
-    color={isBookmarked ? "#FFD700" : "#ccc"}  
-  />
-</S.BookmarkIcon>
+            <S.BookmarkIcon className={`bubbly-button ${animating ? 'animate' : ''}`} onClick={onClickBookmark}>
+              {isBookmarked ? ( <FaBookmark /> ) : ( <FiBookmark /> )}
+            </S.BookmarkIcon>
 
             <S.UserInfoContainer>
               <S.UserInfoWrapper>

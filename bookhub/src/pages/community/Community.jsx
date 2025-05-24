@@ -39,7 +39,10 @@ export const Community = () => {
             Authorization: `Bearer ${localStorage.getItem("accessToken")}`, 
           },
         }); 
-        setCommunityData(response.data.data);
+        const sortedData = response.data.data.sort(
+        (a, b) => new Date(b.createdat) - new Date(a.createdat)
+      );
+        setCommunityData(sortedData);
       } catch (error) {
         console.error("커뮤니티 데이터를 불러오는 데 실패했습니다:", error);
       }
