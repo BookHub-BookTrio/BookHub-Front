@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import * as S from "./CommunityStyles.jsx";
 import CommunityArrow from "../../component/image/CommunityArrow.png";
 import Pagination from "../../component/button/Pagination.jsx";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import FooterButton from "../../component/button/FooterButton.jsx";
+import axios from "../../component/refreshToken/api.jsx";
 
 // 커뮤니티 전체 조회 
 export const Community = () => {

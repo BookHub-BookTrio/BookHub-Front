@@ -5,6 +5,7 @@ import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import FooterButton from "../../component/button/FooterButton.jsx";
 import Modal from "../../component/modal/Modal.jsx";
+import Wrapper from "../../component/layout/Wrapper.jsx";
 
 const CommunityDetail = () => {
   const [communityData, setCommunityData] = useState(null);
@@ -195,6 +196,7 @@ const CommunityDetail = () => {
       />
 
       {isEditing ? (
+        <Wrapper key="edit">
         <CommunityForm
           mode="edit"
           title={editedTitle}
@@ -202,7 +204,9 @@ const CommunityDetail = () => {
           onChangeTitle={(e) => setEditedTitle(e.target.value)}
           onChangeContent={(e) => setEditedContent(e.target.value)}
         />
+        </Wrapper>
       ) : (
+        <Wrapper key="read">
         <CommunityForm
           mode="read"
           title={communityData.title}
@@ -213,6 +217,7 @@ const CommunityDetail = () => {
           isBookmarked={isBookmarked}
           animating={animating}
         />
+        </Wrapper>
       )}
 
       {/* 삭제 확인 모달 */}
