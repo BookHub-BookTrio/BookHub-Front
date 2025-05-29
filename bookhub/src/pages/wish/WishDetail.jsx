@@ -11,8 +11,10 @@ const WishDetail = () => {
 
   const [wish, setWish] = useState(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showCompleteModal, setShowCompleteModal] = useState(false);
   const currentPage = location.state?.page || 1;
 
+  //데이터 불러오기
   useEffect(() => {
     const fetchWish = async () => {
       try {
@@ -47,12 +49,21 @@ const WishDetail = () => {
           },
         }
       );
-      navigate("/wish", {state: { page: currentPage}});
+      setShowDeleteModal(false);
+      setShowCompleteModal(true);
+
+      setTimeout(() => {
+        navigate("/wish", {state: {page: currentPage}});
+      }, 1500); //1.5초 후 자동 닫힘
     } catch (error) {
       alert("삭제 실패!");
-    } finally {
-      setShowDeleteModal(false);
     }
+  };
+
+  // 완료 모달 수동 닫기 (확인 or X 클릭 시)
+  const closeCompleteModal = () => {
+    setShowCompleteModal(false);
+    navigate(`/wish`);
   };
 
   if (!wish) return <div>Loading...</div>;
@@ -85,6 +96,14 @@ const WishDetail = () => {
           onCancel={() => setShowDeleteModal(false)}
         />
       )}
+
+      {showCompleteModal && (
+      <Modal
+      title="삭제 완료"
+      onClose={closeCompleteModal}
+      onCancel={closeCompleteModal}
+      />)
+      }
     </>
   );
 };
