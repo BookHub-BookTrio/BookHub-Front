@@ -5,11 +5,15 @@ import Pagination from "../../component/button/Pagination.jsx";
 import { useNavigate } from "react-router-dom";
 import FooterButton from "../../component/button/FooterButton.jsx";
 import axios from "../../component/refreshToken/api.jsx";
+import Modal from "../../component/modal/Modal.jsx";
 
-// 커뮤니티 전체 조회 
+// 커뮤니티 전체 조회
 export const Community = () => {
   const [communityData, setCommunityData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [isLoggedin, setIsLoggedin] = useState(false);
+
   const itemsPerPage = 6;
   const totalPages = Math.ceil(communityData.length / itemsPerPage);
   const navigate = useNavigate();
@@ -23,77 +27,115 @@ export const Community = () => {
   };
 
   const handleClick = () => {
-      navigate("/community/write");
-  }
+    navigate("/community/write");
+  };
   const currentItems = communityData.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
 
   useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken");
+
+    if (!accessToken) {
+      setIsLoggedin(false);
+      setShowLoginModal(true);
+      return;
+    } else {
+      setIsLoggedin(true);
+    }
+
     const fetchCommunityData = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/community`, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`, 
-          },
-        }); 
+        const response = await axios.get(
+          `${process.env.REACT_APP_BACKEND_URL}/api/v1/community`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            },
+          }
+        );
         const sortedData = response.data.data.sort(
-        (a, b) => new Date(b.createdat) - new Date(a.createdat)
-      );
+          (a, b) => new Date(b.createdat) - new Date(a.createdat)
+        );
         setCommunityData(sortedData);
       } catch (error) {
         console.error("커뮤니티 데이터를 불러오는 데 실패했습니다:", error);
       }
     };
 
-    fetchCommunityData();
-  }, []);
+    if (isLoggedin) {
+      fetchCommunityData();
+    }
+  }, [isLoggedin]);
 
   return (
     <>
-    <S.CommunityContainer>
-      <p>Community</p>
-      <S.Rectangle />
+      {!isLoggedin && showLoginModal && (
+        <Modal
+          title="로그인이 필요합니다."
+          content="로그인 페이지로 이동하시겠습니까?"
+          onClose={() => navigate("/home")}
+          onCancel={() => navigate("/")}
+        />
+      )}
 
-      {[...Array(itemsPerPage)].map((_, index) => (
-        <S.CommunityArticle
-          key={index}
-          first={index === 0} // 첫 번째 항목
-          last={index === itemsPerPage - 1} // 마지막 항목
-          onClick={() => {
-            const item = currentItems[index];
-            if (item) navigate(`/community/${item.id}`);
-          }}
-        >
-          {currentItems[index] ? (
-            <>
-              <S.CommunityTitle>{currentItems[index].title}</S.CommunityTitle>
-              <S.CommunityDate>
-                {currentItems[index].createdat.substring(0, 10).replace(/-/g, '.')}
-              </S.CommunityDate>
-              <S.CommunityArrow src={CommunityArrow} alt="arrow" />
-            </>
-          ) : (
-            // 데이터가 없으면 빈 항목 표시
-            <>
-              <S.CommunityTitle>&nbsp;</S.CommunityTitle>
-              <S.CommunityDate style={{ visibility: 'hidden' }}>&nbsp;</S.CommunityDate>
-              <S.CommunityArrow src={CommunityArrow} alt="arrow" style={{ visibility: 'hidden' }} />
-            </>
-          )}
-        </S.CommunityArticle>
-      ))}
+      {isLoggedin && (
+        <>
+          <S.CommunityContainer>
+            <p>Community</p>
+            <S.Rectangle />
 
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPrev={handleCommunityPrev}
-        onNext={handleCommunityNext}
-      />
-    </S.CommunityContainer>
-    <FooterButton status="allpost" onClickCreate={handleClick}/>
+            {[...Array(itemsPerPage)].map((_, index) => (
+              <S.CommunityArticle
+                key={index}
+                first={index === 0} // 첫 번째 항목
+                last={index === itemsPerPage - 1} // 마지막 항목
+                onClick={() => {
+                  const item = currentItems[index];
+                  if (item) navigate(`/community/${item.id}`);
+                }}
+              >
+                {currentItems[index] ? (
+                  <>
+                    <S.CommunityTitle>
+                      {currentItems[index].title}
+                    </S.CommunityTitle>
+                    <S.CommunityDate>
+                      {currentItems[index].createdat
+                        .substring(0, 10)
+                        .replace(/-/g, ".")}
+                    </S.CommunityDate>
+                    <S.CommunityArrow src={CommunityArrow} alt="arrow" />
+                  </>
+                ) : (
+                  // 데이터가 없으면 빈 항목 표시
+                  <>
+                    <S.CommunityTitle>&nbsp;</S.CommunityTitle>
+                    <S.CommunityDate style={{ visibility: "hidden" }}>
+                      &nbsp;
+                    </S.CommunityDate>
+                    <S.CommunityArrow
+                      src={CommunityArrow}
+                      alt="arrow"
+                      style={{ visibility: "hidden" }}
+                    />
+                  </>
+                )}
+              </S.CommunityArticle>
+            ))}
+
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPrev={handleCommunityPrev}
+              onNext={handleCommunityNext}
+            />
+          </S.CommunityContainer>
+          <FooterButton status="allpost" onClickCreate={handleClick} />
+        </>
+      )}
     </>
   );
 };
