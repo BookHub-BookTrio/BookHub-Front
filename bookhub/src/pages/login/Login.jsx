@@ -24,7 +24,7 @@ export const Login = () => {
         setErrorModal({ show: false, title: "", content: "" });
     };
     const handleKeyDown = (e) => {
-        if (e.key === "Enter") {
+        if (e.key === "Enter" && !showModal && !errorModal.show) {
             handleLogin();
         }
     };
@@ -43,7 +43,7 @@ export const Login = () => {
         
         } catch (error) {
             const errorMessage =
-                error.response?.data?.message || "알 수 없는 오류가 발생했습니다.";
+                error.response?.data?.message || "잘못 입력하셨습니다.";
 
             setErrorModal({
                 show: true,
