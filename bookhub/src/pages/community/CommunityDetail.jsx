@@ -20,8 +20,9 @@ const CommunityDetail = () => {
   const [isAuthor, setIsAuthor] = useState(false);
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [animating, setAnimating] = useState(false);
+  const [pictureUrl, setPictureUrl] = useState(null);
+  const [showCancelEditModal, setShowCancelEditModal] = useState(false);
 
-  // 게시글 데이터 불러오기
   const fetchCommunityData = async () => {
     try {
       const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/community/detail`, {
@@ -49,17 +50,13 @@ const CommunityDetail = () => {
       });
 
       const userNickname = response.data.data.nickname;
+      const pictureUrl = response.data.data.pictureUrl;
       setCurrentUserNickname(userNickname);
+      setPictureUrl(pictureUrl);
     } catch (error) {
       console.error("현재 사용자 정보 불러오기 실패:", error);
     }
   };
-
-  useEffect(() => {
-    fetchCommunityData();
-    fetchCurrentUser();
-    fetchBookmarkStatus();
-  }, [id]);
 
   const fetchBookmarkStatus = async () => {
   try {
@@ -81,6 +78,12 @@ const CommunityDetail = () => {
 };
 
   useEffect(() => {
+    fetchCommunityData();
+    fetchCurrentUser();
+    fetchBookmarkStatus();
+  }, [id]);
+
+  useEffect(() => {
     if (communityData && currentUserNickname) {
       if (communityData.nickname === currentUserNickname) {
         setIsAuthor(true);
@@ -88,9 +91,42 @@ const CommunityDetail = () => {
     }
   }, [communityData, currentUserNickname]);
 
+  // 뒤로가기 이벤트 제어
+  useEffect(() => {
+    if (isEditing) {
+      window.history.pushState(null, "", window.location.href);
+    }
+
+    const handlePopState = (e) => {
+      if (isEditing) {
+        setShowCancelEditModal(true);
+        window.history.pushState(null, "", window.location.href);
+      }
+    };
+
+    window.addEventListener("popstate", handlePopState);
+
+    return () => {
+      window.removeEventListener("popstate", handlePopState);
+    };
+  }, [isEditing]);
+
+  // 수정 취소 모달 확인 (뒤로가기를 허용하고 편집 종료)
+  const handleConfirmCancelEdit = () => {
+    setIsEditing(false);
+    setShowCancelEditModal(false);
+    window.history.back(); 
+  };
+
+  // 수정 취소 모달 취소 (뒤로가기 무효화)
+  const handleCancelCancelEdit = () => {
+    setShowCancelEditModal(false);
+    window.history.pushState(null, "", window.location.href);
+  };
+
   const handleModalClose = () => {
     setShowDeleteModal(false);
-    setShowEditModal(false); 
+    setShowEditModal(false);
   };
 
   const onClickEdit = () => {
@@ -144,9 +180,9 @@ const CommunityDetail = () => {
   };
 
   const onClickBookmark = async (e) => {
-    e.currentTarget.classList.remove('animate');
+    e.currentTarget.classList.remove("animate");
     void e.currentTarget.offsetWidth;
-    e.currentTarget.classList.add('animate');
+    e.currentTarget.classList.add("animate");
     setAnimating(true);
     setTimeout(() => setAnimating(false), 750);
   try {
@@ -203,6 +239,7 @@ const CommunityDetail = () => {
           content={editedContent}
           onChangeTitle={(e) => setEditedTitle(e.target.value)}
           onChangeContent={(e) => setEditedContent(e.target.value)}
+          pictureUrl={pictureUrl}
         />
         </Wrapper>
       ) : (
@@ -216,6 +253,7 @@ const CommunityDetail = () => {
           onClickBookmark={onClickBookmark}
           isBookmarked={isBookmarked}
           animating={animating}
+          pictureUrl={pictureUrl}
         />
         </Wrapper>
       )}
@@ -239,13 +277,19 @@ const CommunityDetail = () => {
       {showEditModal && (
         <Modal
           title="수정하시겠습니까?"
-          content={
-            <>
-              확인을 누르면 게시글이 수정됩니다.
-            </>
-          }
-          onClose={onClickConfirmEdit} 
+          content={<>확인을 누르면 게시글이 수정됩니다.</>}
+          onClose={onClickConfirmEdit}
           onCancel={handleModalClose}
+        />
+      )}
+
+      {/* 수정 취소 확인 모달 */}
+      {showCancelEditModal && (
+        <Modal
+          title="수정을 취소하시겠습니까?"
+          content="취소하면 변경사항이 저장되지 않습니다."
+          onClose={handleConfirmCancelEdit}
+          onCancel={handleCancelCancelEdit}
         />
       )}
     </>
