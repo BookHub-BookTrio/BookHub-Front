@@ -1,10 +1,12 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import WishForm from "../../component/wish/WishForm";
+import Modal from "../../component/modal/Modal";
 
 const WishCreate = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [bookname, setBookname] = useState("");
   const [author, setAuthor] = useState("");
@@ -14,6 +16,17 @@ const WishCreate = () => {
   const [content, setContent] = useState("");
   const [showStarOptions, setShowStarOptions] = useState(true);
   const [showCategoryOptions, setShowCategoryOptions] = useState(true);
+
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [showCompleteModal, setShowCompleteModal] = useState(false);
+
+  const [currentPage, setCurrentPage] = useState(1);
+
+  useEffect(() => {
+    if (location.state?.page) {
+      setCurrentPage(location.state.page);
+    }
+  }, [location.state]);
 
   const progressOptions = ["읽기 전", "읽는 중", "완료"];
 
@@ -29,9 +42,14 @@ const WishCreate = () => {
     setProgress(nextProgress);
   };
 
-  const handleCreate = async () => {
+  //등록 요청
+  const handleCreate = () => {
+    setShowConfirmModal(true);
+  };
+
+  const confirmCreate = async () => {
     try {
-      const response = await axios.post(
+      await axios.post(
         `${process.env.REACT_APP_BACKEND_URL}/api/v1/wish`,
         {
           bookname,
@@ -47,15 +65,26 @@ const WishCreate = () => {
           },
         }
       );
-      console.log("등록 성공:", response.data);
-      navigate("/wish");
+      setShowConfirmModal(false);
+      setShowCompleteModal(true);
+      
+      setTimeout(() => {
+        navigate("/wish", {state: {page: currentPage}});
+      }, 1500); //1.5초 후 자동 닫힘
     } catch (error) {
       console.error("등록 실패:", error.response?.data || error.message);
       alert("등록에 실패했습니다.");
     }
   };
 
+  // 완료 모달 수동 닫기 (확인 or X 클릭 시)
+  const closeCompleteModal = () => {
+    setShowCompleteModal(false);
+    navigate("/wish", {state: {page: currentPage}});
+  };
+
   return (
+    <>
     <WishForm
     bookname = {bookname}
     author = {author}
@@ -80,8 +109,27 @@ const WishCreate = () => {
     onToggleCategoryOptions={() => setShowCategoryOptions(true)}
     onToggleStarOptions={() => setShowStarOptions(true)}
     showCreate={handleCreate}
-    showBack={() => navigate(-1)}
+    showBack={() => navigate("/wish", {state: {page: currentPage}})}
     />
+
+    {showConfirmModal && (
+        <Modal
+          title="작성하시겠습니까?"
+          content="확인을 누르면 작성이 완료됩니다."
+          onClose={confirmCreate}
+          onCancel={() => setShowConfirmModal(false)}
+        />
+      )}
+
+      {showCompleteModal && (
+        <Modal
+          title="게시글 작성 완료🎉"
+          content="게시글이 성공적으로 작성되었습니다."
+          onClose={closeCompleteModal}
+          onCancel={closeCompleteModal}
+        />
+      )}
+    </>
   );
 };
 

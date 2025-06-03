@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import WishForm from "../../component/wish/WishForm";
+import Modal from "../../component/modal/Modal";
 
 const WishEdit = () => {
   const navigate = useNavigate();
@@ -18,6 +19,9 @@ const WishEdit = () => {
 
   const [showStarOptions, setShowStarOptions] = useState(false);
   const [showCategoryOptions, setShowCategoryOptions] = useState(false);
+
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [showCompleteModal, setShowCompleteModal] = useState(false);
 
   const progressOptions = ["UNREAD", "READING", "FINISHED"];
 
@@ -59,7 +63,10 @@ const WishEdit = () => {
   };
 
   //수정 요청
-  const handleEdit = async () => {
+  const handleEdit = () => {
+    setShowConfirmModal(true);
+  };
+  const confirmEdit = async () => {
     try {
       await axios.put(`${process.env.REACT_APP_BACKEND_URL}/api/v1/wish?id=${id}`,
         {
@@ -74,15 +81,26 @@ const WishEdit = () => {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
       });
-      alert("수정 완료");
-      navigate("/wish");
+      setShowConfirmModal(false);
+      setShowCompleteModal(true);
+
+      setTimeout(() => {
+        navigate(`/wish-detail/${id}`);
+      }, 1500); //1.5초 후 자동 닫힘
     } catch (error) {
       console.error("수정 실패:", error.response?.data || error.message);
       alert("수정 실패");
     }
   };
 
+  // 완료 모달 수동 닫기 (확인 or X 클릭 시)
+  const closeCompleteModal = () => {
+    setShowCompleteModal(false);
+    navigate(`/wish-detail/${id}`);
+  };
+
   return (
+    <>
     <WishForm
       bookname={wish.bookname}
       author={wish.author}
@@ -110,6 +128,25 @@ const WishEdit = () => {
       showDone={handleEdit}
       isEdit={true}
     />
+
+    {showConfirmModal && (
+      <Modal
+      title="수정하시겠습니까?"
+      content="확인을 누르면 게시글이 수정됩니다."
+      onClose={confirmEdit}
+      onCancel={() => setShowConfirmModal(false)}
+      />
+    )}
+
+    {showCompleteModal && (
+      <Modal
+        title="게시글 수정 완료"
+        content="게시글이 성공적으로 수정되었습니다."
+        onClose={closeCompleteModal}
+        onCancel={closeCompleteModal}
+      />
+    )}
+    </>
   );
 };
 

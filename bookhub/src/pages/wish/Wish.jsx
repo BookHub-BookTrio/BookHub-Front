@@ -148,7 +148,7 @@ const Wish = () => {
             ))}
 
             {emptyRows.map((_, idx) => (
-              <tr kdy={`empty-${idx}`}>
+              <tr key={`empty-${idx}`} className={styles.emptyRow}>
                 <td>&nbsp;</td>
                 <td></td>
                 <td></td>
@@ -170,7 +170,7 @@ const Wish = () => {
           </button>
         </div>
 
-        <button className={styles.createButton} onClick={() => navigate("/wish-create")}>CREATE</button>
+        <button className={styles.createButton} onClick={() => navigate("/wish-create", { state: { page: currentPage } })}>CREATE</button>
       </div>
     </div>
     )}

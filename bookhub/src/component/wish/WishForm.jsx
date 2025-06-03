@@ -131,7 +131,7 @@ const WishForm = ({
               className={styles.textarea}
               value={content}
               onChange={onContentChange}
-              placeholder="감상을 입력하세요"
+              placeholder={onContentChange ? "감상을 입력하세요" : ""}
             />
           </div>
   

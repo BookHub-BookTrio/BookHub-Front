@@ -84,7 +84,7 @@
   align-items: center;
 }
 
-.table tbody tr:hover {
+.table tbody tr:not(.emptyRow):hover {
   background-color: #f5f0e6;
   transition: background-color 0.2s ease-in-out;
   cursor: pointer;
