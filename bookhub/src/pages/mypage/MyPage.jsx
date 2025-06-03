@@ -100,6 +100,7 @@ const Mypage = () => {
     )}
     {isLoggedIn && (
     <div className={styles.background}>
+      <div className={styles.containerWrapper}> {/* 컨테이너들 묶어주기 */}
       <div className={styles.container}> {/* 왼쪽 프로필 고정 */}
         <MyPageProfile formData={formData} onEditClick={handleEditClick} />
       </div>
@@ -115,6 +116,7 @@ const Mypage = () => {
           </div>
         </div>
       </div>
+    </div>
     </div>
     )}
     </>
