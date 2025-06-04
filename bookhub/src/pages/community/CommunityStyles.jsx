@@ -55,8 +55,8 @@ export const CommunityArticle = styled.div`
   padding: 1.2rem 2rem;
   box-shadow: 0 4px 10px rgba(0,0,0,0.05);
   z-index: 2;
-  border-radius: ${(props) => (props.first ? "4px 4px 0px 0px" : props.last ? "0px 0px 4px 4px" : "0px")};
-  border-top: ${(props) => (props.first ? "1.3px solid rgb(40, 36, 36);" : "none")};
+  border-radius: ${(props) => (props.$first ? "4px 4px 0px 0px" : props.last ? "0px 0px 4px 4px" : "0px")};
+  border-top: ${(props) => (props.$first ? "1.3px solid rgb(40, 36, 36);" : "none")};
   
   &:hover {
     background-color:rgb(244, 244, 244);

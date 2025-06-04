@@ -36,7 +36,7 @@ const CommunityDetail = () => {
 
   return (
     <>
-      <State type={isEditing ? "edit" : communityData ? "post" : "write"} isPostAuthor={isAuthor} />
+      <State type={isEditing ? "edit" : communityData ? "post" : "write"} $isPostAuthor={isAuthor} />
 
       <FooterButton
         status={isEditing ? "edit" : isAuthor ? "mypost" : "other"}
