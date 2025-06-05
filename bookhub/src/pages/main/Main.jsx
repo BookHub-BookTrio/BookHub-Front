@@ -132,19 +132,19 @@ export const Main = () => {
       <S.MainImage src={MainBook} alt="MainBook" />
 
       {/* Main_2 */}
-      <S.StyledTodayBook ref={overlap3Ref} isVisible={isVisible}>
+      <S.StyledTodayBook ref={overlap3Ref} $isVisible={isVisible}>
         <p>📜 TODAY’S <br /> BOOK</p>
         <S.ArrowImage src={Arrow1} alt="arrow" />
         <p className="today">오늘의 추천 책을<br /> 확인해 보세요</p>
       </S.StyledTodayBook>
 
-      <S.BlurEffect className="top-left" isVisible={isBookVisible} />
-      <S.BlurEffect className="bottom-right" isVisible={isBookVisible} />
+      <S.BlurEffect className="top-left" $isVisible={isBookVisible} />
+      <S.BlurEffect className="bottom-right" $isVisible={isBookVisible} />
 
-      <S.StyledBookCard ref={bookCardRef} isVisible={isVisible}  style={{ visibility: showPopup ? "hidden" : "visible" }}>
+      <S.StyledBookCard ref={bookCardRef} $isVisible={isVisible}  style={{ visibility: showPopup ? "hidden" : "visible" }}>
         {todayBooks.map((book, idx) => (
         <S.BookWrapper key={idx} onClick={() => handleBookClick(book)}>
-          <S.BookImage src={MainBook_aladin} alt="aladin" isVisible={isVisible} />
+          <S.BookImage src={MainBook_aladin} alt="aladin" $isVisible={isVisible} />
             {!book.cover && <S.BookName>{book.title}</S.BookName>}
             {book.cover && (
               <S.BookImage_2 src={book.cover} alt="aladin_book" />
@@ -172,19 +172,19 @@ export const Main = () => {
 
       {/* Main_3 */}
       <S.Main3Container>
-        <S.StyledTodayBook_best ref={bestRef} isVisible={isExtraVisible}>
+        <S.StyledTodayBook_best ref={bestRef} $isVisible={isExtraVisible}>
           <p className="best"> 🏆 Best seller 🏆 </p>
-          <S.ArrowImage_best src={Arrow1} alt="arrow" flip small/>
+          <S.ArrowImage_best src={Arrow1} alt="arrow" $flip $small/>
         </S.StyledTodayBook_best>
 
-        <S.StyledHr ref={arrowRef} isVisible={isExtraVisible}/>
+        <S.StyledHr ref={arrowRef} $isVisible={isExtraVisible}/>
 
-        <S.StyledTodayBook_pub ref={newPubRef} isVisible={isExtraVisible}>
+        <S.StyledTodayBook_pub ref={newPubRef} $isVisible={isExtraVisible}>
           <p className="pub"> ✨ New <br /> Published ✨</p>
-          <S.ArrowImage src={Arrow1} alt="arrow" small/>
+          <S.ArrowImage src={Arrow1} alt="arrow" $small/>
         </S.StyledTodayBook_pub>
 
-        <S.BookCardContainer_best isVisible={isExtraVisible}>
+        <S.BookCardContainer_best $isVisible={isExtraVisible}>
           <S.NavButton onClick={() => handlePrev(setBestIndex, bestPageCount)}>&lt;</S.NavButton>
           {(bestSellerBooks && bestSellerBooks.length > 0) ? (
             bestSellerBooks
@@ -207,13 +207,13 @@ export const Main = () => {
         </S.BookCardContainer_best>
         <S.StyledEllipsis_best>
           {Array.from({ length: bestPageCount }, (_, idx) => (
-          <S.Dot key={idx} active={idx === bestIndex} />
+          <S.Dot key={idx} $active={idx === bestIndex} />
           ))}
         </S.StyledEllipsis_best>
 
         <S.StyledHr />
 
-        <S.BookCardContainer_pub isVisible={isExtraVisible}>
+        <S.BookCardContainer_pub $isVisible={isExtraVisible}>
         <S.NavButton onClick={() => handleNext(setNewPubIndex, newPubPageCount)}>&lt;</S.NavButton>
           {(newPublishedBooks && newPublishedBooks.length > 0) ? (
             newPublishedBooks
@@ -236,7 +236,7 @@ export const Main = () => {
         </S.BookCardContainer_pub>
         <S.StyledEllipsis_pub>
           {Array.from({ length: newPubPageCount }, (_, idx) => (
-          <S.Dot key={idx} active={idx === newPubIndex} />
+          <S.Dot key={idx} $active={idx === newPubIndex} />
           ))}
         </S.StyledEllipsis_pub>
 

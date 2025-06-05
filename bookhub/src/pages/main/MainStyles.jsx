@@ -160,7 +160,7 @@ export const MainImage = styled.img`
 // main - 2번째
 export const StyledTodayBook = styled.div`
   margin-top: 300px;
-  opacity: ${(props) => (props.isVisible ? "1" : "0")};
+  opacity: ${(props) => (props.$isVisible ? "1" : "0")};
   transition: opacity 0.5s ease-in-out;
   margin-left: 220px;
   z-index: 1001;
@@ -204,8 +204,8 @@ export const StyledTodayBook = styled.div`
 export const ArrowImage = styled.img`
   margin: 10px 0;
   margin-left: 35px;
-  width: ${(props) => (props.small ? "120px" : "138px")}; // 길이 조건부
-  transform: ${(props) => (props.flip ? "scaleX(-1)" : "none")};
+  width: ${(props) => (props.$small ? "120px" : "138px")}; // 길이 조건부
+  transform: ${(props) => (props.$flip ? "scaleX(-1)" : "none")};
   ${media.mobile} {
     width: 100px;
   }
@@ -215,8 +215,8 @@ export const ArrowImage = styled.img`
 export const ArrowImage_best = styled.img`
   margin: 10px 0;
   margin-right: 100px;
-  width: ${(props) => (props.small ? "120px" : "138px")}; // 길이 조건부
-  transform: ${(props) => (props.flip ? "scaleX(-1)" : "none")};
+  width: ${(props) => (props.$small ? "120px" : "138px")}; // 길이 조건부
+  transform: ${(props) => (props.$flip ? "scaleX(-1)" : "none")};
   ${media.mobile} {
   width: 90px;
   margin-right: 5%;
@@ -230,8 +230,8 @@ export const StyledBookCard = styled.div`
   position: relative;
   margin-top: -190px;
   margin-left: 30%;
-  opacity: ${(props) => (props.isVisible ? "1" : "0")};
-  transform: translateY(${(props) => (props.isVisible ? "0" : "30px")});
+  opacity: ${(props) => (props.$isVisible ? "1" : "0")};
+  transform: translateY(${(props) => (props.$isVisible ? "0" : "30px")});
   transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
   animation: ${floatAnimation} 3s ease-in-out infinite;
 
@@ -251,8 +251,8 @@ export const BookImage = styled.img`
   width: 100%;
   height: 100%;
   margin-left: 60px;
-  opacity: ${(props) => (props.isVisible ? "1" : "0")};
-  transform: translateY(${(props) => (props.isVisible ? "0" : "30px")});
+  opacity: ${(props) => (props.$isVisible ? "1" : "0")};
+  transform: translateY(${(props) => (props.$isVisible ? "0" : "30px")});
   transition: opacity 1s ease-in-out, transform 1s ease-in-out;
 
   ${media.tablet} {
@@ -346,7 +346,7 @@ export const BlurEffect = styled.div`
   background-image: url(${GradientBg});
   background-size: cover;
   background-position: center;
-  opacity: ${(props) => (props.isVisible ? "1" : "0")}; 
+  opacity: ${(props) => (props.$isVisible ? "1" : "0")}; 
   transition: opacity 1s ease-in-out;
   filter: blur(50px);
   pointer-events: none;
@@ -391,7 +391,7 @@ export const StyledTodayBook_best = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  opacity: ${(props) => (props.isVisible ? "1" : "0")};
+  opacity: ${(props) => (props.$isVisible ? "1" : "0")};
   transition: opacity 0.5s ease-in-out;
   margin-right: 17vw;
   gap: 10px; 
@@ -427,9 +427,9 @@ export const StyledTodayBook_best = styled.div`
 export const StyledTodayBook_pub = styled.div`
   margin-top: 50px; 
   transform: translateY(-150px);
-  opacity: ${(props) => (props.isVisible ? "1" : "0")};
+  opacity: ${(props) => (props.$isVisible ? "1" : "0")};
   transition: opacity 0.5s ease-in-out;
-  transition-delay: ${(props) => (props.isVisible ? "0.5s" : "0s")};
+  transition-delay: ${(props) => (props.$isVisible ? "0.5s" : "0s")};
   margin-left: 220px;
 
   .pub {
@@ -470,7 +470,7 @@ export const StyledHr = styled.hr`
   width: 55%;
   margin-top: 60px;
   margin-bottom: 540px;
-  opacity: ${props => (props.isVisible ? 1 : 0)};
+  opacity: ${props => (props.$isVisible ? 1 : 0)};
   transition: opacity 0.5s ease-in-out;
 `;
 
@@ -480,7 +480,7 @@ export const BookCardContainer_best = styled.div`
   margin-left: 300px; 
   margin-top: -720px; 
   gap: 30px;
-  opacity: ${(props) => (props.isVisible ? "1" : "0")};
+  opacity: ${(props) => (props.$isVisible ? "1" : "0")};
   transition: opacity 0.5s ease-in-out;
 
   ${media.tablet} {
@@ -498,9 +498,9 @@ export const BookCardContainer_pub = styled.div`
   margin-top: -560px;  
   margin-bottom: 15px;
   gap: 30px;
-  opacity: ${(props) => (props.isVisible ? "1" : "0")};
+  opacity: ${(props) => (props.$isVisible ? "1" : "0")};
   transition: opacity 0.5s ease-in-out;
-  transition-delay: ${(props) => (props.isVisible ? "0.5s" : "0s")};
+  transition-delay: ${(props) => (props.$isVisible ? "0.5s" : "0s")};
 
   ${media.tablet} {
     margin-left: 40px;
@@ -547,7 +547,7 @@ export const Dot = styled.div`
   border-radius: 50%;
   margin: 0 4px;
   margin-bottom: 20px;
-  background-color: ${(props) => (props.active ? "#000" : "#ccc")};
+  background-color: ${(props) => (props.$active ? "#000" : "#ccc")};
   transition: background-color 0.3s;
 `;
 
