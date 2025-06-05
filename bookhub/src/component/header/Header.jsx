@@ -50,7 +50,7 @@ const Header = () => {
         </div>
       </nav>
 
-      <button className="logout-btn"><LoginButton /></button>
+      <LoginButton />
       <div className="rectangle" />    
     </div>
   );

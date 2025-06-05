@@ -90,8 +90,8 @@ export const Community = () => {
             {[...Array(itemsPerPage)].map((_, index) => (
               <S.CommunityArticle
                 key={index}
-                first={index === 0} // 첫 번째 항목
-                last={index === itemsPerPage - 1} // 마지막 항목
+                $first={index === 0} // 첫 번째 항목
+                $last={index === itemsPerPage - 1} // 마지막 항목
                 onClick={() => {
                   const item = currentItems[index];
                   if (item) navigate(`/community/${item.id}`);

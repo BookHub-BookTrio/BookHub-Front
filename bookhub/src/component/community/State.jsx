@@ -59,7 +59,7 @@ const State = ({ type, isPostAuthor }) => {
     default:
       text = "POST";
   }
-  return <BadgeWrapper type={type} isPostAuthor={isPostAuthor}>{text}</BadgeWrapper>;
+  return <BadgeWrapper type={type} $isPostAuthor={isPostAuthor}>{text}</BadgeWrapper>;
 };
 
 export default State;

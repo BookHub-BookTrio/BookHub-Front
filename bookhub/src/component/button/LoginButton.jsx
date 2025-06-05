@@ -1,6 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Modal from "../modal/Modal.jsx";
+import styled from "styled-components";
+
+const StyledLogoutButton = styled.button`
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: "Slackey-Regular", Helvetica;
+  font-size: 18px;
+
+  /* 로그아웃 버튼 숨기기 */
+  @media (max-width: 820px) {
+   display: none;
+  }
+`
 
 export const LoginButton = () => {
     const navigate = useNavigate();
@@ -38,9 +55,9 @@ export const LoginButton = () => {
 
     return (
         <>
-            <button className="logout-btn" onClick={handleClick}>
+            <StyledLogoutButton onClick={handleClick}>
                 {isLoggedIn ? "LOGOUT" : "LOGIN"}
-            </button>
+            </StyledLogoutButton>
 
             {showModal && (
                 <Modal

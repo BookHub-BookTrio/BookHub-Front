@@ -4,8 +4,8 @@ import MainBook from "../../component/image/MainBook_remove.png";
 import MainBook_aladin from "../../component/image/MainBook_aladin.png";
 import Arrow1 from "../../component/image/Arrow.png";
 import BookCard from "../../component/main_aladin/BookCard.jsx";
-import axios from "axios";
 import AOS from "aos";
+import useMainBook from "../../component/hooks/useMainBook.js";
 
 export const Main = () => {
   const overlap3Ref = useRef(null);
@@ -18,84 +18,37 @@ export const Main = () => {
   const [isBookVisible, setIsBookVisible] = useState(false);
   const [isExtraVisible, setIsExtraVisible] = useState(false);
 
-// Main - 2 추천 책 조회
-const fetchTodayBooks = async () => {
-  try {
-    const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/book/random`);
-    setTodayBooks(response.data.data);
-  } catch (error) {
-    console.error(error.response?.data?.message || "도서 정보를 불러오는 중 오류가 발생했습니다.");
-    // API 요청 실패 시 더미 데이터로 기본 컴포넌트 유지
-    setTodayBooks([
-      { title: "BOOK NAME" },
-      { title: "BOOK NAME" }
-    ]);
-  }
-};
-
-  // main - 2 aladin api random 2 get
-  const [todayBooks, setTodayBooks] = useState([]);
+  const { todayBooks, newPublishedBooks, bestSellerBooks } = useMainBook();  // 커스텀 훅 호출
 
   // main - 2aladin api random 2 팝업
   const [selectedBook, setSelectedBook] = useState(null); 
   const [showPopup, setShowPopup] = useState(false);
 
-  // main - 3 aladin api new 2 get
-  const [newPublishedBooks, setNewPublishedBooks ] = useState([]);
   // main - 3 aladin api best 2 get
-  const [bestSellerBooks, setBestSellerBooks] = useState([]);
   const [bestIndex, setBestIndex] = useState(0);
   const [newPubIndex, setNewPubIndex] = useState(0);
   
- // ellipsis 연동 
- const bestPageCount = Math.ceil(bestSellerBooks.length / 3);
- const newPubPageCount = Math.ceil(newPublishedBooks.length / 3);
+  // ellipsis 연동 
+  const bestPageCount = Math.ceil(bestSellerBooks.length / 3);
+  const newPubPageCount = Math.ceil(newPublishedBooks.length / 3);
 
   const handleBookClick = (book) => {
     setSelectedBook(book);
     setShowPopup(true);
   };
 
-  const handleBestPrev = () => {
-    setBestIndex((prev) => (prev - 1 + Math.ceil(bestSellerBooks.length / 3)) % Math.ceil(bestSellerBooks.length / 3));
+  const handlePrev = (setter, pageCount) => {
+    setter(prev => (prev - 1 + pageCount) % pageCount);
   };
-  
-  const handleBestNext = () => {
-    setBestIndex((prev) => (prev + 1) % Math.ceil(bestSellerBooks.length / 3));
-  };
-  
-  const handleNewPrev = () => {
-    setNewPubIndex((prev) => (prev - 1 + Math.ceil(newPublishedBooks.length / 3)) % Math.ceil(newPublishedBooks.length / 3));
-  };
-  
-  const handleNewNext = () => {
-    setNewPubIndex((prev) => (prev + 1) % Math.ceil(newPublishedBooks.length / 3));
-  };
-  
-  const fetchNewPublishedBooks = async () => {
-    try {
-      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/book/new`);
-      setNewPublishedBooks(response.data.data);
-    } catch (error) {
-      console.error(error.response?.data?.message || "신간 정보를 불러오는 중 오류가 발생했습니다.");
-    }
-  };
-
-  const fetchBestSellerBooks = async () => {
-    try {
-      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/book/bestseller`);
-      setBestSellerBooks(response.data.data);
-    } catch (error) {
-      console.error(error.response?.data?.message || "베스트셀러 정보를 불러오는 중 오류가 발생했습니다.");
-    }
+  const handleNext = (setter, pageCount) => {
+    setter(prev => (prev + 1) % pageCount);
   };
   
   useEffect(() => {
-    AOS.init({ easing: "ease-out" });
-
-    fetchTodayBooks();
-    fetchNewPublishedBooks();
-    fetchBestSellerBooks();
+    AOS.init({ 
+      easing: "ease-out", 
+      duration: 2000
+    });
 
     // main_2 오늘의 책 (텍스트) 감지
     const observer1 = new IntersectionObserver(
@@ -151,6 +104,15 @@ const fetchTodayBooks = async () => {
     };
   }, []);
 
+  // 기본 더미 카드 렌더링 함수
+  const renderDummyCards = () => (
+    <>
+      <BookCard title="title" author="작가" image="/default-cover.png" />
+      <BookCard title="title" author="작가" image="/default-cover.png" />
+      <BookCard title="title" author="작가" image="/default-cover.png" />
+    </>
+  );
+
   return (
     <S.MainContainer>
 
@@ -170,19 +132,19 @@ const fetchTodayBooks = async () => {
       <S.MainImage src={MainBook} alt="MainBook" />
 
       {/* Main_2 */}
-      <S.StyledTodayBook ref={overlap3Ref} isVisible={isVisible}>
+      <S.StyledTodayBook ref={overlap3Ref} $isVisible={isVisible}>
         <p>📜 TODAY’S <br /> BOOK</p>
         <S.ArrowImage src={Arrow1} alt="arrow" />
         <p className="today">오늘의 추천 책을<br /> 확인해 보세요</p>
       </S.StyledTodayBook>
 
-      <S.BlurEffect className="top-left" isVisible={isBookVisible} />
-      <S.BlurEffect className="bottom-right" isVisible={isBookVisible} />
+      <S.BlurEffect className="top-left" $isVisible={isBookVisible} />
+      <S.BlurEffect className="bottom-right" $isVisible={isBookVisible} />
 
-      <S.StyledBookCard ref={bookCardRef} isVisible={isVisible}  style={{ visibility: showPopup ? "hidden" : "visible" }}>
+      <S.StyledBookCard ref={bookCardRef} $isVisible={isVisible}  style={{ visibility: showPopup ? "hidden" : "visible" }}>
         {todayBooks.map((book, idx) => (
         <S.BookWrapper key={idx} onClick={() => handleBookClick(book)}>
-          <S.BookImage src={MainBook_aladin} alt="aladin" isVisible={isVisible} />
+          <S.BookImage src={MainBook_aladin} alt="aladin" $isVisible={isVisible} />
             {!book.cover && <S.BookName>{book.title}</S.BookName>}
             {book.cover && (
               <S.BookImage_2 src={book.cover} alt="aladin_book" />
@@ -210,20 +172,20 @@ const fetchTodayBooks = async () => {
 
       {/* Main_3 */}
       <S.Main3Container>
-        <S.StyledTodayBook_best ref={bestRef} isVisible={isExtraVisible}>
+        <S.StyledTodayBook_best ref={bestRef} $isVisible={isExtraVisible}>
           <p className="best"> 🏆 Best seller 🏆 </p>
-          <S.ArrowImage_best src={Arrow1} alt="arrow" flip small/>
+          <S.ArrowImage_best src={Arrow1} alt="arrow" $flip $small/>
         </S.StyledTodayBook_best>
 
-        <S.StyledHr ref={arrowRef} isVisible={isExtraVisible}/>
+        <S.StyledHr ref={arrowRef} $isVisible={isExtraVisible}/>
 
-        <S.StyledTodayBook_pub ref={newPubRef} isVisible={isExtraVisible}>
+        <S.StyledTodayBook_pub ref={newPubRef} $isVisible={isExtraVisible}>
           <p className="pub"> ✨ New <br /> Published ✨</p>
-          <S.ArrowImage src={Arrow1} alt="arrow" small/>
+          <S.ArrowImage src={Arrow1} alt="arrow" $small/>
         </S.StyledTodayBook_pub>
 
-        <S.BookCardContainer_best isVisible={isExtraVisible}>
-          <S.NavButton onClick={handleBestPrev}>&lt;</S.NavButton>
+        <S.BookCardContainer_best $isVisible={isExtraVisible}>
+          <S.NavButton onClick={() => handlePrev(setBestIndex, bestPageCount)}>&lt;</S.NavButton>
           {(bestSellerBooks && bestSellerBooks.length > 0) ? (
             bestSellerBooks
             .slice(bestIndex * 3, bestIndex * 3 + 3)
@@ -239,26 +201,20 @@ const fetchTodayBooks = async () => {
             }}
           />
           ))
-          ) : (
-          // 서버 연결 없을 시 기본 더미 데이터
-          <>
-            <BookCard title="title" author="작가" image="/default-cover.png" />
-            <BookCard title="title" author="작가" image="/default-cover.png" />
-            <BookCard title="title" author="작가" image="/default-cover.png" />
-          </>
-          )}      
-          <S.NavButton onClick={handleBestNext}>&gt;</S.NavButton>
+          ) : renderDummyCards()}     
+
+          <S.NavButton onClick={() => handleNext(setBestIndex, bestPageCount)}>&gt;</S.NavButton>
         </S.BookCardContainer_best>
         <S.StyledEllipsis_best>
           {Array.from({ length: bestPageCount }, (_, idx) => (
-          <S.Dot key={idx} active={idx === bestIndex} />
+          <S.Dot key={idx} $active={idx === bestIndex} />
           ))}
         </S.StyledEllipsis_best>
 
         <S.StyledHr />
 
-        <S.BookCardContainer_pub isVisible={isExtraVisible}>
-        <S.NavButton onClick={handleNewPrev}>&lt;</S.NavButton>
+        <S.BookCardContainer_pub $isVisible={isExtraVisible}>
+        <S.NavButton onClick={() => handleNext(setNewPubIndex, newPubPageCount)}>&lt;</S.NavButton>
           {(newPublishedBooks && newPublishedBooks.length > 0) ? (
             newPublishedBooks
             .slice(newPubIndex * 3, newPubIndex * 3 + 3)
@@ -274,19 +230,13 @@ const fetchTodayBooks = async () => {
             }}
           />
           ))
-          ) : (
-        // 서버 연결 없을 시 기본 더미 데이터
-        <>
-          <BookCard title="title" author="작가" image="/default-cover.png" />
-          <BookCard title="title" author="작가" image="/default-cover.png" />
-          <BookCard title="title" author="작가" image="/default-cover.png" />
-        </>
-          )}
-        <S.NavButton onClick={handleNewNext}>&gt;</S.NavButton>
+          ) : renderDummyCards()}
+
+        <S.NavButton onClick={() => handleNext(setNewPubIndex, newPubPageCount)}>&gt;</S.NavButton>
         </S.BookCardContainer_pub>
         <S.StyledEllipsis_pub>
           {Array.from({ length: newPubPageCount }, (_, idx) => (
-          <S.Dot key={idx} active={idx === newPubIndex} />
+          <S.Dot key={idx} $active={idx === newPubIndex} />
           ))}
         </S.StyledEllipsis_pub>
 
