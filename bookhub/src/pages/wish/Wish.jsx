@@ -6,6 +6,7 @@ import Modal from "../../component/modal/Modal";
 
 const Wish = () => {
   const [listData, setListData] = useState([]);
+  const [itemsPerPage, setItemsPerPage] = useState(7);
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ const Wish = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
 
+  //로그인 여부 확인
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
     if (!token) {
@@ -24,23 +26,36 @@ const Wish = () => {
     }
   }, []);
 
+  //BACK 버튼 누른 후 페이지 유지
   useEffect(() => {
     const pageFromState = location.state?.page;
     if (pageFromState) setCurrentPage(pageFromState);
   }, [location.state]);
 
-  const itemsPerPage = 7;
-
+  //검색 필터링
   const filteredData = listData.filter((item) =>
     item.bookname?.toLowerCase().includes(search.toLowerCase())
   );
 
+  useEffect(() => {
+    const updateItemsPerPage = () => {
+      const smallWindow = window.innerWidth < 768;
+      setItemsPerPage(smallWindow ? 5 : 7);
+    };
+    updateItemsPerPage(); 
+    window.addEventListener("resize", updateItemsPerPage);
+    return () => {
+      window.removeEventListener("resize", updateItemsPerPage);
+    };
+  }, []);
+
+  //페이지네이션 처리
   const totalPages = Math.ceil(filteredData.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const currentItems = filteredData.slice(startIndex, startIndex + itemsPerPage);
   const emptyRows = Array(itemsPerPage - currentItems.length).fill({});
 
-
+  //위시 리스트 불러오기
   useEffect(() => {
     const fetchWishList = async () => {
       try {

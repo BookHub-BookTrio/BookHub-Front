@@ -12,11 +12,13 @@
 }
 
 .container {
-  position: fixed;
+  width: 100%;
+  position: relative;
   margin: 0 auto;
-  padding-top: 100px;
+  padding-top: 130px;
   align-items: center;
-  min-width: 1000px;
+  height: 90vh;
+  overflow-y: auto;
 }
 
 .headerArea {
@@ -38,12 +40,14 @@
   justify-content: center;
   gap: 10px;
   margin-bottom: 20px;
+  width: 100%;
+  max-width: 1000px;
 }
 
 .searchArea input {
   flex: 1;
-  min-width: 750px;
-  max-width: 1000px;
+  width: 100%;
+  max-width: 900px;
   padding: 10px 12px;
   border-radius: 20px;
   border: 1px solid #ccc;
@@ -102,17 +106,17 @@ table td:last-child {
 
 .table th.titleCol,
 .table td.titleCol {
-  width: 40%;
+  width: 38%;
 }
 
 .table th.authorCol,
 .table td.authorCol {
-  width: 20%;
+  width: 19%;
 }
 
 .table th.progressCol,
 .table td.progressCol {
-  width: 15%;
+  width: 18%;
 }
 
 .table th.categoryCol,
@@ -198,4 +202,82 @@ table td:last-child {
 
   display: block;
   margin: 0 50px 50px auto;
+}
+
+@media screen and (max-width: 767px) {
+  .container {
+    min-width: auto;
+    width: 100%;
+    padding: 40px;
+    padding-top: 120px;
+    position: relative;
+    overflow-y: auto;
+    height: 85vh;
+    overflow-y: auto;
+  }
+
+  .headerArea {
+    flex-direction: column;
+    margin-top: 30px;
+  }
+
+  .title {
+    margin: 0 0 20px 0;
+    font-size: 24px;
+    text-align: center;
+  }
+
+  .searchArea {
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 30px;
+    gap: 10px;
+    width: 300px;
+  }
+
+  .searchArea input {
+    min-width: auto;
+    width: 100%;
+    max-width: none;
+  }
+
+  .searchButton {
+    width: 110px;
+    margin-left: 0;
+    align-items: center;
+  }
+
+  .table {
+    width: 100%;
+    display: block;
+    overflow-x: auto;
+    overflow-y: auto;
+    white-space: nowrap;
+  }
+
+  .table th,
+  .table td {
+    font-size: 12px;
+    padding: 6px;
+  }
+
+  .progressButton {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+
+  .editButton {
+    font-size: 14px;
+  }
+
+  .pagination {
+    margin-top: 30px;
+  }
+
+  .createButton {
+    width: 110px;
+    margin: 20px auto;
+    font-size: 14px;
+    padding: 10px;
+  }
 }
