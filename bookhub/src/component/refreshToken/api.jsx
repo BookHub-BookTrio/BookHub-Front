@@ -8,15 +8,14 @@ const api = axios.create({
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('accessToken');
-    if (!token) {
-      // 토큰이 없으면 로그인 페이지로 이동
-      window.location.href = '/home';
-      throw new axios.Cancel('No access token – redirecting to login');
-    }
-    config.headers['Authorization'] = `Bearer ${token}`;
+    if (token) {
+      config.headers['Authorization'] = `Bearer ${token}`;
+    } 
     return config;
   },
-  (error) => Promise.reject(error)
+  (error) => {
+    return Promise.reject(error);
+  }
 );
 
 // 응답 인터셉터 – accessToken 만료시 refresh 토큰으로 재발급
@@ -25,11 +24,9 @@ api.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
 
-    // accessToken 만료 상태 && 아직 재시도 안 한 경우
-    if (error.response?.status === 403 && !originalRequest._retry) {
+    if ((error.response?.status === 401 || error.response?.status === 403) && !originalRequest._retry) {
       const refreshToken = localStorage.getItem('refreshToken');
 
-      // refreshToken도 없으면 로그인 페이지로 이동
       if (!refreshToken) {
         localStorage.removeItem('accessToken');
         window.location.href = '/home';
@@ -54,7 +51,6 @@ api.interceptors.response.use(
         api.defaults.headers.common['Authorization'] = `Bearer ${newAccessToken}`;
         return api(originalRequest);
       } catch (refreshError) {
-        // refreshToken도 유효하지 않은 경우
         localStorage.removeItem('accessToken');
         localStorage.removeItem('refreshToken');
         window.location.href = '/home';

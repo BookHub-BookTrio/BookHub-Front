@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import axios from "axios";
+import axios from "../../component/refreshToken/api.jsx";
 import WishForm from "../../component/wish/WishForm";
 import Modal from "../../component/modal/Modal";
 
