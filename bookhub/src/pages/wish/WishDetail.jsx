@@ -77,6 +77,9 @@ const WishDetail = () => {
         category={wish.category}
         star={wish.star}
         content={wish.content}
+        onBooknameChange={() => {}}
+        onAuthorChange={() => {}}
+        onContentChange={() => {}}
         showBack={() => navigate("/wish", {state: { page: currentPage}})}
         showDelete={() => setShowDeleteModal(true)}
         showEdit={() => navigate(`/wish-edit/${id}`, {state: { page: currentPage}})}
