@@ -58,3 +58,13 @@ export const LoginButton = styled.button`
         width: 70%;
     }
 `;
+
+export const ErrorMessage = styled.div`
+  position: absolute;
+  top: 5px;  
+  right: 10px;  
+  font-size: 11px;
+  color:rgba(254, 65, 65, 0.88);
+  font-weight: 600;
+  pointer-events: none;
+`;
