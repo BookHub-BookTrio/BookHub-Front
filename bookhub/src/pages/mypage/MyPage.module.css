@@ -14,6 +14,8 @@
 
 .containerWrapper {
   display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   height: 100vh;
   overflow-y: auto;
@@ -22,16 +24,18 @@
 
 /* 프로필 영역 */
 .container {
-  position: fixed;
-  top: 180px;
+  position: relative;
+  top: 0px;
   left: 80px;
-  width: 250px;
-  max-height: 500px;
+  width: 150px;
+  height: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   z-index: 10;
   background-color: transparent;
+  margin: 0 auto;
 }
 
 .profileSection {
@@ -62,6 +66,7 @@
   justify-content: center;
   width: 80%;
   margin: 10px 0;
+  left: 50px;
 }
 
 .label {
@@ -93,7 +98,7 @@
   overflow-y: auto; /*세로 스크롤*/
   max-height: 500px;
   top: 300px;
-  margin: 160px 180px 80px 380px;
+  margin: 160px 180px 80px 350px;
   padding: 5rem;
   flex: 1;
   width: calc(100% - 280px);
@@ -288,35 +293,6 @@
 
   .mainContent {
     gap: 50px;
-  }
-
-  .profileSection {
-    width: 90px;
-    height: 90px;
-    margin: 0 auto 20px auto;
-  }
-
-  .profileImage {
-    width: 100%;
-    border-width: 3px;
-  }
-
-  .infoRow {
-    flex-direction: column;
-    width: 100%;
-    margin: 4px 0;
-  }
-
-  .label, .value {
-    width: 100%;
-    margin-left: 0;
-    font-size: 14px;
-  }
-
-  .editButton {
-    font-size: 14px;
-    padding: 8px 20px;
-    margin-top: 20px;
   }
 
   .barChart,
