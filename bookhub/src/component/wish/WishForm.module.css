@@ -6,17 +6,21 @@
 	min-height: 100vh;
 	display: flex;
 	justify-content: center;
+	align-items: center;
 	position: fixed;
 	overflow: hidden;
 	transform: translateX(-8px);
 }
 
 .container {
-	position: fixed;
+	position: relative;
 	margin: 0 auto;
-	padding-top: 140px;
 	align-items: center;
-	min-width: 1000px;
+	width: 100%;
+	max-width: 1000px;
+	height: auto;
+	overflow-y: auto;
+	overflow-x: hidden;
 	font-family: "Pretendard-Regular", Helvetica;
   font-weight: 400;
 }
@@ -39,6 +43,7 @@
 
 .titleInput {
 	flex: 1;
+	min-width: 0;
 	padding: 12px 20px;
 	border-radius: 999px;
 	border: 1px solid #ccc;
@@ -150,7 +155,8 @@
 }
 
 .textarea {
-	width: 100%;
+	width: 95%;
+	justify-content: center;
 	height: 200px;
 	padding: 12px;
 	border-radius: 10px;
@@ -162,6 +168,7 @@
 	display: flex;
 	justify-content: space-between;
 	margin-top: 30px;
+	width: 95%;
 }
 
 .detailButton {
