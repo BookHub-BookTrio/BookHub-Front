@@ -77,6 +77,7 @@ const WishDetail = () => {
         category={wish.category}
         star={wish.star}
         content={wish.content}
+        isDetail={true}
         onBooknameChange={() => {}}
         onAuthorChange={() => {}}
         onContentChange={() => {}}
