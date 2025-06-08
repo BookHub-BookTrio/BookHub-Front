@@ -3,7 +3,7 @@
   background-attachment: fixed;
 
   position: fixed;
-  width: 100vw;
+  width: 100%;
   min-height: 100vh;
   display: flex;
   justify-content: center;
@@ -17,6 +17,7 @@
   align-items: center;
   justify-content: center;
   width: 100%;
+  max-width: 160vh;
   height: 100vh;
   overflow-y: auto;
   box-sizing: border-box;
@@ -98,10 +99,10 @@
   overflow-y: auto; /*세로 스크롤*/
   max-height: 500px;
   top: 300px;
-  margin: 160px 180px 80px 350px;
+  margin: 160px 150px 80px 250px;
   padding: 5rem;
   flex: 1;
-  width: calc(100% - 280px);
+  width: calc(100% - 250px);
   border-left: 1px solid #bbb;
   background-color: #fff;
   stroke-width: 3px;
@@ -144,7 +145,7 @@
 }
 
 .barChart {
-  width: 50%;
+  width: 45%;
   min-width: 300px;
   margin-left: 30px;
 }
@@ -249,6 +250,7 @@
     padding-top: 0;
     width: 100%;
     overflow: hidden;
+
   }
 
   .containerWrapper {
