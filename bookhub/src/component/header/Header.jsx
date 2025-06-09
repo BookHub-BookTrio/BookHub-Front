@@ -9,10 +9,25 @@ const Header = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
+  
+  const [isLoggedIn, setIsLoggedIn] = useState(() => {
+    return !!localStorage.getItem("accessToken"); 
+  });
 
   const handleNavigation = (path) => {
     navigate(path);
     setMenuOpen(false);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken"); 
+    setIsLoggedIn(false);
+    navigate("/");
+    setMenuOpen(false);
+  };
+
+  const handleLogin = () => {
+    handleNavigation("/home");
   };
 
   useEffect(() => {
@@ -48,6 +63,16 @@ const Header = () => {
         <div className={`text-wrapper-4 ${location.pathname.startsWith("/community") ? "active" : ""}`} onClick={() => handleNavigation("/community")}>
           COMMUNITY
         </div>
+
+        {isLoggedIn ? (
+          <div className="text-wrapper-4" onClick={handleLogout}>
+            LOGOUT
+          </div>
+        ) : (
+          <div className="text-wrapper-4" onClick={handleLogin}>
+            LOGIN
+          </div>
+        )}
       </nav>
 
       <LoginButton />
