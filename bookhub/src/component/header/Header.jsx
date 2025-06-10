@@ -71,11 +71,11 @@ const Header = () => {
         </div>
 
         {isLoggedIn ? (
-          <div className="text-wrapper-4" onClick={() => setShowLogoutModal(true)}>
+          <div className="text-wrapper-4 login-logout" onClick={() => setShowLogoutModal(true)}>
             LOGOUT
           </div>
         ) : (
-          <div className="text-wrapper-4" onClick={() => setShowLoginModal(true)}>
+          <div className="text-wrapper-4 login-logout" onClick={() => setShowLoginModal(true)}>
             LOGIN
           </div>
         )}

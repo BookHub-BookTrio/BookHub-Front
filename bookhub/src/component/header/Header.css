@@ -71,9 +71,9 @@
       display: none;
       flex-direction: column;
       position: absolute;
-      top: 60px; /* 햄버거 버튼 바로 아래 */
+      top: 85px; 
       right: 20px;
-      background-color: #000000; /* 배경 회색 */
+      background-color: #000000;
       border-radius: 10px;
       border: 1px solid #ddd;
       box-shadow: 0px 10px 12px rgba(0, 0, 0, 0.1);
@@ -83,7 +83,7 @@
 
   .nav-menu .text-wrapper-4 {
     margin-bottom: 10px !important;
-    font-size: 20px !important;
+    font-size: 17px !important;
     margin: 10px !important;
   }
   .nav-menu.open {
@@ -111,3 +111,13 @@
     margin: 22px;
     margin-top: 20px;
   }
+
+.nav-menu .text-wrapper-4.login-logout {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .nav-menu .text-wrapper-4.login-logout {
+    display: block;
+  }
+}
