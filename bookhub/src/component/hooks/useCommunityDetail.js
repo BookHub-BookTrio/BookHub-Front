@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import axios from "../refreshToken/api.jsx";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -20,7 +20,7 @@ const useCommunityDetail = () => {
   const navigate = useNavigate();
 
   // 초기 데이터(커뮤니티, 유저, 북마크) 한 번에 가져오기
-  const fetchAllData = async () => {
+  const fetchAllData =useCallback(async () => {
     try {
       const [communityRes, userRes, bookmarkRes] = await Promise.all([
         axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/community/detail`, {
@@ -49,7 +49,7 @@ const useCommunityDetail = () => {
     } catch (error) {
       console.error("데이터 불러오기 실패:", error);
     }
-  };
+  }, [id]);
 
   // 게시글 작성자인지 체크
   useEffect(() => {
@@ -84,7 +84,7 @@ const useCommunityDetail = () => {
   // 초기 데이터 로딩
   useEffect(() => {
     fetchAllData();
-  }, [id]);
+  }, [fetchAllData]);
 
   // 북마크 토글 및 애니메이션
   const onClickBookmark = async (e) => {
