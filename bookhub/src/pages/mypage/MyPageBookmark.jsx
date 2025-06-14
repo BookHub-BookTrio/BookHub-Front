@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import styles from "../mypage/MyPage.module.css";
+import BookmarkModal from "../../component/Bookmark/BookmarkModal";
 import axios from "axios";
 import { BsBookmarkFill } from "react-icons/bs";
 
@@ -8,7 +8,7 @@ const MyPageBookmark = () => {
   const [bookmark, setBookmark] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 4;
-  const navigate = useNavigate();
+  const [selectedItem, setSelectedItem] = useState(null);
 
   useEffect(() => {
     const fetchBookmarks = async () => {
@@ -48,7 +48,7 @@ const MyPageBookmark = () => {
         <tbody>
           {currentItems.map((item, idx) => (
               <tr key={`data-${idx}`} className={styles.bookmarkRow}
-              onClick={() => navigate(`/community/${item.id}`)}>
+              onClick={() => setSelectedItem(item)}>
                 <td className={styles.bmTitle}>{item.title}</td>
                 <td><span className={styles.bmNickname}>{item.nickname}</span></td>
                 <td className={styles.dateCol}><span className={styles.bmDate}>{item.createdat.slice(0, 10).replace(/-/g, '.')}</span></td>
@@ -74,6 +74,8 @@ const MyPageBookmark = () => {
           &gt;
         </button>
       </div>
+
+      <BookmarkModal item={selectedItem} onClose={() => setSelectedItem(null)} />
     </section>
   );
 };
