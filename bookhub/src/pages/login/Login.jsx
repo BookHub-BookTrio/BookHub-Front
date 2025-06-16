@@ -7,6 +7,7 @@ import "../../assets/font.css";
 import { TextFrame, StyledInput, LoginButton, ErrorMessage } from "./LoginStyles.jsx"; 
 import Modal from "../../component/modal/Modal.jsx";
 import Wrapper from "../../component/layout/Wrapper.jsx";
+import { Helmet } from "react-helmet";
 
 export const Login = () => {
     const navigate = useNavigate();
@@ -79,6 +80,9 @@ export const Login = () => {
 
     return (
         <Wrapper>
+            <Helmet>
+                <title>Book Hub | Login</title>
+            </Helmet>
         <div className="Home">
             <div className="overlap">
                 <img className="image_logo" alt="로고_책만" src={Logo_book} />

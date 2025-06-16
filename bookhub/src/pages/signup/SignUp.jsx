@@ -4,6 +4,7 @@ import "../../assets/font.css";
 import { TextFrame, StyledInput, SignupButton, LabelContainer, LabelText, ErrorMessage } from "./SignupStyles.jsx"; 
 import Modal from "../../component/modal/Modal.jsx";
 import Wrapper from "../../component/layout/Wrapper.jsx";
+import { Helmet } from "react-helmet";
 
 export const Signup = () => {
     const navigate = useNavigate();
@@ -120,6 +121,9 @@ export const Signup = () => {
 
     return (
         <Wrapper>
+            <Helmet>
+                <title>Book Hub | SignUp</title>
+            </Helmet>
         <div className="Home">
             <div className="overlap2">
                 <div className="text-wrapper-signup">BookHub</div>

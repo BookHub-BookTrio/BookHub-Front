@@ -5,6 +5,7 @@ import Logo_book from "../../component/image/Logo_book.png";
 import "./Home.css";
 import "../../assets/font.css";
 import Wrapper from "../../component/layout/Wrapper.jsx";
+import { Helmet } from "react-helmet";
 
 export const Home = () => {
 
@@ -20,6 +21,9 @@ export const Home = () => {
 
     return (
         <Wrapper>
+            <Helmet>
+                <title>Book Hub | home</title>
+            </Helmet>
         <div className="Home">
             <div className="overlap">
                 <img className="image_logo" alt="로고_책만" src={Logo_book} />
