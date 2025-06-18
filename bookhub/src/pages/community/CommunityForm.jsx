@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import axios from "../../component/refreshToken/api.jsx";
 import * as S from "./CommunityFormStyles.jsx";
 import * as Sd from "./CommunityStyles.jsx";
 import ProfileImage from "../../component/image/Profile.png";
@@ -16,11 +16,18 @@ const CommunityForm = ({
   createdat,
   onClickBookmark,
   isBookmarked,
-  animating
+  animating,
+  pictureUrl
 }) => {
   const isReadOnly = mode === "read";
   const [nickname, setNickname] = useState("별명");
+  const getPictureUrl = (url) => {
+      if (!url) return ProfileImage;
+      
+      const parts = url.split("fname=");
+      return parts.length > 1? parts[1] : url;
 
+    }
   useEffect(() => {
     if (isReadOnly) {
       setNickname(writer || "별명 없음");
@@ -84,7 +91,7 @@ const CommunityForm = ({
 
             <S.UserInfoContainer>
               <S.UserInfoWrapper>
-                <S.ProfileImage src={ProfileImage} alt="프로필" />
+                <S.ProfileImage src={getPictureUrl(pictureUrl) || ProfileImage} alt="프로필" />
                 <S.Nickname>{nickname}</S.Nickname>
               </S.UserInfoWrapper>
               <S.UserDivider />
