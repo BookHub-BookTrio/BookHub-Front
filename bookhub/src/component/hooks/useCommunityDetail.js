@@ -41,7 +41,7 @@ const useCommunityDetail = () => {
 
       setCommunityData(community);
       setCurrentUserNickname(user.nickname);
-      setPictureUrl(user.pictureUrl);
+      setPictureUrl(community.pictureUrl);
 
       setIsBookmarked(bookmarks.some((item) => item.id.toString() === id));
       setEditedTitle(community?.title || "");

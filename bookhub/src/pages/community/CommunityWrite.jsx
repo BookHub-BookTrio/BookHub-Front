@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import CommunityForm from "./CommunityForm";
-import axios from "axios";
+import axios from "../../component/refreshToken/api.jsx";
 import State from "../../component/community/State.jsx";
 import FooterButton from "../../component/button/FooterButton.jsx";
 import { useNavigate } from "react-router-dom";
@@ -10,6 +10,7 @@ const CommunityWrite = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [nickname, setNickname] = useState("");
+  const [pictureUrl, setPicturUrl] = useState("");
   const [confirmModalOpen, setConfirmModalOpen] = useState(false);
   const [successModalOpen, setSuccessModalOpen] = useState(false);
   const navigate = useNavigate();
@@ -25,6 +26,7 @@ const CommunityWrite = () => {
           },
         });
         setNickname(response.data.data.nickname); 
+        setPicturUrl(response.data.data.pictureUrl);  
       } catch (err) {
         console.error("유저 정보 불러오기 실패:", err);
       }
@@ -88,6 +90,7 @@ const CommunityWrite = () => {
         nickname={nickname}
         onChangeTitle={(e) => setTitle(e.target.value)}
         onChangeContent={(e) => setContent(e.target.value)}
+        pictureUrl={pictureUrl}
       />
       <FooterButton status="create" onClickCreate={handleClickCreate} />
 
