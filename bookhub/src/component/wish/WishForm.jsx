@@ -22,6 +22,7 @@ const WishForm = ({
 		showEdit = false,
 		showDelete = false,
   	showDone = false,
+    isDetail=false,
   }) => {
     const progressDisplay = {
       "UNREAD": "읽기 전",
@@ -131,7 +132,7 @@ const WishForm = ({
               className={styles.textarea}
               value={content}
               onChange={onContentChange}
-              placeholder={onContentChange && content !== "" ? "감상을 입력하세요" : ""}
+              placeholder={!isDetail && content?.trim() === "" ? "감상을 입력하세요" : ""}
             />
           </div>
   
