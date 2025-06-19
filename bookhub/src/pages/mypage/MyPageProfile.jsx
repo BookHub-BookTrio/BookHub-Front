@@ -1,11 +1,16 @@
 import React from 'react';
 import styles from "../mypage/MyPage.module.css";
-import profileIcon from "../../component/image/Profile.png";
+import defaultProfileIcon from "../../component/image/Profile.png";
 
-const MyPageProfile = ({ formData, onEditClick }) => (
+const MyPageProfile = ({ formData, onEditClick }) => {
+  const profileImageUrl = formData.profileImage || defaultProfileIcon;
+
+  console.log("프로필 이미지 URL:", profileImageUrl);
+
+  return (
   <div className={styles.container}>
     <div className={styles.profileSection}>
-      <img src={profileIcon} alt="Profile" className={styles.profileImage} />
+      <img src={profileImageUrl} alt="Profile" className={styles.profileImage} referrerPolicy="no-referrer" />
     </div>
     <div className={styles.infoContainer}>
       {[
@@ -23,5 +28,6 @@ const MyPageProfile = ({ formData, onEditClick }) => (
     <button className={styles.editButton} onClick={onEditClick}>EDIT</button>
   </div>
 );
+};
 
 export default MyPageProfile;
