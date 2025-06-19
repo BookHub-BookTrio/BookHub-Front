@@ -31,7 +31,8 @@
 .profileImage {
   width: 100%;
   border-radius: 50%;
-  border: 5px solid black;
+  border: 2px solid black;
+  aspect-ratio: 1 / 1;
 }
 
 /* 정보 입력 영역 */

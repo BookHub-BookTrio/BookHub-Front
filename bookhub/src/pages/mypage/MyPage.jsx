@@ -15,7 +15,7 @@ const Mypage = () => {
     nickname: "",
     introduction: "",
     email: "",
-    profileImage: "",
+    pictureUrl: "",
   });
 
   const chartRef = useRef(null);
@@ -58,7 +58,7 @@ const Mypage = () => {
           nickname: data.nickname || "",
           introduction: data.introduction || "",
           email: data.email || "",
-          profileImage: data.pictureUrl || "",
+          pictureUrl: data.pictureUrl || "",
         });
       } catch (error) {
         console.error("회원 정보 가져오기 실패:", error.response?.data || error.message);
