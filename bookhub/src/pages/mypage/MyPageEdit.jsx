@@ -11,6 +11,7 @@ const MyPageEdit = () => {
     nickname: "",
     introduction: "",
     email: "",
+    profileImage: "",
   });
 
   const inputRefs = useRef([]);
@@ -41,6 +42,7 @@ const MyPageEdit = () => {
           nickname: data.nickname || "",
           introduction: data.introduction || "",
           email: data.email || "",
+          profileImage: data.pictureUrl || "",
         });
       } catch (error) {
         console.error("회원 정보 가져오기 실패:", error.response?.data || error.message);
