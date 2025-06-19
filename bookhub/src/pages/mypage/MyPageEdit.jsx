@@ -11,7 +11,7 @@ const MyPageEdit = () => {
     nickname: "",
     introduction: "",
     email: "",
-    profileImage: "",
+    pictureUrl: "",
   });
 
   const inputRefs = useRef([]);
@@ -42,7 +42,7 @@ const MyPageEdit = () => {
           nickname: data.nickname || "",
           introduction: data.introduction || "",
           email: data.email || "",
-          profileImage: data.pictureUrl || "",
+          pictureUrl: data.pictureUrl || "",
         });
       } catch (error) {
         console.error("회원 정보 가져오기 실패:", error.response?.data || error.message);
@@ -81,7 +81,7 @@ const MyPageEdit = () => {
         
         {/* 프로필 영역 */}
         <div className={styles.profileSection}>
-          <img src={profileIcon} alt="Profile" className={styles.profileImage} />
+          <img src={formData.pictureUrl || profileIcon} alt="Profile" className={styles.profileImage} />
         </div>
 
         {/* 정보 입력 영역 */}
