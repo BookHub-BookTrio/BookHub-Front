@@ -1,3 +1,9 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .background {
   background: radial-gradient(90% 60% at 50% 100%, #dce4cc 0%, #e3e9d8 70%, #ffffff 110%);
   background-attachment: fixed;
@@ -9,7 +15,6 @@
   justify-content: center;
   position: fixed;
   overflow: hidden;
-  transform: translateX(-8px);
 }
 
 .containerWrapper {
@@ -54,6 +59,7 @@
   border-radius: 50%;
   border: 2px solid black;
   aspect-ratio: 1 / 1;
+  object-fit: cover;
 }
 
 /* 정보 입력 영역 */

@@ -3,14 +3,14 @@ import styles from "../mypage/MyPage.module.css";
 import defaultProfileIcon from "../../component/image/Profile.png";
 
 const MyPageProfile = ({ formData, onEditClick }) => {
-  const profileImageUrl = formData.profileImage || defaultProfileIcon;
-
-  console.log("프로필 이미지 URL:", profileImageUrl);
+  const pictureUrl = formData.pictureUrl || defaultProfileIcon;
 
   return (
   <div className={styles.container}>
     <div className={styles.profileSection}>
-      <img src={profileImageUrl} alt="Profile" className={styles.profileImage} referrerPolicy="no-referrer" />
+      <img src={pictureUrl} alt="Profile" className={styles.profileImage} style={{
+    objectFit: pictureUrl === defaultProfileIcon ? "contain" : "cover",
+    backgroundColor: "white"}} />
     </div>
     <div className={styles.infoContainer}>
       {[
