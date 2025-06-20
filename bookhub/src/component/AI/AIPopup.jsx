@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import * as S  from "./AIStyles.jsx";
 import {
@@ -14,6 +14,7 @@ import AIProfile from "../image/AIProfile.png";
 import Aos from "aos";
 import "aos/dist/aos.css"
 import userProfile from "../image/Profile.png";
+import axios from "axios";
 
 const AIPopup = ({
   messages,
@@ -22,13 +23,33 @@ const AIPopup = ({
   setInputValue,
   onCancel,
 }) => {
-  const [isTyping, setIsTyping] = React.useState(false);
+  const [isTyping, setIsTyping] = useState(false);
+  const [nickname, setNickname] = useState("나");
 
   useEffect(() => {
     Aos.init({ duration: 400, easing: "ease-out" });  
 
     // 모달창 열렸을 때 뒷 배경 고정
     document.body.style.overflow = "hidden";
+
+    // 사용자 닉네임 불러오기
+    const fetchhNickname = async () => {
+      try {
+          const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/member`, {
+          headers: { 
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}` 
+          },
+        });
+        if (res.data?.data?.nickname) {
+          setNickname(res.data.data.nickname);
+        }
+      } catch (err) {
+        console.warn("닉네임 정보 없음");
+      }
+    };
+  
+    fetchhNickname();
+
     return () => {
       document.body.style.overflow = "auto";
     };
@@ -94,7 +115,7 @@ const AIPopup = ({
                   {msg.sender === "user" && (
                     <S.UserArea>
                       <S.AIAvatar src={userProfile} alt="User Avatar" />
-                      <S.AIName>Nickname</S.AIName>
+                      <S.AIName>{nickname}</S.AIName>
                     </S.UserArea>
                   )}
                   <Message
