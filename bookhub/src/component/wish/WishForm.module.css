@@ -1,3 +1,9 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .background {
 	background: radial-gradient(80% 60% at 50% 100%, #DFDDBD99 0%, #F7E8BDCC 60%, #ffffff 100%);
 	background-attachment: fixed;
@@ -7,9 +13,8 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	position: fixed;
+	position: relative;
 	overflow: hidden;
-	transform: translateX(-8px);
 }
 
 .container {
@@ -23,6 +28,7 @@
 	overflow-x: hidden;
 	font-family: "Pretendard-Regular", Helvetica;
   font-weight: 400;
+	padding-top: 130px;
 }
 
 .titleArea {
@@ -38,7 +44,7 @@
 	padding: 10px 30px;
 	border-radius: 20px;
 	font-weight: bold;
-	width: 50px;
+	width: 105px;
 }
 
 .titleInput {
@@ -106,6 +112,8 @@
 .starArea {
 	position: relative;
 	height: 30px;
+	padding-top: 3px;
+	padding-left: 5px;
 }
 
 .categoryButton,
@@ -143,6 +151,7 @@
 	border: none;
 	font-family: "Pretendard-Regular", Helvetica;
   font-weight: 400;
+	padding: 0 5px;
 }
 
 .categoryOptions button:hover,
