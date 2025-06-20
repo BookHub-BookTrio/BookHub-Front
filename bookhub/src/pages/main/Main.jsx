@@ -6,6 +6,7 @@ import Arrow1 from "../../component/image/Arrow.png";
 import BookCard from "../../component/main_aladin/BookCard.jsx";
 import AOS from "aos";
 import useMainBook from "../../component/hooks/useMainBook.js";
+import AIClick from "../../component/AI/AIClick.jsx";
 
 export const Main = () => {
   const overlap3Ref = useRef(null);
@@ -115,7 +116,7 @@ export const Main = () => {
 
   return (
     <S.MainContainer>
-
+      <AIClick />
       {/* Main_1 */}
       <S.Overlap>
         <S.BookTitle>BOOK HUB
