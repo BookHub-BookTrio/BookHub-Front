@@ -33,7 +33,7 @@ const AIPopup = ({
     document.body.style.overflow = "hidden";
 
     // 사용자 닉네임 불러오기
-    const fetchhNickname = async () => {
+    const fetchNickname = async () => {
       try {
           const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/member`, {
           headers: { 
@@ -48,41 +48,77 @@ const AIPopup = ({
       }
     };
   
-    fetchhNickname();
+    fetchNickname();
 
     return () => {
       document.body.style.overflow = "auto";
     };
   }, []);
 
-  const handleSend = () => {
-    if (!inputValue.trim()) return;
+const handleSend = async () => {
+  if (!inputValue.trim()) return;
 
-    const newMessage = {
-      message: inputValue,
-      direction: "outgoing",
-      sender: "user",
-      position: "outgoing",
-    };
-    setMessages((prev) => [...prev, newMessage]);
-    setInputValue("");
-    setIsTyping(true);
-
-    // AI 답변 
-    setTimeout(() => {
-      setMessages((prev) => [
-        ...prev,
-        {
-          message: `"${inputValue}"에 대한 줄거리입니다.`,
-          direction: "incoming",
-          sender: "AI",
-          position: "incoming",
-        },
-      ]);
-      setIsTyping(false);
-    }, 1500);
+  const newMessage = {
+    message: inputValue,
+    direction: "outgoing",
+    sender: "user",
+    position: "outgoing",
   };
-  
+  setMessages((prev) => [...prev, newMessage]);
+  setInputValue("");
+  setIsTyping(true);
+
+  let fullAIMessage = "";
+
+  try {
+    const res = await axios.post(
+      `${process.env.REACT_APP_BACKEND_URL}/api/v1/ai`,
+      { bookTitle: inputValue }
+    );
+    if (typeof res.data === "string") {
+      fullAIMessage = res.data;
+    } 
+  } catch (err) {
+    fullAIMessage = "AI 응답을 가져오지 못했습니다.";
+  }
+
+  // 타이핑 효과 구현
+  let currentText = "";
+  let charIndex = 0;
+
+  const typeChar = () => {
+    if (charIndex < fullAIMessage.length) {
+      currentText += fullAIMessage[charIndex];
+
+      setMessages((prev) => {
+        const newMessages = [...prev];
+
+        // 마지막 메시지가 AI면 그걸 업데이트
+        const last = newMessages[newMessages.length - 1];
+        if (last && last.sender === "AI") {
+          last.message = currentText;
+        } else {
+          // 처음 추가
+          newMessages.push({
+            message: currentText,
+            direction: "incoming",
+            sender: "AI",
+            position: "incoming",
+          });
+        }
+
+        return [...newMessages];
+      });
+
+      charIndex++;
+      setTimeout(typeChar, 30);
+    } else {
+      setIsTyping(false);
+    }
+  };
+
+  typeChar();
+};
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter" && !e.shiftKey) {

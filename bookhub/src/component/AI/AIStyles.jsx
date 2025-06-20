@@ -7,7 +7,7 @@ export const ChatCustomStyle = createGlobalStyle`
   }
 
   .cs-chat-container .cs-message-list {
-    padding-bottom: 15px;
+    padding-bottom: 30px;
   }
 
   .cs-message-input { // 입력 창 배경, 텍스트 
@@ -32,12 +32,15 @@ export const ChatCustomStyle = createGlobalStyle`
     font-family: "Pretendard-Medium", sans-serif !important;
     font-size: 14px !important;
     margin-left: 8px !important;
+    margin-top: 8px !important;
   }
 
   .cs-message--incoming .cs-message__content { // ai 메세지 배경 
-    background-color:rgba(199, 228, 192, 0.86) !important;
+    background-color:rgba(211, 231, 206, 0.86) !important;
     color: #111 !important;
     border-radius: 12px !important;
+    margin-bottom: 15px !important;
+    max-width: 600px !important;
   }
 
   .cs-message--outgoing .cs-message__content { // 사용자 메세지 배경
