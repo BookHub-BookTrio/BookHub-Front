@@ -1,4 +1,5 @@
 import styled, { createGlobalStyle } from "styled-components";
+import media from "../../assets/media";
 
 // 채팅 라이브러리 css custom으로 덮어쓰기
 export const ChatCustomStyle = createGlobalStyle`
@@ -103,6 +104,14 @@ export const ModalContainer = styled.div`
   padding: 40px;
   position: relative;
   font-family: "Pretendard-Regular", sans-serif;
+
+  ${media.tablet} {
+    width: 80%;
+  }  
+
+  ${media.mobile} {
+    width: 80%;
+  } 
 `;
 
 export const XButton = styled.button`
