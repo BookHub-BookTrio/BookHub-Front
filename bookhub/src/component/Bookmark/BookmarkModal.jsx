@@ -31,7 +31,7 @@ const BookmarkModal = ({ item, onClose }) => {
 
   if (!item) return null;
 
- const formattedDate = item.createdat?.slice(0, 10).replace(/-/g, ".");
+ const formattedDate = item.communityCreatedAt?.slice(0, 10).replace(/-/g, ".");
 
   const content = (
     <div style={{ textAlign: "left", lineHeight: "1.6" }}>
