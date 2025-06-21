@@ -57,7 +57,7 @@ export const Community = () => {
           }
         );
         const sortedData = response.data.data.sort(
-          (a, b) => new Date(b.createdat) - new Date(a.createdat)
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
         );
         setCommunityData(sortedData);
       } catch (error) {
@@ -103,7 +103,7 @@ export const Community = () => {
                       {currentItems[index].title}
                     </S.CommunityTitle>
                     <S.CommunityDate>
-                      {currentItems[index].createdat
+                      {currentItems[index].createdAt
                         .substring(0, 10)
                         .replace(/-/g, ".")}
                     </S.CommunityDate>
