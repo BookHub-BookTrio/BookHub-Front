@@ -7,7 +7,7 @@
 .background {
   background: radial-gradient(90% 60% at 50% 100%, #dce4cc 0%, #e3e9d8 70%, #ffffff 110%);
   background-attachment: fixed;
-
+  position: fixed;
   width: 100%;
   min-height: 100vh;
   display: flex;
