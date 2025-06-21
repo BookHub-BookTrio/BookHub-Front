@@ -1,3 +1,9 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .background {
   background: radial-gradient(90% 60% at 50% 100%, #dce4cc 0%, #e3e9d8 70%, #ffffff 110%);
   background-attachment: fixed;
@@ -6,16 +12,19 @@
   min-height: 100vh;
   display: flex;
   justify-content: center;
-  position: fixed;
-  overflow: hidden;
-  transform: translateX(-8px);
+  align-items: center;
+  position: relative;
+  overflow-y: auto;
 }
 
 .container {
   margin: 0 auto;
   padding: 200px 50px 50px;
-  width: 700px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
   text-align: center;
+  align-items: center;
 }
 
 /* 프로필 영역 */
@@ -25,7 +34,6 @@
   width: 150px;
   height: 150px;
   flex-shrink: 0;
-  margin: 30px 38.3%;
 }
 
 .profileImage {
@@ -33,22 +41,23 @@
   border-radius: 50%;
   border: 2px solid black;
   aspect-ratio: 1 / 1;
+  object-fit: cover;
 }
 
 /* 정보 입력 영역 */
 .infoContainer {
   margin-top: 40px;
-  width: 700px;
+  width: 40%;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  text-align: center;
-  justify-content: center;
 }
 
 .infoRow {
   display: flex;
   justify-content: center;
-  width: 35%;
-  margin: 10px 30%;
+  width: 100%;
+  margin: 10px auto;
   padding: 7px;
   border-bottom: 1.5px solid black;
   align-items: center;
