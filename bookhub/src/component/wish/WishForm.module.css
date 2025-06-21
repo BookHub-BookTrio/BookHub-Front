@@ -1,19 +1,11 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 .background {
 	background: radial-gradient(80% 60% at 50% 100%, #DFDDBD99 0%, #F7E8BDCC 60%, #ffffff 100%);
 	background-attachment: fixed;
-
 	width: 100%;
 	min-height: 100vh;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-
 	position: fixed;
 	overflow: hidden;
 }
