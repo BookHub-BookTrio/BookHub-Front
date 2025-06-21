@@ -17,7 +17,11 @@ const MyPageBookmark = () => {
         const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/community/bookmark`, {
           headers: { Authorization: `Bearer ${token}` },
         });
-        setBookmark(res.data || []);
+
+        const sorted = [...(res.data || [])].sort(
+          (a, b) => new Date(b.bookmarkedAt) - new Date(a.bookmarkedAt));
+          
+          setBookmark(sorted);
       } catch (err) {
         console.error("북마크 조회 실패", err);
         setBookmark([]);
@@ -51,7 +55,7 @@ const MyPageBookmark = () => {
               onClick={() => setSelectedItem(item)}>
                 <td className={styles.bmTitle}>{item.title}</td>
                 <td><span className={styles.bmNickname}>{item.nickname}</span></td>
-                <td className={styles.dateCol}><span className={styles.bmDate}>{item.createdat.slice(0, 10).replace(/-/g, '.')}</span></td>
+                <td className={styles.dateCol}><span className={styles.bmDate}>{item.bookmarkedAt.slice(0, 10).replace(/-/g, '.')}</span></td>
                 <td className={styles.bmIconFilled}><BsBookmarkFill /></td>
               </tr>
             ))}
