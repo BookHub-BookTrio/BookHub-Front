@@ -21,9 +21,9 @@ const ButtonContainer = styled.div`
     margin-bottom: 15%;
   }
   ${media.mobile} {
-    right: 60px;   
+    right: 20px;   
     flex-wrap: nowrap;
-    gap: 50px;
+    justify-content: center;
   }
 `;
 
@@ -34,6 +34,11 @@ const ButtonGroup = styled.div`
   @media (max-width: 600px) {
     justify-content: space-between;
     width: 100%;
+  }
+  
+  ${media.mobile} {
+    gap: 80px;
+    justify-content: center;
   }
 `;
 
@@ -51,8 +56,8 @@ const SubmitButton = styled.button`
   letter-spacing: 0.7px;
   z-index:1011;
   ${media.mobile} {
-    width: 100px;
-    font-size: 14px;
+    width: 90px;
+    font-size: 12px;
   }
 `;
 

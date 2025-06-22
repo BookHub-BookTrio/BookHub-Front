@@ -44,6 +44,7 @@ const BadgeWrapper = styled.div`
     ${media.mobile} {
     left: 10%;  
     z-index: 1011;
+    font-size: 1rem;
   }
 `;
 
