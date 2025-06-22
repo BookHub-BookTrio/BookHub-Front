@@ -19,7 +19,7 @@ export const Rectangle = styled.div`
   }
     ${media.mobile} {
     left: 12px;
-    top: 260px;
+    top: 250px;
     height: 365px;
     width: 85%;
     }

@@ -6,6 +6,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import FooterButton from "../../component/button/FooterButton.jsx";
 import axios from "../../component/refreshToken/api.jsx";
 import Modal from "../../component/modal/Modal.jsx";
+import { useSwipeable } from "react-swipeable";
 
 // 커뮤니티 전체 조회
 export const Community = () => {
@@ -35,7 +36,16 @@ export const Community = () => {
   );
 
   const location = useLocation();
-  
+
+  // 스와이프
+  const handlers = useSwipeable({
+    onSwipedLeft: handleCommunityNext,
+    onSwipedRight: handleCommunityPrev,
+    preventScrollOnSwipe: true,
+    trackMouse: true,
+    delta: 50,
+  });
+
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
 
@@ -92,7 +102,7 @@ export const Community = () => {
 
       {isLoggedin && (
         <>
-          <S.CommunityContainer>
+          <S.CommunityContainer  {...handlers} >
             <p>Community</p>
             <S.Rectangle />
 
