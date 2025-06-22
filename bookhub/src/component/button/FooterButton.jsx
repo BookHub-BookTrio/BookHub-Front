@@ -24,7 +24,7 @@ const ButtonContainer = styled.div`
     right: 20px;   
     flex-wrap: nowrap;
     justify-content: center;
-    margin-bottom: 1px;
+    margin-bottom: 5px;
   }
 `;
 
