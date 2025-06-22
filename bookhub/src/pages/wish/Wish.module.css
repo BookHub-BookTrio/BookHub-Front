@@ -1,4 +1,4 @@
-* {
+html, body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -13,7 +13,6 @@
   justify-content: center;
   align-items: center;
   position: relative;
-  overflow: hidden;
 }
 
 .container {
@@ -22,8 +21,7 @@
   position: relative;
   margin: 0 auto;
   align-items: center;
-  padding-top: 110px;
-  height: auto;
+  padding-top: 100px;
   overflow-y: auto;
 }
 
