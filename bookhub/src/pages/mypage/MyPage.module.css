@@ -12,18 +12,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  max-width: 160vh;
-  height: auto;
-  overflow-y: visible;
+  width: 90%;
+  max-width: 190vh;
+  height: 100vh;
+  overflow-y: auto;
   box-sizing: border-box;
-  flex-direction: row;
 }
+
 
 /* 프로필 영역 */
 .container {
   position: relative;
-  top: 0px;
+  top: 20px;
   left: 80px;
   width: 150px;
   height: auto;
@@ -95,11 +95,11 @@
 
 /* 오른쪽 스크롤 메인 콘텐츠 */
 .mainContainer {
-  overflow-y: visible; /*세로 스크롤*/
-  max-height: 500px;
+  overflow-y: auto; /*세로 스크롤*/
+  max-height: 400px;
   top: 300px;
-  margin: 160px 150px 80px 250px;
-  padding: 5rem;
+  margin: 200px 100px 50px 220px;
+  padding: 2.5rem 5rem 3rem 5rem;
   flex: 1;
   width: calc(100% - 250px);
   border-left: 1px solid #bbb;
@@ -140,13 +140,12 @@
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 3rem;
-  max-width: 800px;
 }
 
 .barChart {
-  width: 45%;
+  width: 20%;
   min-width: 300px;
-  margin-left: 30px;
+  margin-left: 20px;
 }
 
 /* Pie chart 영역 */
@@ -157,7 +156,7 @@
 }
 
 .dnaSection {
-  width: 40%;
+  width: 30%;
   min-width: 250px;
   text-align: center;
 }
@@ -175,9 +174,7 @@
   text-align: left;
 }
 
-.bookmarkTable th,
-.bookmarkTable td,
-.bookmarkTable thead {
+.bookmarkTable td {
   height: 45px;
   padding: 8px;
   border-bottom: 1px solid #ccc;
@@ -255,7 +252,6 @@
     flex-direction: column;
     align-items: center;
     height: auto;
-    min-height: 100vh;
     padding-bottom: 100px;
     gap: 150px;
     overflow: visible;
