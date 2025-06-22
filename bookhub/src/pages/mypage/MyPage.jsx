@@ -101,7 +101,7 @@ const Mypage = () => {
       onCancel={() => navigate("/")} />
     )}
     {isLoggedIn && (
-    <div className={styles.background}>
+    <div className={styles.mypageBackground}>
       <div className={styles.containerWrapper}> {/* 컨테이너들 묶어주기 */}
       <div className={styles.container}> {/* 왼쪽 프로필 고정 */}
         <MyPageProfile formData={formData} onEditClick={handleEditClick} />

@@ -91,12 +91,13 @@ const MyPageEdit = () => {
   };
 
   return (
-    <div className={styles.background}>
+    <div className={styles.mypageEditBackground}>
       <div className={styles.container}>
         
         {/* 프로필 영역 */}
         <div className={styles.profileSection}>
-          <img src={formData.pictureUrl || profileIcon} alt="Profile" className={styles.profileImage} />
+          <img src={formData.pictureUrl || profileIcon} alt="Profile" className={styles.profileImage} 
+          style={{objectFit: formData.pictureUrl ? "cover" : "contain", backgroundColor: "white"}}/>
         </div>
 
         {/* 정보 입력 영역 */}
