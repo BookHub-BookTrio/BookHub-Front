@@ -24,6 +24,7 @@ const ButtonContainer = styled.div`
     right: 20px;   
     flex-wrap: nowrap;
     justify-content: center;
+    margin-bottom: 15px;
   }
 `;
 
@@ -55,9 +56,12 @@ const SubmitButton = styled.button`
   white-space: nowrap;
   letter-spacing: 0.7px;
   z-index:1011;
+
   ${media.mobile} {
     width: 90px;
-    font-size: 12px;
+    font-size: 10px;
+    padding : 10px;
+    width: 80px;
   }
 `;
 
