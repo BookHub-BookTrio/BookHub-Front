@@ -4,6 +4,7 @@ import FooterButton from "../../component/button/FooterButton.jsx";
 import Modal from "../../component/modal/Modal.jsx";
 import Wrapper from "../../component/layout/Wrapper.jsx";
 import useCommunityDetail from "../../component/hooks/useCommunityDetail.js";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const CommunityDetail = () => {
   const {
@@ -30,6 +31,14 @@ const CommunityDetail = () => {
     handleCancelCancelEdit,
   } = useCommunityDetail();
 
+  const navigate = useNavigate();
+  const location = useLocation();
+  const page = location.state?.page || 1;
+
+  const handleBack = () => {
+    navigate("/community", { state: { page } });
+  };
+
   if (!communityData) {
     return <div>로딩 중...</div>;
   }
@@ -44,6 +53,7 @@ const CommunityDetail = () => {
         onClickEdit={() => setIsEditing(true)}
         onClickDelete={() => setShowDeleteModal(true)}
         onClickDone={() => setShowEditModal(true)}
+        onClickBack={handleBack}
       />
 
       {isEditing ? (
