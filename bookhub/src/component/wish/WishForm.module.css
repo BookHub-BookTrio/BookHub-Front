@@ -1,9 +1,3 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 .wishFormBackground {
 	background: radial-gradient(80% 60% at 50% 100%, #DFDDBD99 0%, #F7E8BDCC 60%, #ffffff 100%);
 	background-attachment: fixed;
@@ -12,7 +6,7 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	position: fixed;
+	position: relative;
 	overflow: auto;
 }
 
@@ -40,7 +34,7 @@
 	padding: 10px 30px;
 	border-radius: 20px;
 	font-weight: bold;
-	width: 105px;
+	width: auto;
 }
 
 .titleInput {
