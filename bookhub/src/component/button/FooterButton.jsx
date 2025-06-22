@@ -56,13 +56,13 @@ const SubmitButton = styled.button`
   }
 `;
 
-const FooterButton = ({ status, onClickCreate, onClickDelete, onClickEdit, onClickDone }) => {
+const FooterButton = ({ status, onClickCreate, onClickDelete, onClickEdit, onClickDone, onClickBack }) => {
   const navigate = useNavigate();
 
   return (
     <ButtonContainer>
       <ButtonGroup>
-        <SubmitButton onClick={() => navigate(-1)}>BACK</SubmitButton>
+        <SubmitButton onClick={onClickBack || (() => navigate(-1))}>BACK</SubmitButton>
       </ButtonGroup>
       <ButtonGroup>
         {status === "allpost" && (

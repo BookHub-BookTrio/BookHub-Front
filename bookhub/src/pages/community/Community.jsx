@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import * as S from "./CommunityStyles.jsx";
 import CommunityArrow from "../../component/image/CommunityArrow.png";
 import Pagination from "../../component/button/Pagination.jsx";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import FooterButton from "../../component/button/FooterButton.jsx";
 import axios from "../../component/refreshToken/api.jsx";
 import Modal from "../../component/modal/Modal.jsx";
@@ -34,6 +34,8 @@ export const Community = () => {
     currentPage * itemsPerPage
   );
 
+  const location = useLocation();
+  
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
 
@@ -70,6 +72,13 @@ export const Community = () => {
     }
   }, [isLoggedin]);
 
+  //BACK 버튼 누른 후 페이지 유지
+    useEffect(() => {
+      if (location.state?.page) {
+        setCurrentPage(location.state.page);
+      }
+    }, [location.state]);
+
   return (
     <>
       {!isLoggedin && showLoginModal && (
@@ -94,7 +103,7 @@ export const Community = () => {
                 $last={index === itemsPerPage - 1} // 마지막 항목
                 onClick={() => {
                   const item = currentItems[index];
-                  if (item) navigate(`/community/${item.id}`);
+                  if (item) navigate(`/community/${item.id}`, {state: {page: currentPage}});
                 }}
               >
                 {currentItems[index] ? (
