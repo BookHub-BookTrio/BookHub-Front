@@ -23,7 +23,7 @@ export const CommunityContainer = styled.div`
     top: 140px;   
     ${media.tablet} {
       margin-left: 120px;
-      margin-top: 90px;
+      margin-top: 60px;
     }  
     ${media.mobile} {
       margin-left: 20px;
@@ -65,6 +65,16 @@ export const CommunityArticle = styled.div`
   ${media.tablet} {
     width: 80%;
   }
+  ${media.mobile} {
+    width: 80%;
+    flex-direction: column;     
+    align-items: flex-start;    
+    padding: 1rem;
+    height: 3%;
+    & > div:not(:first-child) {
+      display: none;           
+    }
+  }
 `;
 
 export const CommunityTitle = styled.div`
@@ -75,6 +85,9 @@ export const CommunityTitle = styled.div`
   text-overflow: ellipsis;
   overflow: hidden;
   box-sizing: border-box;
+  ${media.mobile} {
+    font-size: 0.85rem;
+  }
 `;
 
 export const CommunityDate = styled.div`
@@ -96,25 +109,35 @@ export const CommunityDate = styled.div`
 export const CommunityArrow = styled.img`
   width: 50px;
   height: 18px;
+  
+  ${media.mobile} {
+  display:none;
+  }
 `;
 
 export const Rectangle = styled.div`
   position: absolute;
   top: 298px;
-  left: 305px;
+  left: 50%;
+  transform: translateX(-57%);
   width: 960px;
   height: 400px;
-  background-color:rgb(226, 226, 226);
+  background-color: rgb(226, 226, 226);
   border-radius: 4px;
   opacity: 0.5;
   z-index: -1;
 
   ${media.tablet} {
-    left: 100px;
-    top: 440px;
+    left: 50%;
+    width: 90%;
+    transform: translateX(-53%);
+    top: 415px;
   }
+
   ${media.mobile} {
-    left: 10px;
-    top: 202px;
+    transform: translateX(-54%);
+    width: 88%;
+    top: 250px;
+    height: 41.5%;
   }
 `;

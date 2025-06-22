@@ -13,13 +13,15 @@ export const Rectangle = styled.div`
   opacity: 0.5;
   z-index: -1;
   ${media.tablet} {
-    left: 100px;
-    top: 470px;
+    left: 20px;
+    top: 450px;
+    width: 87%;
   }
     ${media.mobile} {
-    left: 5px;
-    top: 220px;
-    height: 410px;
+    left: 12px;
+    top: 260px;
+    height: 365px;
+    width: 85%;
     }
 `;
 
@@ -65,6 +67,11 @@ export const CommunityTitle = styled.h2`
   font-weight: 1000;
   letter-spacing: 0.5px;
   color: #111;
+
+  ${media.mobile} {
+    max-width: 170px;
+    font-size: 1rem;
+  }
 `;
 
 export const CommunityDateBadge = styled.div`
@@ -74,6 +81,10 @@ export const CommunityDateBadge = styled.div`
   border-radius: 15px;
   font-size: 14px;
   font-weight: 600;
+  ${media.mobile} {
+    font-size: 0.6rem;
+    padding: 0.25rem; 
+  }
 `;
 
 export const Divider = styled.hr`
@@ -92,6 +103,10 @@ export const CommunityContent = styled.div`
   justify-content: left; 
   height: 190px;
   font-size: 16px;
+
+  ${media.mobile} {
+    font-size: 0.85rem;
+  }
 `;
 
 export const pop = keyframes`
@@ -147,6 +162,10 @@ export const ProfileImage = styled.img`
 
 export const Nickname = styled.span`
   color: black;
+
+  ${media.mobile} {
+    font-size: 0.7rem;
+  }
 `;
 
 export const UserDivider = styled.hr`
