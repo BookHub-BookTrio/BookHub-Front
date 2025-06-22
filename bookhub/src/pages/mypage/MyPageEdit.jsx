@@ -2,8 +2,10 @@ import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styles from "./MyPageEdit.module.css";
+import Modal from "../../component/modal/Modal";
 import profileIcon from "../../component/image/Profile.png"; // 프로필 이미지
 import pencil from "../../component/image/Pencil.png"; // 수정란 옆 연필 이미지
+
 
 const MyPageEdit = () => {
   const [formData, setFormData] = useState({
@@ -13,6 +15,9 @@ const MyPageEdit = () => {
     email: "",
     pictureUrl: "",
   });
+  
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [showCompleteModal, setShowCompleteModal] = useState(false);
 
   const inputRefs = useRef([]);
 
@@ -53,7 +58,8 @@ const MyPageEdit = () => {
   }, []);
 
   //회원 정보 수정 PUT
-  const handleSubmit = async () => {
+  const handleConfirm = async () => {
+    setShowConfirmModal(false);
     try {
       const response = await axios.put(
         `${process.env.REACT_APP_BACKEND_URL}/api/v1/member`,
@@ -65,14 +71,23 @@ const MyPageEdit = () => {
           },
         }
       );
-      alert("회원 정보가 수정되었습니다.");
       console.log("응답:", response.data);
-      navigate("/mypage");
+      setShowConfirmModal(false);
+      setShowCompleteModal(true);
 
+      setTimeout(() => {
+        navigate(`/mypage`);
+      }, 1500); //1.5초 후 자동 닫힘
     } catch (error) {
       console.error("에러:", error.response?.data || error.message);
       alert("회원 정보 수정에 실패했습니다.");
     }
+  };
+
+  // 완료 모달 수동 닫기 (확인 or X 클릭 시)
+  const closeCompleteModal = () => {
+    setShowCompleteModal(false);
+    navigate(`/mypage`);
   };
 
   return (
@@ -110,7 +125,25 @@ const MyPageEdit = () => {
         </div>
 
         {/* 완료 버튼 */}
-        <button className={styles.doneButton} onClick={handleSubmit}>DONE</button>
+        <button className={styles.doneButton} onClick={() => setShowConfirmModal(true)}>DONE</button>
+
+        {showConfirmModal && (
+          <Modal
+            title="수정하시겠습니까?"
+            content="확인을 누르면 수정됩니다."
+            onClose={handleConfirm}
+            onCancel={() => setShowConfirmModal(false)}
+          />
+        )}
+
+        {showCompleteModal && (
+          <Modal
+            title="수정 완료"
+            content="회원 정보가 수정되었습니다."
+            onClose={closeCompleteModal}
+            onCancel={closeCompleteModal}
+          />
+        )}
       </div>
     </div>
   );

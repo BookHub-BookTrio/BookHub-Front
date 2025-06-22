@@ -55,7 +55,7 @@ const MyPageBookmark = () => {
               onClick={() => setSelectedItem(item)}>
                 <td className={styles.bmTitle}>{item.title}</td>
                 <td><span className={styles.bmNickname}>{item.nickname}</span></td>
-                <td className={styles.dateCol}><span className={styles.bmDate}>{item.bookmarkedAt.slice(0, 10).replace(/-/g, '.')}</span></td>
+                <td className={styles.dateCol}><span className={styles.bmDate}>{item.communityCreatedAt.slice(0, 10).replace(/-/g, '.')}</span></td>
                 <td className={styles.bmIconFilled}><BsBookmarkFill /></td>
               </tr>
             ))}
