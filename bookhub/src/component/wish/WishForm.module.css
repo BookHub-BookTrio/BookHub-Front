@@ -1,4 +1,10 @@
-.background {
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.wishFormBackground {
 	background: radial-gradient(80% 60% at 50% 100%, #DFDDBD99 0%, #F7E8BDCC 60%, #ffffff 100%);
 	background-attachment: fixed;
 	width: 100%;
@@ -7,7 +13,7 @@
 	justify-content: center;
 	align-items: center;
 	position: fixed;
-	overflow: hidden;
+	overflow: auto;
 }
 
 .container {
@@ -16,12 +22,9 @@
 	align-items: center;
 	width: 100%;
 	max-width: 1000px;
-	height: auto;
+	height: 100vh;
 	overflow-y: auto;
-	overflow-x: hidden;
-	font-family: "Pretendard-Regular", Helvetica;
-  font-weight: 400;
-	padding-top: 130px;
+	padding: 150px 50px 30px 50px;
 }
 
 .titleArea {
@@ -157,7 +160,7 @@
 }
 
 .textarea {
-	width: 95%;
+	width: 100%;
 	justify-content: center;
 	height: 200px;
 	padding: 12px;
@@ -170,7 +173,7 @@
 	display: flex;
 	justify-content: space-between;
 	margin-top: 30px;
-	width: 95%;
+	width: 100%;
 }
 
 .detailButton {
@@ -198,4 +201,30 @@
 	font-family: "Slackey-Regular", Helvetica;
 	font-size: 16px;
 	justify-content: space-between;
+}
+
+@media (max-width: 450px) {
+  .infoTable th {
+    width: 100px;
+  }
+	
+	.categoryCell {
+    height: 40px; /* 기본 높이 */
+    transition: height 0.3s ease;
+    vertical-align: top; /* 옵션이 잘리지 않게 위 정렬 */
+  }
+
+  .categoryCellExpanded {
+    height: 120px;
+  }
+
+  .categoryOptions {
+    position: static;
+    top: 30px;
+    left: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    z-index: 1;
+  }
 }

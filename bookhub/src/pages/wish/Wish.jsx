@@ -116,7 +116,7 @@ const Wish = () => {
     )}
 
     {isLoggedIn && (
-    <div className={styles.background}>
+    <div className={styles.wishBackground}>
       <div className={styles.container}>
         <div className={styles.headerArea}>
           <h2 className={styles.title}>

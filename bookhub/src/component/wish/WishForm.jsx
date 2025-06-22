@@ -46,7 +46,7 @@ const WishForm = ({
   ];
   
     return (
-      <div className={styles.background}>
+      <div className={styles.wishFormBackground}>
         <div className={styles.container}>
           <div className={styles.titleArea}>
             <label className={styles.titleLabel}>도서명</label>
