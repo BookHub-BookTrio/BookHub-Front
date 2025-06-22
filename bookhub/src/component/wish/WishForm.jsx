@@ -83,7 +83,7 @@ const WishForm = ({
               </tr>
               <tr>
                 <th>카테고리</th>
-                <td>
+                <td className={`${styles.categoryCell} ${showCategoryOptions ? styles.categoryCellExpanded : ""}`}>
                   <div className={styles.categoryArea}>
                     {showCategoryOptions ? (
                       <div className={styles.categoryOptions}>
