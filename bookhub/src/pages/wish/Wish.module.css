@@ -1,4 +1,10 @@
-.background {
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.wishBackground {
   background: radial-gradient(80% 60% at 50% 100%, #DFDDBD99 0%, #F7E8BDCC 60%, #ffffff 100%);
   background-attachment: fixed;
   width: 100%;
@@ -6,7 +12,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  position: fixed;
+  position: relative;
   overflow: hidden;
 }
 
@@ -26,13 +32,12 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  margin-top: 50px;
-  margin-bottom: 20px;
+  margin: 50px 40px 20px 30px;
 }
 
 .title {
   font-family: "Slackey-Regular", Helvetica;
-  margin: 0px 80px 20px 0px;
+  margin: 0px 30px 20px 0px;
 }
 
 .searchArea {
