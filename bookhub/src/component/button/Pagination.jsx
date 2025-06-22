@@ -19,7 +19,7 @@ const PaginationWrapper = styled.div`
   }
   
   ${media.mobile} {
-    padding-bottom: 150px;
+    padding-bottom: 180px;
   }
 `;
 
